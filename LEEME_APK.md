@@ -12,7 +12,21 @@ teléfono.
 
 - **appId:** `cu.roi.garticmovil`
 - **Nombre:** Gartic Móvil
-- **Versión:** 1.1.0 (versionCode 2, versionName 1.1.0)
+- **Versión:** 1.1.1 (versionCode 3, versionName 1.1.1)
+
+## Novedades de la v2.1 (1.1.1) — solo el ícono
+
+- El ícono v2 se veía bien a 1024 px pero en el launcher de MIUI (Redmi 10
+  de Roi) el nombre no se veía: el diseño estaba pegado a los bordes y el
+  launcher solo enseña la zona segura central del ícono adaptativo (cuadro
+  central de 66 dp de 108 dp, el 61% del lienzo).
+- Corrección: todo el contenido ("Gartic", auricular partido con rayo,
+  "MÓVIL") cabe dentro del cuadro central de 626 px, con márgenes de
+  22-30% por cada lado. Medido: contenido en x 240-800, y 294-744.
+- Verificado con máscaras en `VERIFICACION/v2.1/`: simulación MIUI (recorte
+  central 626 px), squircle y círculo, a 48, 96 y 192 px — el nombre se lee
+  completo en todas. Script: `scripts/make-icon-v2.1.py`.
+- El juego no cambió nada en esta versión.
 - **Peso:** la parte web (`www/`) pesa ~132 KB y los assets ~72 KB;
   la APK final quedará muy por debajo del límite de 50 MB.
 
