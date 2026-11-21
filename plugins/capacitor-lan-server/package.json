@@ -1,0 +1,15 @@
+{
+  "capacitor": {
+    "android": {
+      "src": "android"
+    }
+  },
+  "description": "Servidor HTTP local en la red LAN para Gartic Móvil: el anfitrión sirve la partida wifi local (join/state/submit/start) desde su propio teléfono. Solo Android.",
+  "license": "MIT",
+  "main": "dist/plugin.js",
+  "name": "capacitor-lan-server",
+  "peerDependencies": {
+    "@capacitor/core": ">=7.0.0"
+  },
+  "version": "1.0.0"
+}

@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "@capacitor/android": "^8.0.0",
+    "@capacitor/core": "^8.0.0",
+    "capacitor-lan-server": "file:plugins/capacitor-lan-server"
+  },
+  "description": "Gartic Móvil: juego offline tipo teléfono roto para jugar con amigos sin internet en Cuba. Modo Normal fiel, 3-8 jugadores, wifi local por hotspot (servidor local puerto 7777) + modo de un solo teléfono. Empaquetado con Capacitor para Android.",
+  "devDependencies": {
+    "@capacitor/cli": "^8.0.0"
+  },
+  "name": "gartic-movil",
+  "private": true,
+  "scripts": {
+    "open:android": "npx cap open android",
+    "sync": "npx cap sync android"
+  },
+  "version": "1.0.0"
+}

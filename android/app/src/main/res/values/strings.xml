@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Gartic Móvil</string>
+    <string name="title_activity_main">Gartic Móvil</string>
+    <string name="package_name">cu.roi.garticmovil</string>
+    <string name="custom_url_scheme">cu.roi.garticmovil</string>
+</resources>
