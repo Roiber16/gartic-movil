@@ -32,6 +32,21 @@ directamente en Java con `{"ok":true}`, sin pasar por JS, para que el
 invitado pueda comprobar que el anfitrión está alcanzable antes de
 unirse. Todo lo demás sigue el reenvío genérico a JS.
 
+## Novedad v2 (Adivina el dibujo): trazos en vivo por sondeo
+
+El modo Adivina el dibujo no necesitó ningún cambio en Java: el
+anfitrión atiende en JS (`hostRouter` en `www/index.html`) los
+endpoints nuevos `POST /api/guess/state`, `/api/guess/word`,
+`/api/guess/stroke`, `/api/guess/chat` y `/api/guess/end`, y el
+invitado los llama con `HttpTransport` como los de la v1. Los trazos
+del dibujante llegan al anfitrión en lotes y los demás los ven
+sondeando `/api/guess/state` cada ~0,9 s: en la red local eso se ve
+"en vivo" con ~1 s de retraso. El plugin NO empuja nada (no hay
+WebSocket ni SSE): para trazos realmente instantáneos haría falta
+añadir SSE o WebSocket al plugin. El anfitrión también atiende ya
+`/api/join`, `/api/state`, `/api/submit` y `/api/start` del modo
+Normal (en la v1 el servidor arrancaba pero nadie respondía en JS).
+
 ## API (JS)
 
 ```js

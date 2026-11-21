@@ -6,22 +6,138 @@
 
 Empaquetado con Capacitor de la app web de Gartic Móvil (juego offline
 tipo teléfono roto: dibujar, describir y reírse con amigos sin internet).
-Modo Normal fiel, 3-8 jugadores, wifi local por hotspot (servidor local
-puerto 7777) + modo de un solo teléfono.
+Modo Normal fiel, 3-8 jugadores, y Adivina el dibujo con puntos,
+wifi local por hotspot (servidor local puerto 7777) + modo de un solo
+teléfono.
 
 - **appId:** `cu.roi.garticmovil`
 - **Nombre:** Gartic Móvil
-- **Versión:** 1.0.0 (versionCode 1, versionName 1.0.0)
-- **Peso:** la parte web (`www/`) pesa ~30 KB y los assets ~72 KB;
+- **Versión:** 1.1.0 (versionCode 2, versionName 1.1.0)
+- **Peso:** la parte web (`www/`) pesa ~132 KB y los assets ~72 KB;
   la APK final quedará muy por debajo del límite de 50 MB.
 
-## ✅ www completo y verificado
+## Novedades de la v2 (1.1.0)
+
+### 1. Rediseño visual fiel a Gartic Phone
+- Fondo degradado vertical violeta oscuro arriba (#5b1fa6) a magenta/rosa
+  abajo (#d63384) en TODAS las pantallas, igual que en las fotos de Roi.
+- Logo propio: teléfono blanco con lápiz amarillo (SVG dibujado, no el
+  logo "Gartic PHONE"); mascota pájaro violeta con pico amarillo y ojos
+  grandes dibujada con formas CSS (sin imagen externa).
+- Tarjetas de modo en lavanda claro (#e6dcff) con icono a la izquierda,
+  título violeta oscuro en negrita y descripción violeta; la seleccionada
+  lleva borde verde.
+- Botones grandes blancos redondeados con borde violeta y texto violeta
+  oscuro; EMPEZAR lleva el play verde (#2ee6a8).
+- Pantalla inicial con pestañas ANÓNIMO (verde) / VERIFICADO, avatar
+  circular con botón ↻ y campo de apodo. El apodo y el avatar se guardan
+  en el teléfono (localStorage) y se recuerdan al abrir la app; VERIFICADO
+  avisa que necesita internet y no está disponible offline.
+- Lobby con fila de avatares arriba (anfitrión con corona 👑) y VACÍO en
+  los huecos; barra violeta con el selector de jugadores (en wifi, hasta
+  14 como en el original; en un solo teléfono, 3-8 en Normal y 2-8 en
+  Adivina).
+- Pestañas PREESTABLECIDOS / AJUSTES PERSONALIZADOS (activa en verde) en
+  Modos: Tiempo, Secuencia (Escribir, Dibujar), Turnos, Sigue dibujando,
+  Tablero de puntuaciones y Secretismo. Solo el creador de la sala cambia
+  los ajustes; los que se unen solo los ven.
+- Pantalla de dibujo con barra superior violeta ("TURNO 2/4 · DIBUJA ESTA
+  FRASE"), lienzo blanco con marca de agua tenue "Gartic Móvil", y barra
+  inferior roja/coral (#e94f5a) con lápiz, paleta (negro, grises, azul,
+  verde, rojo, naranja, amarillo, blanco, celeste) y botón ✔ ¡Listo!
+  violeta. Selector de grosor por círculos y deslizador vertical de
+  opacidad al lado izquierdo del lienzo, en los dos modos. En pantallas
+  de 360 px la fila de controles (grosor, color personalizado, zoom) se
+  esconde: el grosor queda en los círculos laterales y el zoom no está
+  disponible en ese ancho.
+- Misma tipografía gruesa de la v1 (Baloo 2 / Nunito con fallback del
+  sistema, sin CDN), sin aspecto IA.
+
+### 2. Nuevo modo "Adivina el dibujo" (jugable en v2)
+Mecánica de Gartic.io, pero con la estética violeta-magenta única de
+esta app en todo (nada de fondo azul ni botones amarillos/celestes de
+io; de io solo la disposición: jugadores a un lado, chat al otro, pista
+arriba y barra de tiempo).
+- Por turnos, un jugador dibuja una palabra secreta (elige 1 de 3) y los
+  demás ven el dibujo en vivo y adivinan en el chat.
+- 75 palabras en español, 15 por tema: Animales, Comida, Objetos,
+  Lugares, Deportes. El creador puede elegir los temas; sin temas, van
+  todos. Las palabras no se repiten en la misma partida.
+- Puntos por orden de acierto: 10 al primero, luego 8, 6, 4 y 2 (del 6.º
+  en adelante, 2). El dibujante gana +5 por cada jugador que acierta
+  (con 7 adivinadores, hasta +35 en una ronda).
+- Pista con guiones arriba ("_ _ _ _"); se revela 1 letra a 1/3 del
+  tiempo de ronda y otra a 2/3 (en rondas de 60 s: a los 20 s y 40 s).
+- Tiempo por ronda configurable (30/60/90/120 s), por defecto 60 s.
+- Cada jugador dibuja una vez; al final, podio con 1.º, 2.º y 3.º.
+- En un solo teléfono (simplificado): el dibujante dibuja, luego se pasa
+  el teléfono y cada jugador escribe su adivinanza sin ver la palabra,
+  con 30 s cada uno y los mismos puntos. Un acierto se muestra en el
+  chat como "¡X acertó! +N" SIN la palabra, para no revelarla a los
+  siguientes.
+- Por wifi local: el dibujante sube sus trazos en lotes al anfitrión y
+  los demás los ven sondeando el estado cada ~0,9 s (en vivo con ~1 s de
+  retraso). El plugin LanServer NO empuja nada (no hay WebSocket ni SSE):
+  para trazos instantáneos haría falta añadir SSE o WebSocket al plugin.
+  El anfitrión atiende en JS los endpoints `/api/guess/*` (ver
+  `plugins/capacitor-lan-server/README.md`); no hizo falta tocar Java.
+- Pantalla "SALAS LOCALES": solo salas wifi cercanas, sin salas
+  públicas (la sala de este teléfono si la hay, o unirse por IP).
+- Diálogo de salir de la sala con la misma estética violeta (círculo
+  amarillo con 🚪, NO blanco y SÍ, SALIR verde).
+- El anfitrión wifi ya responde también a los endpoints del modo Normal
+  (`/api/join`, `/api/state`, `/api/submit`, `/api/start`): en la v1 el
+  servidor arrancaba pero nadie respondía en JS. Los clientes Normal
+  sondean el estado y juegan su turno cuando les toca.
+
+### 3. Ícono nuevo
+Teléfono roto: auricular clásico partido en dos con un rayo amarillo
+en la rotura, "Gartic" arriba en blanco y "MÓVIL" en grande abajo en
+amarillo, sobre degradado violeta a magenta. Colores planos, bordes
+gruesos, sin aspecto IA. Generado con Python/PIL
+(`scripts/make-icon-v2.py`): `assets/icon-1024.png` y todos los
+`mipmap-*` (launcher, round y foreground) en `android/...` y en
+`assets/res/...`. Verificado a 48 y 96 px (se lee el nombre y el
+auricular partido).
+
+## ✅ www completo y verificado (v2)
 
 El `www/index.html` actual está **completo y verificado**: pesa
-55.878 B, termina en `</html>` y contiene la partida jugada entera
-(modo Normal: escribir, dibujar, describir y álbum final, en un solo
-teléfono y por wifi local). La APK compila con este `www/` y el juego
-funciona.
+135.401 B, termina en `</html>` y contiene la partida jugada entera
+(modo Normal y Adivina el dibujo, en un solo teléfono y por wifi local).
+
+### Verificación v2 (Chromium headless, 360x800)
+Capturas en `VERIFICACION/v2/` (todas a 360x800 reales, con el binario
+`chromium_headless_shell`; el Chrome completo impone un mínimo de 500 px
+de ancho de layout y sus capturas salen recortadas, no usarlo para esto):
+`shot-home.png`, `shot-modes.png`, `shot-setup.png`, `shot-draw.png`,
+`shot-guess-live.png`, `shot-guess-draw.png`, `shot-podium.png`,
+`shot-rooms.png`, `shot-album.png`, más `icono-48.png`, `icono-96.png`
+e `icono-192.png`. La página lleva ganchos de prueba (`#shot=<pantalla>`
+y `#auto=normal|guess`) que escriben el resultado en `#testResult`.
+- Partida Normal automática de 4 jugadores en un solo teléfono:
+  0 errores de consola, 0 desbordamiento horizontal, 4 álbumes con
+  4 eslabones cada uno.
+- Ronda automática de Adivina (4 jugadores): 0 errores, 0
+  desbordamiento, podio correcto (puntos 10/8 por orden de acierto y
+  +5 al dibujante por acierto, comprobados a mano).
+- Botón ✔ ¡Listo! visible sin desplazar en dibujo Normal (y=699) y en
+  dibujo de Adivina (y=666), a 360x800.
+- 0 errores de consola y 0 desbordamiento horizontal en las 9 pantallas.
+
+### Qué NO se pudo probar sin el teléfono real de Roi
+- El wifi local con dos teléfonos reales (hotspot, unirse por IP,
+  trazos en vivo y chat de Adivina, y el turno Normal por wifi): el
+  código del anfitrión y del cliente está implementado, pero solo se
+  probó en un navegador, sin el plugin LanServer ni dos dispositivos.
+  Tampoco se probó el tráfico sin cifrar desde la WebView (ver «Riesgo
+  a probar» en `plugins/capacitor-lan-server/README.md`).
+- El dibujo táctil con el dedo, el rendimiento del lienzo y los sonidos
+  (no hay sonidos) en el Redmi 10.
+- El ícono instalado en el launcher (solo se vio a 48/96 px en
+  capturas); el tamaño y el recorte del launcher lo decide Android.
+- La APK v2 todavía NO se ha compilado: hay que subir los cambios y
+  lanzar el workflow en GitHub (ver abajo).
 
 Al actualizar el contenido web, copiar la web nueva en `www/`
 (sustituyendo el `index.html` actual), hacer `npx cap sync android`
