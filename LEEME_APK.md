@@ -12,7 +12,75 @@ teléfono.
 
 - **appId:** `cu.roi.garticmovil`
 - **Nombre:** Gartic Móvil
-- **Versión:** 1.1.1 (versionCode 3, versionName 1.1.1)
+- **Versión:** 1.2.0 (versionCode 4, versionName 1.2.0)
+
+## Novedades de la v2.2 (1.2.0)
+
+### 1. Barra de dibujo compacta, como la foto oficial
+- Ya NO hay columna izquierda fija de grosor/opacidad ocupando el lienzo.
+  La barra inferior es compacta como en la foto de Gartic Phone: botón
+  lápiz ✏️, botón ↕ de grosor/opacidad, color actual (cuadro alto),
+  paleta en 2 filas y botón ✔ ¡Listo! violeta.
+- Los círculos de grosor y el deslizador de OPACIDAD salen SOLO al tocar
+  el botón ↕, como un panel pequeño flotante sobre el lienzo; se esconden
+  al tocar ↕ de nuevo o al empezar a dibujar.
+- El lienzo ahora es más alto (640x440 en vez de 640x400) y ocupa todo el
+  ancho: a 360 px gana ~30% de ancho visible respecto a la v2.1. Vale para
+  Normal y para Adivina. A 360 px la fila superior de colores se esconde
+  (los colores ya están en la barra inferior) y la barra inferior se parte
+  en dos filas (herramientas arriba, paleta abajo) para que el botón
+  ✔ ¡Listo! siga visible sin desplazar.
+
+### 2. Sonidos sintetizados (Web Audio, offline, sin archivos)
+- Cuenta atrás 3-2-1 (pop suave que baja + nota brillante al llegar a 0),
+  tic-tac en los últimos 10 segundos de cada turno, sonido al cambiar de
+  turno (pop corto) y al cambiar de ronda / llegar al podio (campanita de
+  3 notas), y sonido de acierto en Adivina (dos notas ascendentes).
+- Solo ondas seno con caída exponencial: suenan a campana/pop redondo,
+  nunca a pitido cuadrado de 8 bits. El AudioContext se crea al primer
+  toque (los navegadores no dejan sonar nada antes de interactuar).
+- Interruptor de sonido en Ajustes (activado por defecto), guardado en el
+  teléfono.
+- **Honestidad sobre la referencia:** en esta máquina no hay audio para
+  escuchar los sonidos del Gartic Phone original: la página
+  myinstantplay.com/sounds/gaming/gartic-phone lista 1 sonido pero no lo
+  describe por escrito, y las búsquedas de gameplay no dan una descripción
+  escrita del timbre (solo se sabe que hay un sonido de alarma de 6,1 s
+  para el fin de tiempo y que el carácter general es de juego de fiesta,
+  con efectos de dibujos animados). Así que estos tonos son una
+  aproximación afinada a ese carácter (pops suaves, tic ligero,
+  campanitas), NO una copia verificada a oído. **Roi los juzga a oído en
+  su Redmi: si alguno no suena como Gartic, que diga cuál y se re-afina
+  o se quita.**
+- Frecuencias: cuenta atrás 660 Hz con caída a 480 Hz (0,12 s), "¡ya!"
+  880 → 1318 Hz; tic 1250 Hz (0,045 s, bajo); cambio de turno 740 → 560
+  Hz; ronda 523 → 659 → 784 Hz; acierto 659 → 880 → 1318 Hz.
+
+### 3. Vibración
+- `navigator.vibrate` en los mismos momentos que los sonidos: cuenta
+  atrás (25 ms por número, 70 ms al llegar a 0), aviso de 10 s
+  (60-60-60 ms), cambio de turno (40 ms), cambio de ronda (80-60-140 ms)
+  y acierto (50-50-90 ms).
+- Permiso `android.permission.VIBRATE` añadido al manifiesto y a
+  `scripts/fix-manifest.js` (paso 3), para que sobreviva a `cap sync`.
+  Es un permiso normal: no hay que pedirlo en tiempo de ejecución.
+- Interruptor de vibración en Ajustes (activado por defecto), guardado
+  en el teléfono.
+- **Sin probar en teléfono real:** en la WebView de Android la vibración
+  de la web suele funcionar, pero si en el Redmi no vibra, haría falta
+  llamar al vibrador desde el plugin nativo (Capacitor Haptics) en vez
+  de `navigator.vibrate`; Roi lo confirma probando.
+
+### 4. Pantalla de apertura con el logo de SanBer
+- Al abrir la app sale primero el logo real de SanBer de Roi (su foto
+  recuperada de YouTube, aprobada por él en ¡A la frente!), copiado tal
+  cual a `www/assets/sanber-logo.png` (SHA-256
+  `f8767697749916f036f507c422519558588942ac92a3201aa976fc37298dd0c2`,
+  idéntico al original). No se redibujó ni se cambió nada: solo dice
+  "SanBer", nunca Santana ni Roiber.
+- Fondo degradado violeta-magenta de la app, logo centrado y debajo
+  "Gartic Móvil" en blanco. Dura 3 segundos y se salta tocando la
+  pantalla. No sale el logo oficial de Gartic en la apertura.
 
 ## Novedades de la v2.1 (1.1.1) — solo el ícono
 

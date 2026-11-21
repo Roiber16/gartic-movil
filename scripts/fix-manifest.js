@@ -84,3 +84,23 @@ if (changed) {
 } else {
   console.log("AndroidManifest.xml ya estaba correcto. Sin cambios.");
 }
+
+// 3. Permiso de vibración (normal, sin pedir en tiempo de ejecución):
+// navigator.vibrate() en la WebView. Sin la declaración, Android ignora
+// las vibraciones que pide la web.
+if (!xml.includes("android.permission.VIBRATE")) {
+  xml = fs.readFileSync(manifestPath, "utf8");
+  const before = xml;
+  xml = xml.replace(
+    /(<uses-permission android:name="android\.permission\.ACCESS_LOCAL_NETWORK" \/>)/,
+    '$1\n    <uses-permission android:name="android.permission.VIBRATE" />'
+  );
+  if (xml !== before) {
+    fs.writeFileSync(manifestPath, xml, "utf8");
+    console.log("Añadido permiso VIBRATE.");
+  } else {
+    console.error("AVISO: no se pudo añadir VIBRATE. Revisa el manifiesto a mano.");
+  }
+} else {
+  console.log("El permiso VIBRATE ya estaba.");
+}

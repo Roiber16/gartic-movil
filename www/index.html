@@ -155,7 +155,8 @@ textarea{resize:vertical;min-height:84px}
 .watermark{position:absolute;inset:0;display:grid;place-items:center;color:rgba(42,26,94,.09);font-size:1.9rem;font-weight:800;pointer-events:none;overflow:hidden}
 .watermark span{display:block;transform:rotate(-16deg);white-space:nowrap}
 .draw-img{width:100%;border:2px solid var(--ink);border-radius:14px;display:block;background:#fff}
-.side-tools{position:absolute;left:6px;top:8px;bottom:8px;display:flex;gap:6px;z-index:3}
+.side-tools{position:absolute;left:8px;bottom:8px;display:none;gap:6px;z-index:3}
+.side-tools.open{display:flex}
 .side-panel{background:rgba(255,255,255,.92);border:2px solid var(--lavline);border-radius:12px;padding:6px 4px;display:flex;flex-direction:column;align-items:center;gap:6px}
 .size-dot{border:2px solid var(--lavline);background:#fff;border-radius:50%;padding:0;display:grid;place-items:center}
 .size-dot i{display:block;border-radius:50%;background:var(--ink)}
@@ -169,6 +170,18 @@ textarea{resize:vertical;min-height:84px}
 .draw-bar .palette .swatch{width:28px;height:28px;border-radius:7px;border-width:2px}
 .draw-bar .check{flex:0 0 auto;min-height:52px;border-radius:12px;background:var(--violet);color:#fff;border:2px solid var(--ink);font-weight:800;padding:10px 14px;font-size:1rem}
 .draw-bar .check .tick{color:var(--green)}
+/* --- barra inferior compacta (foto oficial): lápiz, grosor/opacidad, color actual, paleta, check --- */
+.draw-bar .bar-cur{flex:0 0 30px;height:52px;border-radius:10px;border:2px solid var(--ink);background:#1d1933}
+.draw-bar .bar-size{font-size:22px}
+/* --- pantalla de apertura SanBer --- */
+.splash{position:fixed;inset:0;z-index:100;display:grid;place-items:center;align-content:center;gap:14px;background:linear-gradient(180deg,#5b1fa6 0%,#6a1fb5 32%,#9b2a86 62%,#d63384 100%);text-align:center;cursor:pointer;transition:opacity .35s}
+.splash.hide{opacity:0;pointer-events:none}
+.splash img{width:min(64vw,280px);height:auto;display:block;box-shadow:0 8px 24px rgba(0,0,0,.45)}
+.splash-name{color:#fff;font-size:1.9rem;font-weight:800;text-shadow:0 2px 0 rgba(42,26,94,.45)}
+.splash-hint{color:#efe6ff;font-size:.9rem;font-weight:700}
+/* --- ajustes (sonido y vibración) --- */
+.switch-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:14px 0 2px;font-weight:800;color:var(--ink);font-size:1.05rem}
+.switch-row input{width:26px;height:26px;accent-color:var(--teal)}
 .pass-screen{text-align:center;padding:28px 12px}
 .pass-screen .big{font-size:1.9rem;font-weight:800;line-height:1.15;margin:12px 0;color:var(--ink)}
 .countdown{font-size:5rem;font-weight:800;text-align:center;color:var(--violet);line-height:1.2}
@@ -229,20 +242,26 @@ textarea{resize:vertical;min-height:84px}
   #screen-play .prompt-box .phrase{font-size:1.1rem}
   #screen-play .toolbar,#screen-guess .toolbar{flex-wrap:nowrap;overflow-x:auto;margin:6px 0;scrollbar-width:thin}
   #screen-play .toolbar .tool-btn,#screen-guess .toolbar .tool-btn{flex:0 0 auto;min-height:32px;padding:5px 8px;font-size:.85rem}
-  #screen-play .swatches,#screen-guess .swatches{flex-wrap:nowrap;margin:6px 0}
-  #screen-play .swatches .swatch,#screen-guess .swatches .swatch{flex:1 1 0;min-width:0;width:auto;height:24px;border-radius:7px}
+  #screen-play .swatches,#screen-guess .swatches{display:none}
   #screen-play .draw-controls,#screen-guess .draw-controls{display:none}
   #screen-play .canvas-wrap,#screen-guess .canvas-wrap{margin:0 -10px;max-height:none;border-radius:12px}
   #screen-play .btn-row .btn,#screen-guess .btn-row .btn{min-width:0;min-height:36px;padding:7px 6px;font-size:.9rem}
-  #screen-play .draw-bar,#screen-guess .draw-bar{padding:6px}
+  #screen-play .draw-bar,#screen-guess .draw-bar{padding:6px;flex-wrap:wrap}
+  #screen-play .draw-bar .palette,#screen-guess .draw-bar .palette{flex:1 1 100%;order:9}
   #screen-play .draw-bar .bar-btn,#screen-guess .draw-bar .bar-btn{flex-basis:48px;height:48px}
   #screen-play .draw-bar .check,#screen-guess .draw-bar .check{min-height:48px;padding:8px 10px}
+  #screen-play .draw-bar .bar-cur,#screen-guess .draw-bar .bar-cur{height:48px}
   .guess-grid{grid-template-columns:96px 1fr}
   .hint-bar{font-size:1.25rem}
 }
 </style>
 </head>
 <body>
+<div class="splash" id="splash" role="button" tabindex="0" aria-label="Saltar presentación">
+  <img src="assets/sanber-logo.png" alt="SanBer">
+  <div class="splash-name">Gartic Móvil</div>
+  <div class="splash-hint">Toca para continuar</div>
+</div>
 <div class="app">
   <header class="topbar">
     <svg class="logo" viewBox="0 0 64 64" aria-hidden="true"><rect x="3" y="3" width="58" height="58" rx="15" fill="#fff" stroke="#2a1a5e" stroke-width="3"/><path d="M15 38 Q15 20 32 20 Q49 20 49 38" stroke="#5b2ee5" stroke-width="6" fill="none" stroke-linecap="round"/><circle cx="15" cy="41" r="7" fill="#5b2ee5"/><circle cx="49" cy="41" r="7" fill="#5b2ee5"/><line x1="20" y1="54" x2="47" y2="27" stroke="#ffc531" stroke-width="6" stroke-linecap="round"/><line x1="43" y1="27" x2="47" y2="27" stroke="#e07b39" stroke-width="6" stroke-linecap="round"/></svg>
@@ -279,6 +298,7 @@ textarea{resize:vertical;min-height:84px}
       <button class="btn ghost" id="btnModes" type="button">Modos</button>
       <button class="btn ghost" id="btnRooms" type="button">Salas locales</button>
       <button class="btn ghost" id="btnHow" type="button">Cómo se juega</button>
+      <button class="btn ghost" id="btnSettings" type="button">⚙️ Ajustes</button>
     </div>
     <p class="footer-note">Sin cuentas y sin internet: en la misma wifi, en el punto de acceso del anfitrión o en un solo teléfono. Tu apodo y tu avatar se guardan en este teléfono y se recuerdan al abrir la app.</p>
   </section>
@@ -466,6 +486,19 @@ textarea{resize:vertical;min-height:84px}
     </div>
   </section>
 
+  <!-- AJUSTES -->
+  <section class="screen" id="screen-settings">
+    <div class="card">
+      <h2>Ajustes</h2>
+      <p class="hint">Sonido y vibración se guardan en este teléfono.</p>
+      <label class="switch-row"><span>🔔 Sonido</span><input type="checkbox" id="prefSound" checked></label>
+      <p class="hint">Cuenta atrás, aviso de los últimos 10 segundos, cambio de ronda y aciertos en Adivina.</p>
+      <label class="switch-row"><span>📳 Vibración</span><input type="checkbox" id="prefVibrate" checked></label>
+      <p class="hint">El teléfono vibra en los mismos momentos que los sonidos.</p>
+      <button class="btn ghost" id="btnSettingsBack" type="button">Volver al inicio</button>
+    </div>
+  </section>
+
   <!-- CREAR SALA WIFI -->
   <section class="screen" id="screen-create-wifi">
     <div class="card flat">
@@ -587,6 +620,46 @@ function fmtTime(sec){ if(!sec && sec!==0) return "—"; sec=Math.max(0,Math.cei
 function shuffle(arr){ var a=arr.slice(); for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
 function normWord(s){ return String(s||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]/g,"").trim(); }
 function show(id){ document.querySelectorAll(".screen").forEach(function(s){ s.classList.remove("active"); }); $(id).classList.add("active"); window.scrollTo(0,0); }
+
+/* ---------- ajustes: sonido y vibración (guardados en el teléfono) ---------- */
+var prefs={sound:true, vibrate:true};
+try{ var _p=JSON.parse(localStorage.getItem("gartic-movil-ajustes")||"null"); if(_p){ if(typeof _p.sound==="boolean") prefs.sound=_p.sound; if(typeof _p.vibrate==="boolean") prefs.vibrate=_p.vibrate; } }catch(e){}
+function savePrefs(){ try{ localStorage.setItem("gartic-movil-ajustes", JSON.stringify(prefs)); }catch(e){} }
+
+/* ---------- sonidos sintetizados con Web Audio (offline, sin archivos) ----------
+   Referencia: los sonidos de Gartic Phone de verdad son de juego de fiesta:
+   pops suaves y redondos, tic-tac ligero y campanitas, no pitidos cuadrados
+   de 8 bits. Por eso aquí solo se usan ondas seno (y algún desliz de tono
+   para el "pop"), con caída exponencial: suenan a campana, no a bocina.
+   OJO: en esta máquina no hay audio para escuchar el original (la página
+   myinstantplay.com solo lista 1 sonido sin describirlo y las búsquedas no
+   dan una descripción escrita del timbre), así que estos tonos son una
+   aproximación afinada a ese carácter; Roi los juzga a oído en su teléfono.
+   Frecuencias y caídas en LEEME_APK.md. */
+var AudioFX=(function(){
+  var ctx=null;
+  function ac(){ if(!ctx){ try{ ctx=new (window.AudioContext||window.webkitAudioContext)(); }catch(e){ ctx=null; } } if(ctx&&ctx.state==="suspended") ctx.resume(); return ctx; }
+  function tone(freq,dur,o){
+    if(!prefs.sound) return; var c=ac(); if(!c) return; o=o||{};
+    var osc=c.createOscillator(), g=c.createGain();
+    osc.type=o.type||"sine"; osc.frequency.setValueAtTime(freq,c.currentTime);
+    if(o.slide) osc.frequency.exponentialRampToValueAtTime(Math.max(40,o.slide),c.currentTime+dur);
+    g.gain.setValueAtTime(0.0001,c.currentTime);
+    g.gain.exponentialRampToValueAtTime(o.vol||0.22,c.currentTime+0.012);
+    g.gain.exponentialRampToValueAtTime(0.0001,c.currentTime+dur);
+    osc.connect(g); g.connect(c.destination); osc.start(); osc.stop(c.currentTime+dur+0.05);
+  }
+  return {
+    unlock:function(){ ac(); },
+    /* cuenta atrás 3-2-1: pop suave que baja; al llegar a 0, nota brillante de "¡ya!" */
+    count:function(fin){ if(fin){ tone(880,0.16,{vol:0.28}); setTimeout(function(){ tone(1318,0.4,{vol:0.28}); },90); } else tone(660,0.12,{vol:0.22,slide:480}); },
+    tick:function(){ tone(1250,0.045,{vol:0.1}); },
+    turn:function(){ tone(740,0.14,{vol:0.22,slide:560}); },
+    chime:function(){ tone(523,0.5,{vol:0.22}); setTimeout(function(){ tone(659,0.5,{vol:0.22}); },120); setTimeout(function(){ tone(784,0.7,{vol:0.25}); },240); },
+    hit:function(){ tone(659,0.22,{vol:0.26}); setTimeout(function(){ tone(880,0.4,{vol:0.28}); },100); setTimeout(function(){ tone(1318,0.3,{vol:0.18}); },200); }
+  };
+})();
+function buzz(p){ if(!prefs.vibrate) return; try{ if(navigator.vibrate) navigator.vibrate(p); }catch(e){} }
 
 /* ---------- perfil (apodo y avatar guardados en el teléfono) ---------- */
 var profile = { nick:"", avatar:"🦊" };
@@ -973,6 +1046,7 @@ function setTimer(sec, onExpire){
   S.timeLeft=sec; S.timerActive=true; drawTimer();
   S.timer=setInterval(function(){
     S.timeLeft--; drawTimer();
+    if(S.timeLeft<=10 && S.timeLeft>0){ AudioFX.tick(); if(S.timeLeft===10) buzz([60,60,60]); }
     if(S.timeLeft<=0){ stopTimer(); onExpire(); }
   },1000);
 }
@@ -1107,11 +1181,11 @@ function startSingleGame(){
   $("cdTitle").textContent="Prepárense…";
   $("cdSub").textContent=S.players.length+" jugadores · "+S.players.length+" rondas · modo Normal";
   show("screen-countdown");
-  var n=3; $("cdNumber").textContent=n;
+  var n=3; $("cdNumber").textContent=n; AudioFX.count(false); buzz([25]);
   var iv=setInterval(function(){
     n--;
-    if(n<=0){ clearInterval(iv); showPassFor(S.turnIdx, true); }
-    else $("cdNumber").textContent=n;
+    if(n<=0){ clearInterval(iv); AudioFX.count(true); buzz([70]); showPassFor(S.turnIdx, true); }
+    else { $("cdNumber").textContent=n; AudioFX.count(false); buzz([25]); }
   },700);
 }
 
@@ -1143,14 +1217,16 @@ function showTurn(){
 function markDoneAndNext(){
   S.stepDone[S.step+"-"+S.turnIdx]=true;
   updateProgress();
-  if(S.turnIdx < S.engine.n-1){ S.turnIdx++; showPassFor(S.turnIdx); }
+  if(S.turnIdx < S.engine.n-1){ S.turnIdx++; AudioFX.turn(); buzz([40]); showPassFor(S.turnIdx); }
   else {
     S.turnIdx=0;
     if(S.step >= S.engine.n-1){
       S.engine.finished=true;
+      AudioFX.chime(); buzz([80,60,140]);
       showAlbum();
     } else {
       S.step++; S.engine.step=S.step;
+      AudioFX.chime(); buzz([80,60,140]);
       showPassFor(0);
     }
   }
@@ -1224,13 +1300,15 @@ function renderDraw(area, task, opts){
     '<button class="tool-btn" id="btnZoomOut" type="button" aria-label="Alejar">−</button>'+
     '<button class="tool-btn" id="btnZoomIn" type="button" aria-label="Acercar">+</button>'+
   '</div>'+
-  '<div class="canvas-wrap" id="canvasWrap"><div class="watermark"><span>Gartic Móvil</span></div><canvas id="drawCanvas" width="640" height="400"></canvas>'+
+  '<div class="canvas-wrap" id="canvasWrap"><div class="watermark"><span>Gartic Móvil</span></div><canvas id="drawCanvas" width="640" height="440"></canvas>'+
   '<div class="side-tools"><div class="side-panel" id="sizePanel" title="Grosor"></div>'+
   '<div class="side-panel"><span class="opacity-lab">OPACIDAD</span><div class="opacity-wrap"><input type="range" id="opacityRange" min="10" max="100" value="100" aria-label="Opacidad del trazo"></div><span class="opacity-lab" id="opacityVal">100%</span></div></div></div>'+
   '<div class="btn-row"><button class="btn ghost small" id="btnUndo" type="button">Deshacer</button>'+
   '<button class="btn ghost small" id="btnRedo" type="button">Rehacer</button>'+
   '<button class="btn ghost small" id="btnClear" type="button">Limpiar</button></div>'+
   '<div class="draw-bar"><button class="bar-btn" id="barPencil" type="button" aria-label="Lápiz">✏️</button>'+
+  '<button class="bar-btn bar-size" id="barSize" type="button" aria-label="Grosor y opacidad">↕</button>'+
+  '<span class="bar-cur" id="barCurColor" title="Color actual"></span>'+
   '<div class="palette" id="barPalette"></div>'+
   '<button class="check" id="btnSendDraw" type="button"><span class="tick">✔</span> '+(opts.submitLabel||"¡Listo!")+'</button></div>';
   initCanvas(task, opts);
@@ -1278,6 +1356,8 @@ function initCanvas(task, opts){
   $("btnZoomIn").onclick=function(){ setZoom(S.draw.zoom+0.25); };
   $("btnZoomOut").onclick=function(){ setZoom(S.draw.zoom-0.25); };
   $("barPencil").onclick=function(){ S.draw.tool="brush"; bar.querySelectorAll(".tool-btn").forEach(function(x){x.classList.remove("active");}); var first=bar.querySelector(".tool-btn"); if(first) first.classList.add("active"); };
+  /* El panel de grosor/opacidad es flotante: solo sale al tocar el botón ↕ de la barra inferior. */
+  $("barSize").onclick=function(e){ if(e) e.stopPropagation(); var st=document.querySelector(".side-tools"); if(st) st.classList.toggle("open"); };
   /* Selector de grosor por círculos + opacidad (deslizador vertical). */
   var sp=$("sizePanel");
   SIZES.forEach(function(sz){
@@ -1306,6 +1386,7 @@ function syncSizeDots(){
 }
 function setDrawColor(c){
   S.draw.color=c; var cc=$("customColor"); if(cc) cc.value=c;
+  var cur=$("barCurColor"); if(cur) cur.style.background=c;
   document.querySelectorAll("#swatches .swatch, #barPalette .swatch").forEach(function(x){
     x.classList.toggle("active", x.style.background===c || x.getAttribute("aria-label")==="Color "+c);
   });
@@ -1314,7 +1395,7 @@ function setZoom(z){
   S.draw.zoom=Math.min(2, Math.max(0.5, z));
   var cv=S.draw.canvas;
   cv.style.width=(640*S.draw.zoom)+"px";
-  cv.style.height=(400*S.draw.zoom)+"px";
+  cv.style.height=(440*S.draw.zoom)+"px";
 }
 function canvasData(){ return S.draw.canvas ? S.draw.canvas.toDataURL("image/png") : ""; }
 function pushUndo(){
@@ -1322,7 +1403,7 @@ function pushUndo(){
 }
 function restoreData(url){
   var img=new Image();
-  img.onload=function(){ var ctx=S.draw.ctx; ctx.fillStyle="#ffffff"; ctx.fillRect(0,0,640,400); ctx.drawImage(img,0,0); };
+  img.onload=function(){ var ctx=S.draw.ctx; ctx.fillStyle="#ffffff"; ctx.fillRect(0,0,640,440); ctx.drawImage(img,0,0); };
   img.src=url;
 }
 function doUndo(){
@@ -1337,7 +1418,7 @@ function doRedo(){
 }
 function canvasPos(e){
   var r=S.draw.canvas.getBoundingClientRect();
-  return { x:(e.clientX-r.left)*(640/r.width), y:(e.clientY-r.top)*(400/r.height) };
+  return { x:(e.clientX-r.left)*(640/r.width), y:(e.clientY-r.top)*(440/r.height) };
 }
 function strokeStyle(st){
   var ctx=S.draw.ctx;
@@ -1358,10 +1439,11 @@ function applyStrokes(list){
 }
 function onPointerDown(e){
   e.preventDefault();
+  var _st=document.querySelector(".side-tools"); if(_st) _st.classList.remove("open");
   var cv=S.draw.canvas; try{ cv.setPointerCapture(e.pointerId); }catch(err){}
   var p=canvasPos(e), ctx=S.draw.ctx;
   if(S.draw.tool==="picker"){
-    var d=ctx.getImageData(Math.max(0,Math.min(639,Math.round(p.x))), Math.max(0,Math.min(399,Math.round(p.y))),1,1).data;
+    var d=ctx.getImageData(Math.max(0,Math.min(639,Math.round(p.x))), Math.max(0,Math.min(439,Math.round(p.y))),1,1).data;
     var hex="#"+[d[0],d[1],d[2]].map(function(v){ return ("0"+v.toString(16)).slice(-2); }).join("");
     setDrawColor(hex);
     return;
@@ -1392,7 +1474,7 @@ function onPointerMove(e){
   }
   var img=new Image();
   img.onload=function(){
-    ctx.fillStyle="#ffffff"; ctx.fillRect(0,0,640,400); ctx.drawImage(img,0,0);
+    ctx.fillStyle="#ffffff"; ctx.fillRect(0,0,640,440); ctx.drawImage(img,0,0);
     drawShape(ctx, S.draw.tool, S.draw.startPt, p, S.draw.color, S.draw.size);
   };
   img.src=S.draw.snapshot;
@@ -1411,7 +1493,7 @@ function onPointerUp(e){
   }
   var img=new Image();
   img.onload=function(){
-    ctx.fillStyle="#ffffff"; ctx.fillRect(0,0,640,400); ctx.drawImage(img,0,0);
+    ctx.fillStyle="#ffffff"; ctx.fillRect(0,0,640,440); ctx.drawImage(img,0,0);
     pushUndo();
     drawShape(ctx, S.draw.tool, S.draw.startPt, p, S.draw.color, S.draw.size);
   };
@@ -1434,7 +1516,7 @@ function hexToRgb(hex){
   return [parseInt(hex.substr(0,2),16), parseInt(hex.substr(2,2),16), parseInt(hex.substr(4,2),16)];
 }
 function floodFill(sx, sy, hex){
-  var ctx=S.draw.ctx, w=640, h=400;
+  var ctx=S.draw.ctx, w=640, h=440;
   var img=ctx.getImageData(0,0,w,h), d=img.data;
   var target=[d[(sy*w+sx)*4], d[(sy*w+sx)*4+1], d[(sy*w+sx)*4+2], d[(sy*w+sx)*4+3]];
   var fill=hexToRgb(hex); fill.push(255);
@@ -1485,8 +1567,8 @@ $("btnReplay").addEventListener("click", function(){
   S.engine.start(); S.step=0; S.turnIdx=0; S.stepDone={}; S.albumIdx=0;
   $("cdTitle").textContent="Otra ronda…";
   show("screen-countdown");
-  var n=3; $("cdNumber").textContent=n;
-  var iv=setInterval(function(){ n--; if(n<=0){ clearInterval(iv); showPassFor(0); } else $("cdNumber").textContent=n; },700);
+  var n=3; $("cdNumber").textContent=n; AudioFX.count(false); buzz([25]);
+  var iv=setInterval(function(){ n--; if(n<=0){ clearInterval(iv); AudioFX.count(true); buzz([70]); showPassFor(0); } else { $("cdNumber").textContent=n; AudioFX.count(false); buzz([25]); } },700);
 });
 $("btnNewGame").addEventListener("click", function(){ stopTimer(); renderPlayersList(); show("screen-setup"); });
 $("btnAlbumHome").addEventListener("click", function(){ stopTimer(); show("screen-home"); });
@@ -1499,11 +1581,11 @@ function startGuessLocal(){
   $("cdTitle").textContent="Prepárense…";
   $("cdSub").textContent=S.players.length+" jugadores · "+S.players.length+" rondas · Adivina el dibujo";
   show("screen-countdown");
-  var n=3; $("cdNumber").textContent=n;
+  var n=3; $("cdNumber").textContent=n; AudioFX.count(false); buzz([25]);
   var iv=setInterval(function(){
     n--;
-    if(n<=0){ clearInterval(iv); showPassFor(S.guess.engine.drawer); }
-    else $("cdNumber").textContent=n;
+    if(n<=0){ clearInterval(iv); AudioFX.count(true); buzz([70]); showPassFor(S.guess.engine.drawer); }
+    else { $("cdNumber").textContent=n; AudioFX.count(false); buzz([25]); }
   },700);
 }
 function guessStopTimers(){
@@ -1539,6 +1621,7 @@ function guessTickLocal(){
   var g=S.guess.engine;
   if(!g || g.phase!=="draw") return;
   g.tick();
+  if(g.timeLeft<=10 && g.timeLeft>0){ AudioFX.tick(); if(g.timeLeft===10) buzz([60,60,60]); }
   $("guessTimerPill").textContent=fmtTime(g.timeLeft);
   $("guessTimeBar").style.width=Math.max(0,Math.round(g.timeLeft/g.roundTime*100))+"%";
   var hb=$("guessHintBar"); if(hb) hb.innerHTML="<small>ADIVINA LA PALABRA</small>"+esc(g.hint());
@@ -1588,6 +1671,7 @@ function renderGuesserLocal(){
   var left=30;
   S.guess.timer=setInterval(function(){
     left--; $("guessTimerPill").textContent=fmtTime(left);
+    if(left<=10 && left>0){ AudioFX.tick(); if(left===10) buzz([60,60,60]); }
     $("guessTimeBar").style.width=Math.max(0,Math.round(left/30*100))+"%";
     if(left<=0){ guessStopTimers(); nextGuesserLocal(); }
   },1000);
@@ -1595,6 +1679,7 @@ function renderGuesserLocal(){
     var inp=$("guessInput"); var txt=inp.value;
     guessStopTimers();
     var r=g.guess(idx, txt);
+    if(r && r.correct){ AudioFX.hit(); buzz([50,50,90]); }
     renderGuessSide(g);
     if(g.phase==="result"){ showGuessTurn(); return; }
     nextGuesserLocal();
@@ -1638,6 +1723,7 @@ function renderGuessSide(g){
 }
 function renderGuessResult(){
   var g=S.guess.engine, area=$("guessArea");
+  if(S.guess._resultChimed!==g.round){ S.guess._resultChimed=g.round; AudioFX.chime(); buzz([80,60,140]); }
   var s=g.roundSummaries[g.roundSummaries.length-1];
   $("guessTimerPill").textContent="¡Ronda!";
   $("guessTimeBar").style.width="100%";
@@ -1651,11 +1737,13 @@ function renderGuessResult(){
   area.innerHTML=html;
   $("btnNextRound").onclick=function(){
     if(!g.nextRound()){ showPodium(); return; }
+    AudioFX.chime(); buzz([80,60,140]);
     showPassFor(g.drawer);
   };
 }
 function showPodium(){
   guessStopTimers();
+  AudioFX.chime(); buzz([80,60,140]);
   var g=S.guess.engine || HOST.guess;
   var players=S.players.length?S.players:HOST.players;
   var pod=g.podium();
@@ -1719,6 +1807,17 @@ function renderGuessFromState(st){
   $("guessRoundLabel").textContent="Ronda "+(st.round+1)+" · dibuja "+(st.players[st.drawer]?st.players[st.drawer].name:"?");
   $("guessTimerPill").textContent=st.phase==="draw"?fmtTime(st.timeLeft):(st.phase==="choose"?"Elige":"¡Ronda!");
   $("guessTimeBar").style.width=st.phase==="draw"?Math.max(0,Math.round(st.timeLeft/st.roundTime*100))+"%":"100%";
+  /* Sonido y vibración por wifi: acierto propio y aviso de 10 s (el anfitrión
+     también pasa por aquí, porque su estado se sondea igual que el de un cliente). */
+  if(st.chat && st.chat.length>(S.net.lastChatLen||0)){
+    var _lm=st.chat[st.chat.length-1];
+    if(_lm && _lm.hit && _lm.player===me){ AudioFX.hit(); buzz([50,50,90]); }
+    S.net.lastChatLen=st.chat.length;
+  }
+  if(st.phase==="draw" && me!==st.drawer){
+    if(st.timeLeft===10 && S.net.lastWarn!==st.round+"-"+st.drawer){ S.net.lastWarn=st.round+"-"+st.drawer; buzz([60,60,60]); }
+    if(st.timeLeft<=10 && st.timeLeft>0 && S.net.lastTickLeft!==st.timeLeft){ S.net.lastTickLeft=st.timeLeft; AudioFX.tick(); }
+  }
   var area=$("guessArea");
   var key=st.phase+"-"+st.round+"-"+(me===st.drawer?"d":"g");
   if(st.phase==="choose"){
@@ -1748,13 +1847,13 @@ function renderGuessFromState(st){
     } else {
       if(S.net.lastPhase!==key){
         area.innerHTML='<div class="hint-bar" id="guessHintBar"><small>ADIVINA LA PALABRA</small>'+esc(st.hint)+'</div>'+
-          '<div class="canvas-wrap"><div class="watermark"><span>Gartic Móvil</span></div><canvas id="liveCanvas" width="640" height="400"></canvas></div>'+
+          '<div class="canvas-wrap"><div class="watermark"><span>Gartic Móvil</span></div><canvas id="liveCanvas" width="640" height="440"></canvas></div>'+
           '<div class="guess-grid" style="margin-top:8px"><div class="g-players" id="guessPlayers"></div>'+
           '<div class="g-chat" id="guessChat"></div></div>'+
           '<div class="guess-input-row"><input type="text" id="guessInput" maxlength="60" placeholder="Escribe tu respuesta..." autocomplete="off"><button id="btnSendGuess" type="button">Enviar</button></div>'+
           '<button class="btn ghost" id="btnGuessLeave" type="button">Salir de la sala</button>';
         S.draw.canvas=$("liveCanvas"); S.draw.ctx=$("liveCanvas").getContext("2d");
-        S.draw.ctx.fillStyle="#ffffff"; S.draw.ctx.fillRect(0,0,640,400);
+        S.draw.ctx.fillStyle="#ffffff"; S.draw.ctx.fillRect(0,0,640,440);
         S.net.lastStrokeCount=0;
         var send=function(){
           var inp=$("guessInput"); if(!inp.value.trim()) return;
@@ -1774,6 +1873,7 @@ function renderGuessFromState(st){
     }
   } else if(st.phase==="result"){
     if(S.net.lastPhase!==key){
+      AudioFX.chime(); buzz([80,60,140]);
       var html='<div class="prompt-box"><small>La palabra era</small><div class="phrase">'+esc((st.word||"").toUpperCase())+'</div></div>';
       st.players.forEach(function(p,i){
         html+='<div class="lobby-player"><span style="font-size:24px">'+esc(p.avatar)+'</span><span class="name">'+esc(p.name)+'</span><span class="pts">'+(st.scores[i]||0)+' pts</span></div>';
@@ -1913,8 +2013,8 @@ $("btnStartWifi").addEventListener("click", function(){
     $("cdTitle").textContent="Prepárense…";
     $("cdSub").textContent=S.players.length+" jugadores · modo Normal por wifi";
     show("screen-countdown");
-    var n=3; $("cdNumber").textContent=n;
-    var iv=setInterval(function(){ n--; if(n<=0){ clearInterval(iv); showPassFor(0); } else $("cdNumber").textContent=n; },700);
+    var n=3; $("cdNumber").textContent=n; AudioFX.count(false); buzz([25]);
+    var iv=setInterval(function(){ n--; if(n<=0){ clearInterval(iv); AudioFX.count(true); buzz([70]); showPassFor(0); } else { $("cdNumber").textContent=n; AudioFX.count(false); buzz([25]); } },700);
   }
 });
 
@@ -2145,7 +2245,26 @@ function sampleStrokeOnCanvas(){
 function runShot(name){
   var players=[{id:0,name:"Ana",avatar:"🦊"},{id:1,name:"Beto",avatar:"🐼"},{id:2,name:"Carla",avatar:"🦁"},{id:3,name:"Dan",avatar:"🐸"}];
   S.players=players;
-  if(name==="modes"){ renderModes(); show("screen-modes"); }
+  if(name==="splash"){ var sp=$("splash"); if(sp){ sp.style.display="grid"; sp.classList.remove("hide"); } setTimeout(function(){ testReport({shot:"splash"}); }, 400); return; }
+  else if(name==="draw-tools"){
+    S.engine=new GameEngine(players, S.settings); S.engine.start();
+    S.engine.submit(0,0,{type:"text",text:"un perro tocando la guitarra en la playa"});
+    S.engine.submit(1,0,{type:"text",text:"un gato con sombrero en la luna"});
+    S.engine.submit(2,0,{type:"text",text:"un pez volando sobre la ciudad"});
+    S.engine.submit(3,0,{type:"text",text:"un perro tocando la guitarra en la playa"});
+    S.step=1; S.engine.step=1; S.turnIdx=1;
+    showTurn(); sampleStrokeOnCanvas();
+    setTimeout(function(){
+      var st=document.querySelector(".side-tools");
+      var before=!!(st && st.classList.contains("open"));
+      var b=$("barSize"); if(b) b.click();
+      var after=!!(st && st.classList.contains("open"));
+      var r=$("btnSendDraw").getBoundingClientRect();
+      testReport({shot:"draw-tools", panelHiddenBefore:!before, panelOpenAfter:after, listoVisible:r.top>=0&&r.bottom<=window.innerHeight});
+    }, 600);
+    return;
+  }
+  else if(name==="modes"){ renderModes(); show("screen-modes"); }
   else if(name==="setup"){ S.mode="normal"; syncSetupMode(); show("screen-setup"); }
   else if(name==="rooms"){ renderLocalRooms(); show("screen-rooms"); }
   else if(name==="album"){
@@ -2172,8 +2291,11 @@ function runShot(name){
     setTimeout(function(){
       var b=$("btnSendDraw"); var r=b?b.getBoundingClientRect():null;
       var w=$("canvasWrap");
+      var cv=$("drawCanvas"); var cr=cv?cv.getBoundingClientRect():null;
+      var st=document.querySelector(".side-tools");
       testReport({shot:"draw", listoVisible:!!(r&&r.top>=0&&r.bottom<=window.innerHeight), listoTop:r?Math.round(r.top):-1,
-        wrapSW:w?w.scrollWidth:-1, wrapCW:w?w.clientWidth:-1, wrapSH:w?w.scrollHeight:-1, wrapCH:w?w.clientHeight:-1});
+        wrapSW:w?w.scrollWidth:-1, wrapCW:w?w.clientWidth:-1, wrapSH:w?w.scrollHeight:-1, wrapCH:w?w.clientHeight:-1,
+        panelHidden:!(st&&st.classList.contains("open")), canvasW:cr?Math.round(cr.width):-1, canvasH:cr?Math.round(cr.height):-1});
     }, 600);
     return;
   }
@@ -2190,12 +2312,12 @@ function runShot(name){
     $("guessTimeBar").style.width="63%";
     var area=$("guessArea");
     area.innerHTML='<div class="hint-bar"><small>ADIVINA LA PALABRA</small>'+esc(g.hint())+'</div>'+
-      '<div class="canvas-wrap"><div class="watermark"><span>Gartic Móvil</span></div><canvas id="liveCanvas" width="640" height="400"></canvas></div>'+
+      '<div class="canvas-wrap"><div class="watermark"><span>Gartic Móvil</span></div><canvas id="liveCanvas" width="640" height="440"></canvas></div>'+
       '<div class="guess-grid" style="margin-top:8px"><div class="g-players" id="guessPlayers"></div>'+
       '<div class="g-chat" id="guessChat"></div></div>'+
       '<div class="guess-input-row"><input type="text" placeholder="Escribe tu respuesta..." autocomplete="off"><button type="button">Enviar</button></div>';
     S.draw.canvas=$("liveCanvas"); S.draw.ctx=$("liveCanvas").getContext("2d");
-    S.draw.ctx.fillStyle="#ffffff"; S.draw.ctx.fillRect(0,0,640,400);
+    S.draw.ctx.fillStyle="#ffffff"; S.draw.ctx.fillRect(0,0,640,440);
     applyStrokes(g.strokes);
     renderGuessSide(g);
   }
@@ -2226,6 +2348,7 @@ function runShot(name){
 function runAuto(kind){
   var players=[{id:0,name:"Ana",avatar:"🦊"},{id:1,name:"Beto",avatar:"🐼"},{id:2,name:"Carla",avatar:"🦁"},{id:3,name:"Dan",avatar:"🐸"}];
   S.players=players;
+  var fxOk=true; try{ AudioFX.count(false); AudioFX.tick(); AudioFX.turn(); AudioFX.chime(); AudioFX.hit(); buzz([10]); }catch(e){ fxOk=false; }
   try{
     if(kind==="normal"){
       S.settings={write:0, draw:0, describe:0};
@@ -2242,7 +2365,7 @@ function runAuto(kind){
       }
       if(!S.engine.finished) throw new Error("el motor Normal no terminó");
       showAlbum();
-      testReport({auto:"normal", albums:S.engine.albums().length, linksPerAlbum:S.engine.albums()[0].links.length});
+      testReport({auto:"normal", albums:S.engine.albums().length, linksPerAlbum:S.engine.albums()[0].links.length, fxOk:fxOk});
     } else {
       var g=new GuessEngine(players, {roundTime:60, themes:GUESS_CATEGORIES.slice()});
       S.guess.engine=g; g.start();
@@ -2262,7 +2385,7 @@ function runAuto(kind){
       if(g.phase!=="finished") throw new Error("Adivina no llegó al podio, fase="+g.phase);
       var pod=g.podium();
       showPodium();
-      testReport({auto:"guess", podium:pod.map(function(e){ return S.players[e.player].name+":"+e.pts; }).join(","), drawerBonusCheck:g.scores[g.drawer]});
+      testReport({auto:"guess", podium:pod.map(function(e){ return S.players[e.player].name+":"+e.pts; }).join(","), drawerBonusCheck:g.scores[g.drawer], fxOk:fxOk});
     }
   }catch(err){
     testReport({auto:kind, fatal:String(err&&err.message||err)});
@@ -2279,10 +2402,26 @@ renderModes();
 renderGuessThemes();
 syncSetupMode();
 if(profile.nick) $("profileSaved").textContent="Perfil cargado de este teléfono: "+profile.nick+" "+profile.avatar;
+/* ---------- ajustes: interruptores de sonido y vibración ---------- */
+$("btnSettings").addEventListener("click", function(){ show("screen-settings"); });
+$("btnSettingsBack").addEventListener("click", function(){ show("screen-home"); });
+(function(){
+  var ps=$("prefSound"), pv=$("prefVibrate");
+  ps.checked=!!prefs.sound; pv.checked=!!prefs.vibrate;
+  ps.addEventListener("change", function(){ prefs.sound=ps.checked; savePrefs(); });
+  pv.addEventListener("change", function(){ prefs.vibrate=pv.checked; savePrefs(); });
+})();
+/* ---------- pantalla de apertura SanBer (3 s o al tocar) ---------- */
+var splashDone=false;
+function hideSplash(){ if(splashDone) return; splashDone=true; var s=$("splash"); if(!s) return; s.classList.add("hide"); setTimeout(function(){ s.style.display="none"; },400); }
+$("splash").addEventListener("click", function(){ AudioFX.unlock(); hideSplash(); });
+setTimeout(hideSplash, 3000);
+/* El primer toque desbloquea el audio (los navegadores no dejan sonar nada antes de interactuar). */
+document.addEventListener("pointerdown", function(){ AudioFX.unlock(); });
 (function(){
   var h=location.hash||"";
-  if(h.indexOf("#shot=")===0) setTimeout(function(){ runShot(h.slice(6)); }, 300);
-  else if(h.indexOf("#auto=")===0) setTimeout(function(){ runAuto(h.slice(6)); }, 300);
+  if(h.indexOf("#shot=")===0){ if(h.slice(6)!=="splash"){ splashDone=true; var sp=$("splash"); if(sp) sp.style.display="none"; } setTimeout(function(){ runShot(h.slice(6)); }, 300); }
+  else if(h.indexOf("#auto=")===0){ splashDone=true; var sp2=$("splash"); if(sp2) sp2.style.display="none"; setTimeout(function(){ runAuto(h.slice(6)); }, 300); }
 })();
 </script>
 </body>
