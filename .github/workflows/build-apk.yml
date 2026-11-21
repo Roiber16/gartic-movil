@@ -1,6 +1,8 @@
 # Gartic Móvil — APK Android
 # Compila la APK debug en GitHub Actions cuando se pulsa "Run workflow" a mano.
-# La APK aparece en: Actions > (la ejecución) > Artifacts > gartic-movil-debug
+# La APK aparece en: Actions > (la ejecución) > Artifacts > gartic-movil-apk,
+# con el nombre Gartic-Movil-<versión>.apk (antes salía como app-debug.apk
+# y Roi no la encontraba al buscarla en Descargas).
 # Es una APK DEBUG (sin firmar para Play Store): sirve para instalarla
 # directamente en el teléfono y probar. No es una versión de tienda.
 #
@@ -72,10 +74,16 @@ jobs:
           chmod +x gradlew
           ./gradlew assembleDebug --stacktrace
 
+      - name: Renombrar la APK con el nombre de la app y la versión
+        run: |
+          VERSION=$(grep -m1 versionName android/app/build.gradle | sed 's/.*"\([^"]*\)".*/\1/')
+          cp android/app/build/outputs/apk/debug/app-debug.apk "android/app/build/outputs/apk/debug/Gartic-Movil-${VERSION}.apk"
+          ls -lh android/app/build/outputs/apk/debug/Gartic-Movil-*.apk
+
       - name: Guardar la APK como descarga
         uses: actions/upload-artifact@v4
         with:
-          name: gartic-movil-debug
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          name: gartic-movil-apk
+          path: android/app/build/outputs/apk/debug/Gartic-Movil-*.apk
           if-no-files-found: error
           retention-days: 30
