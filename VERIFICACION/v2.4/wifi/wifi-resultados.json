@@ -1,0 +1,101 @@
+{
+  "guess-canvas": {
+    "name": "guess-canvas",
+    "ok": true,
+    "ms": 43461,
+    "log": [
+      "El dibujante usa pincel, línea, círculo, cuadrado, relleno, borrador, Deshacer, Rehacer y Limpiar, y dibuja más de 600 trazos",
+      "trazos dibujados=650, en el lienzo=434, revisión del dibujante=658",
+      "lienzo del dibujante len=25986, del invitado len=25986, idénticos=true",
+      "pantallas finales: [\"screen-podium\",\"screen-podium\",\"screen-podium\",\"screen-podium\"]",
+      "errores: []"
+    ],
+    "finals": [
+      {
+        "screen": "screen-podium",
+        "hostActive": true,
+        "hostStarted": true,
+        "hostPlayers": [
+          "Roi",
+          "Ana",
+          "Beto",
+          "Carla"
+        ],
+        "engineStep": null,
+        "engineFinished": null,
+        "albums": null,
+        "mode": "guess",
+        "waitText": "Ya enviaste tu turno. Esperamos a que terminen los demás.",
+        "joinStatus": "",
+        "joinMsg": "",
+        "wifiStatus": "La partida empezó.",
+        "roomCode": "VWVB",
+        "hostAddr": "127.0.0.1:18081",
+        "passText": "Pásale el teléfono a Ana — no mires",
+        "guessPhase": "finished",
+        "guessRound": 3,
+        "errors": []
+      },
+      {
+        "screen": "screen-podium",
+        "hostActive": false,
+        "hostStarted": false,
+        "hostPlayers": [],
+        "engineStep": null,
+        "engineFinished": null,
+        "albums": null,
+        "mode": "normal",
+        "waitText": "Ya enviaste tu turno. Esperamos a que terminen los demás.",
+        "joinStatus": "La partida empezó.",
+        "joinMsg": "Conectado con el anfitrión. Entrando a la sala…",
+        "wifiStatus": "Generando la sala…",
+        "roomCode": "····",
+        "hostAddr": "—",
+        "passText": "Pásale el teléfono a Ana — no mires",
+        "guessPhase": null,
+        "guessRound": null,
+        "errors": []
+      },
+      {
+        "screen": "screen-podium",
+        "hostActive": false,
+        "hostStarted": false,
+        "hostPlayers": [],
+        "engineStep": null,
+        "engineFinished": null,
+        "albums": null,
+        "mode": "normal",
+        "waitText": "Ya enviaste tu turno. Esperamos a que terminen los demás.",
+        "joinStatus": "La partida empezó.",
+        "joinMsg": "Conectado con el anfitrión. Entrando a la sala…",
+        "wifiStatus": "Generando la sala…",
+        "roomCode": "····",
+        "hostAddr": "—",
+        "passText": "Pásale el teléfono a Ana — no mires",
+        "guessPhase": null,
+        "guessRound": null,
+        "errors": []
+      },
+      {
+        "screen": "screen-podium",
+        "hostActive": false,
+        "hostStarted": false,
+        "hostPlayers": [],
+        "engineStep": null,
+        "engineFinished": null,
+        "albums": null,
+        "mode": "normal",
+        "waitText": "Ya enviaste tu turno. Esperamos a que terminen los demás.",
+        "joinStatus": "La partida empezó.",
+        "joinMsg": "Conectado con el anfitrión. Entrando a la sala…",
+        "wifiStatus": "Generando la sala…",
+        "roomCode": "····",
+        "hostAddr": "—",
+        "passText": "Pásale el teléfono a Ana — no mires",
+        "guessPhase": null,
+        "guessRound": null,
+        "errors": []
+      }
+    ]
+  }
+}

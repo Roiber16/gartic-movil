@@ -1,0 +1,101 @@
+{
+  "splash": {
+    "loadMs": 223,
+    "splashGoneMsFromNav": 3497,
+    "splashGoneMsFromLoad": 3274
+  },
+  "font": {
+    "fontRes": [],
+    "status": "loaded",
+    "check700": true,
+    "check800": true,
+    "check400": true,
+    "totalRes": 0,
+    "all": []
+  },
+  "scoreText": [],
+  "wifiModeSelect": {
+    "options": 0,
+    "texts": [],
+    "value": "",
+    "visibleText": ""
+  },
+  "avatarRow": {
+    "scrollW": 556,
+    "clientW": 304,
+    "scrollable": true,
+    "style": "auto"
+  },
+  "backButtons": [
+    {
+      "txt": "Volver al inicio",
+      "svg": false,
+      "cls": "btn ghost"
+    },
+    {
+      "txt": "Salir de la partida",
+      "svg": false,
+      "cls": "btn ghost small"
+    },
+    {
+      "txt": "Volver al inicio",
+      "svg": false,
+      "cls": "btn ghost"
+    },
+    {
+      "txt": "Volver a jugar (mismos jugador",
+      "svg": false,
+      "cls": "btn"
+    },
+    {
+      "txt": "Volver al inicio",
+      "svg": false,
+      "cls": "btn ghost"
+    },
+    {
+      "txt": "Volver a jugar (mismos jugador",
+      "svg": false,
+      "cls": "btn"
+    },
+    {
+      "txt": "Volver al inicio",
+      "svg": false,
+      "cls": "btn ghost"
+    },
+    {
+      "txt": "Volver al inicio",
+      "svg": false,
+      "cls": "btn ghost"
+    },
+    {
+      "txt": "Volver al inicio",
+      "svg": false,
+      "cls": "btn ghost"
+    },
+    {
+      "txt": "Volver al inicio",
+      "svg": false,
+      "cls": "btn ghost"
+    },
+    {
+      "txt": "Volver al inicio",
+      "svg": false,
+      "cls": "btn ghost"
+    },
+    {
+      "txt": "Volver al inicio",
+      "svg": false,
+      "cls": "btn ghost"
+    },
+    {
+      "txt": "Volver al inicio",
+      "svg": false,
+      "cls": "btn ghost"
+    },
+    {
+      "txt": "✔  SÍ, SALIR",
+      "svg": false,
+      "cls": "btn"
+    }
+  ]
+}

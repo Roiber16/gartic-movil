@@ -72,8 +72,8 @@ label{font-weight:800;display:block;margin:12px 0 5px;color:var(--ink)}
 input[type=text],input[type=tel],select,textarea{width:100%;padding:12px;border:2px solid #b9a8f5;border-radius:12px;background:#fff;font-size:1rem;color:var(--ink)}
 textarea{resize:vertical;min-height:84px}
 .counter{text-align:right;font-size:.85rem;color:var(--muted);font-weight:700}
-.timer-pill{display:inline-block;background:var(--yellow);color:#2a2000;font-weight:800;border-radius:999px;padding:6px 14px;min-width:78px;text-align:center;font-size:1.05rem;border:2px solid var(--ink)}
-.timer-pill.low{background:var(--red);color:#fff}
+.timer-pill{display:inline-block;background:#fff;color:var(--ink);font-weight:800;border-radius:999px;padding:6px 14px;min-width:78px;text-align:center;font-size:1.05rem;border:2px solid var(--ink)}
+.timer-pill.warn{background:var(--yellow);color:#2a2000}
 .timer-pill.off{background:var(--lav2);color:var(--muted);border-color:var(--lavline)}
 .progress{height:10px;background:rgba(255,255,255,.35);border-radius:99px;overflow:hidden;margin:10px 0;border:1.5px solid var(--ink)}
 .progress i{display:block;height:100%;background:var(--green)}
@@ -82,8 +82,8 @@ textarea{resize:vertical;min-height:84px}
 
 /* --- perfil: pestañas ANÓNIMO / VERIFICADO y mascota pájaro --- */
 .tabs{display:flex;gap:8px;margin-bottom:0}
-.tab{flex:1;padding:10px 6px;border-radius:12px 12px 0 0;background:rgba(42,26,94,.4);color:#cfc3f5;font-weight:800;text-align:center;border:2px solid rgba(255,255,255,.35);border-bottom:0;font-size:.95rem;min-height:48px}
-.tab.active{color:var(--green);background:rgba(255,255,255,.14)}
+.tab{flex:1;padding:10px 4px;border-radius:12px 12px 0 0;background:rgba(42,26,94,.4);color:#fff;font-weight:800;text-align:center;border:2px solid rgba(255,255,255,.35);border-bottom:0;font-size:.85rem;line-height:1.2;min-height:48px}
+.tab.active{color:var(--green);background:#fff}
 .profile-box{background:rgba(42,26,94,.35);border:2px solid rgba(255,255,255,.4);border-top:0;border-radius:0 0 16px 16px;padding:16px 14px;text-align:center}
 .bird-wrap{width:118px;height:118px;margin:0 auto;border-radius:50%;background:var(--lav2);border:3px solid #fff;display:grid;place-items:center;position:relative;box-shadow:0 4px 0 rgba(42,26,94,.35)}
 .bird{position:relative;width:88px;height:88px}
@@ -112,8 +112,12 @@ textarea{resize:vertical;min-height:84px}
 .avatar-slot.empty .nm{color:#d9c8ff}
 .avatar-slot .crown{position:absolute;top:-8px;right:2px;font-size:20px;text-shadow:0 1px 0 rgba(0,0,0,.4)}
 .count-bar{display:flex;align-items:center;justify-content:space-between;background:#7b3fe0;border:2px solid #fff;border-radius:12px;color:#fff;font-weight:800;padding:4px 6px 4px 14px;margin:6px 0}
-.count-bar select{width:auto;background:transparent;border:0;color:#fff;font-weight:800;font-size:1.05rem;padding:8px 4px}
+.count-bar select{width:auto;background:transparent;border:0;color:#fff;font-weight:800;font-size:1.05rem;padding:12px 6px;min-height:48px}
 .count-bar select option{color:var(--ink)}
+/* Listas largas con desplazamiento propio: los botones EMPEZAR/INVITAR
+   quedan siempre visibles sin bajar hasta el final de la página. */
+#modesList{max-height:46vh;overflow-y:auto;scrollbar-width:thin}
+#wifiLobby{max-height:20vh;overflow-y:auto;scrollbar-width:thin}
 
 /* --- tarjetas de modo (lavanda, icono a la izquierda) --- */
 .mode-card{display:flex;gap:12px;align-items:flex-start;border:2px solid var(--lavline);border-radius:14px;padding:13px;margin-bottom:10px;background:var(--lav2);color:var(--ink);cursor:pointer;text-align:left;width:100%}
@@ -153,7 +157,8 @@ textarea{resize:vertical;min-height:84px}
 .prompt-box small{font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
 .prompt-box .phrase{font-size:1.3rem;font-weight:800;line-height:1.25}
 .toolbar{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
-.tool-btn{border:2px solid var(--lavline);background:#fff;border-radius:10px;padding:8px 10px;font-weight:700;min-height:44px;font-size:.92rem;color:var(--ink)}
+.tool-break{display:none}
+.tool-btn{border:2px solid var(--lavline);background:#fff;border-radius:10px;padding:8px 10px;font-weight:700;min-height:48px;font-size:.92rem;color:var(--ink)}
 .tool-btn.active{background:var(--ink);color:#fff;border-color:var(--ink)}
 .swatches{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;align-items:center}
 .swatch{width:34px;height:34px;border-radius:10px;border:2px solid var(--lavline);padding:0;cursor:pointer}
@@ -192,28 +197,80 @@ textarea{resize:vertical;min-height:84px}
 .switch-row input{width:26px;height:26px;accent-color:var(--teal)}
 .pass-screen{text-align:center;padding:28px 12px}
 .pass-screen .big{font-size:1.9rem;font-weight:800;line-height:1.15;margin:12px 0;color:var(--ink)}
-.countdown{font-size:5rem;font-weight:800;text-align:center;color:var(--violet);line-height:1.2}
-.album-step{display:flex;gap:10px;align-items:flex-start;margin:12px 0}
+/* --- cuenta atrás del original: rombo violeta con bombillitas amarillas
+   y número verde menta (medido en vídeo, VERIFICACION/v2.4/cuenta-atras/) --- */
+.cd-wrap{position:relative;width:230px;height:230px;margin:6px auto;display:grid;place-items:center}
+.cd-starburst{position:absolute;inset:0;border-radius:50%;background:repeating-conic-gradient(from 0deg,rgba(255,197,49,.5) 0deg 5deg,transparent 5deg 20deg);-webkit-mask-image:radial-gradient(circle,#000 0%,transparent 68%);mask-image:radial-gradient(circle,#000 0%,transparent 68%);animation:cdSpin 8s linear infinite}
+@keyframes cdSpin{to{transform:rotate(360deg)}}
+.cd-diamond{position:relative;width:150px;height:150px;background:linear-gradient(135deg,#7b3fe0,#5b1fa6);transform:rotate(45deg);border:3px solid #ffc531;border-radius:18px;display:grid;place-items:center;box-shadow:0 0 0 5px rgba(255,197,49,.22),0 8px 24px rgba(0,0,0,.4);animation:cdPulse .7s ease-in-out infinite alternate}
+@keyframes cdPulse{from{transform:rotate(45deg) scale(1)}to{transform:rotate(45deg) scale(1.04)}}
+.cd-diamond span{transform:rotate(-45deg);font-size:4.4rem;font-weight:800;color:#2ee6a8;line-height:1;text-shadow:0 2px 0 rgba(42,26,94,.5)}
+.cd-bulb{position:absolute;width:14px;height:14px;border-radius:50%;background:#ffc531;border:2px solid #2a1a5e;box-shadow:0 0 8px rgba(255,197,49,.9);z-index:2}
+.cd-bulb:nth-of-type(1){top:2px;left:108px}
+.cd-bulb:nth-of-type(2){top:108px;left:214px}
+.cd-bulb:nth-of-type(3){top:214px;left:108px}
+.cd-bulb:nth-of-type(4){top:108px;left:2px}
+.cd-bulb:nth-of-type(5){top:55px;left:55px}
+.cd-bulb:nth-of-type(6){top:55px;left:161px}
+.cd-bulb:nth-of-type(7){top:161px;left:161px}
+.cd-bulb:nth-of-type(8){top:161px;left:55px}
+.album-step{display:flex;gap:10px;align-items:flex-start;margin:8px 0}
+#turnLabel{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .avatar-dot{width:40px;height:40px;flex:0 0 40px;border-radius:50%;display:grid;place-items:center;font-size:22px;background:#fff;border:2px solid var(--lavline)}
 .bubble{background:#fff;border-radius:4px 16px 16px 16px;padding:10px 13px;flex:1;min-width:0;color:var(--ink)}
 .bubble small{color:var(--muted);font-weight:800}
 .bubble .txt{font-size:1.08rem;font-weight:700;margin-top:2px;overflow-wrap:break-word}
 .bubble img{width:100%;border-radius:10px;border:1px solid var(--lavline);background:#fff;display:block;margin-top:6px}
+/* Divisor de fin de álbum, como en el original: «— FIN DEL ÁLBUM DE X —». */
+.album-end{text-align:center;font-weight:800;color:var(--muted);letter-spacing:.06em;margin:20px 0 8px;font-size:.92rem}
 .player-row{display:flex;gap:8px;align-items:center;margin-bottom:10px;background:#fff;border-radius:14px;padding:10px;border:2px solid var(--lavline)}
 .player-row input{flex:1}
 .player-row select{width:64px;flex:0 0 64px;font-size:22px;text-align:center;padding:6px 2px}
 
+/* --- modos nuevos (v2.4): censura de Secreto, piel de cebolla, vista previa, álbum de animación --- */
+.censor-wrap{position:relative}
+.censor-overlay{position:absolute;inset:0;background:#fff;border:2px solid #b9a8f5;border-radius:12px;padding:12px;font-size:1rem;font-weight:800;color:var(--ink);pointer-events:none;overflow:hidden;overflow-wrap:break-word}
+.censor-overlay:empty::before{content:"●●●";color:var(--muted)}
+.onion-img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:fill;opacity:.28;pointer-events:none;z-index:2}
+.secret-veil{position:absolute;left:0;top:0;width:100%;height:100%;background:#fff;opacity:0;pointer-events:none;z-index:2;transition:opacity 1.2s ease}
+/* Vista previa de Imitación: va ENCIMA del lienzo (no ocupa alto en la
+   pantalla) para que la pantalla de dibujo quepa en 800 px; se ve el
+   dibujo anterior a tamaño completo y desaparece en cuanto se empieza
+   a trazar (onPointerDown). No intercepta toques: el lienzo los recibe. */
+.draw-preview{position:absolute;inset:0;z-index:2;background:#fff;border-radius:12px;overflow:hidden;pointer-events:none}
+.draw-preview img{width:100%;height:100%;object-fit:contain;display:block;background:#fff}
+.draw-preview small{position:absolute;top:6px;left:6px;right:6px;z-index:1;display:block;text-align:center;font-weight:800;color:var(--muted);background:rgba(255,255,255,.92);border:2px solid var(--lavline);border-radius:999px;padding:3px 10px;font-size:.8rem}
+.draw-preview.hidden{display:none}
+.strip-preview{margin:8px 0}
+.strip-preview img{width:100%;height:48px;object-fit:cover;object-position:bottom;border:2px solid var(--ink);border-radius:14px;display:block;background:#fff}
+.strip-preview small{display:block;font-weight:800;color:var(--muted);margin-bottom:4px}
+.anim-player{text-align:center}
+.anim-player img{width:100%;border:2px solid var(--ink);border-radius:14px;display:block;background:#fff}
+.anim-player .btn-row{margin-top:8px}
+.anim-player .btn-row select{flex:1;min-width:0}
+.anim-exposure{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:8px}
+.anim-exposure .tool-btn{min-height:40px;font-size:.85rem}
+.corpse-part{border:2px solid var(--ink);border-radius:12px;overflow:hidden;margin-bottom:10px;background:#fff}
+.corpse-part small{display:block;background:var(--lav);padding:6px 10px;font-weight:800;color:var(--ink)}
+.corpse-part img{width:100%;display:block}
+.score-board{background:#fff;border:2px solid var(--ink);border-radius:14px;padding:12px;margin:10px 0;color:var(--ink)}
+.score-board h3{margin-bottom:4px}
+.score-line{display:flex;justify-content:space-between;font-weight:800;padding:4px 0;border-bottom:1px solid var(--lavline)}
+.score-line:last-child{border-bottom:0}
+.vote-btn{margin-top:8px}
+.vote-btn.voted{background:var(--green);color:#fff;border-color:var(--ink)}
+
 /* --- modo Adivina (misma estética; disposición: jugadores | chat) --- */
-.hint-bar{text-align:center;font-size:1.55rem;font-weight:800;letter-spacing:.3em;color:#fff;background:rgba(42,26,94,.45);border:2px solid rgba(255,255,255,.5);border-radius:12px;padding:8px 6px;margin:8px 0;overflow-wrap:break-word}
-.hint-bar small{display:block;font-size:.75rem;letter-spacing:.05em;color:#e9ddff;font-weight:700}
+.hint-bar{text-align:center;font-size:1.55rem;font-weight:800;letter-spacing:.3em;color:var(--ink);background:#fff;border:2px solid var(--ink);border-radius:12px;padding:8px 6px;margin:8px 0;overflow-wrap:break-word}
+.hint-bar small{display:block;font-size:.75rem;letter-spacing:.05em;color:var(--muted);font-weight:700}
 .guess-grid{display:grid;grid-template-columns:112px 1fr;gap:8px;align-items:stretch}
-.g-players{background:rgba(255,255,255,.14);border:2px solid rgba(255,255,255,.5);border-radius:12px;padding:6px;overflow-y:auto;max-height:230px}
-.g-player{padding:6px 4px;border-bottom:1.5px solid rgba(255,255,255,.3);font-size:.82rem;line-height:1.25}
+.g-players{background:#fff;border:2px solid var(--ink);border-radius:12px;padding:6px;overflow-y:auto;max-height:230px}
+.g-player{padding:6px 4px;border-bottom:1.5px solid var(--lavline);font-size:.82rem;line-height:1.25}
 .g-player:last-child{border-bottom:0}
-.g-player .nm{font-weight:800;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.g-player .pts{font-weight:800;color:#fff}
-.g-player .plus{color:var(--green);font-weight:800}
-.g-player .ok{color:var(--green);font-weight:800}
+.g-player .nm{font-weight:800;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.g-player .pts{font-weight:800;color:var(--ink)}
+.g-player .plus{color:#0a7a5c;font-weight:800}
+.g-player .ok{color:#0a7a5c;font-weight:800}
 .g-player.drawer .nm::after{content:" ✏️"}
 .g-chat{background:#fff;border:2px solid var(--ink);border-radius:12px;min-height:180px;max-height:230px;overflow-y:auto;padding:8px;color:var(--ink)}
 .g-chat .msg{margin:3px 0;font-size:.95rem;overflow-wrap:break-word}
@@ -253,25 +310,73 @@ textarea{resize:vertical;min-height:84px}
    personalizado y zoom): el grosor queda en los círculos laterales y el
    color en las paletas. */
 @media(max-width:400px){
-  #screen-play .card,#screen-guess .card{padding:8px 10px 12px}
-  #screen-play .progress,#screen-guess .progress{margin:6px 0}
-  #screen-play #progressText{margin:2px 0;font-size:.8rem}
-  #screen-play .draw-top,#screen-guess .draw-top{padding:7px 8px;font-size:.95rem}
-  #screen-play .prompt-box{padding:6px 10px;margin:6px 0}
-  #screen-play .prompt-box .phrase{font-size:1.1rem}
-  #screen-play .toolbar,#screen-guess .toolbar{flex-wrap:nowrap;overflow-x:auto;margin:6px 0;scrollbar-width:thin}
-  #screen-play .toolbar .tool-btn,#screen-guess .toolbar .tool-btn{flex:0 0 auto;min-height:40px;padding:5px 8px;font-size:.85rem}
+  #screen-play .card,#screen-guess .card{padding:8px 10px 8px}
+  #screen-play .progress,#screen-guess .progress{margin:4px 0}
+  #screen-play #progressText,#screen-guess #progressText{display:none}
+  #screen-play .draw-top,#screen-guess .draw-top{padding:6px 8px;font-size:.95rem}
+  #screen-play .prompt-box{padding:5px 10px;margin:4px 0}
+  #screen-play .prompt-box .phrase{font-size:1.05rem}
+  #screen-play .toolbar,#screen-guess .toolbar{flex-wrap:wrap;overflow-x:visible;margin:3px 0;gap:4px}
+  #screen-play .toolbar .tool-btn,#screen-guess .toolbar .tool-btn{flex:1 1 18%;min-height:48px;padding:6px 3px;font-size:.68rem;white-space:normal;text-align:center;line-height:1.15}
+  #screen-play .toolbar .tool-break,#screen-guess .toolbar .tool-break{display:block;flex-basis:100%;height:0}
   #screen-play .swatches,#screen-guess .swatches{display:none}
   #screen-play .draw-controls,#screen-guess .draw-controls{display:none}
-  #screen-play .canvas-wrap,#screen-guess .canvas-wrap{margin:0 -10px;max-height:none;border-radius:12px}
-  #screen-play .btn-row .btn,#screen-guess .btn-row .btn{min-width:0;min-height:44px;padding:7px 6px;font-size:.9rem}
-  #screen-play .draw-bar,#screen-guess .draw-bar{padding:6px;flex-wrap:wrap}
+  #screen-play .canvas-wrap,#screen-guess .canvas-wrap{margin:0 auto;max-width:300px;max-height:none;border-radius:12px}
+  #screen-play .btn-row,#screen-guess .btn-row{margin:3px 0}
+  #screen-play .btn-row .btn,#screen-guess .btn-row .btn{flex:1 1 0;min-width:0;min-height:48px;padding:10px 2px;font-size:.75rem}
+  #screen-play .draw-bar,#screen-guess .draw-bar{padding:5px;flex-wrap:wrap;position:sticky;bottom:0;z-index:5}
   #screen-play .draw-bar .palette,#screen-guess .draw-bar .palette{flex:1 1 100%;order:9}
   #screen-play .draw-bar .bar-btn,#screen-guess .draw-bar .bar-btn{flex-basis:48px;height:48px}
   #screen-play .draw-bar .check,#screen-guess .draw-bar .check{min-height:48px;padding:8px 10px}
   #screen-play .draw-bar .bar-cur,#screen-guess .draw-bar .bar-cur{height:48px}
   .guess-grid{grid-template-columns:96px 1fr}
   .hint-bar{font-size:1.25rem}
+  /* Inicio compacto: el subtítulo del logo se esconde (se partía en dos
+     líneas) y el perfil plegado deja ver los botones sin bajar. */
+  .logo-sub{display:none}
+  .topbar{margin-bottom:8px}
+  .logo{width:48px;height:48px;flex:0 0 48px}
+  .bird-wrap{width:96px;height:96px}
+  .profile-box{padding:12px 14px}
+  #screen-home .btn{min-height:48px}
+  #screen-home .btn-row .btn{min-height:44px;padding:8px 6px;font-size:.95rem}
+  .footer-note{margin-top:8px}
+  /* Fila de avatares del lobby: 5 huecos caben a 360 px sin cortarse. */
+  .avatar-slot{flex-basis:54px}.avatar-slot .circ{width:46px;height:46px;font-size:24px}.avatar-slot .crown{font-size:16px}
+  .album-players{flex-wrap:wrap;overflow-x:visible;padding-bottom:4px}
+  .album-player{font-size:.8rem;padding:3px 8px 3px 3px}
+}
+/* Teléfonos muy estrechos (≤340 px): la fila Deshacer pasa a 2×2 para
+   que «Deshacer» quepa entero, y la barra de herramientas usa letra
+   más pequeña para seguir en 2 filas (5+4). */
+@media(max-width:340px){
+  #screen-play .btn-row .btn,#screen-guess .btn-row .btn{flex:1 1 45%;font-size:.8rem}
+  #screen-play .toolbar .tool-btn,#screen-guess .toolbar .tool-btn{font-size:.6rem}
+  /* La rejilla de avatares (6 columnas de 48 px) no cabe en 320 px y
+     ensanchaba la página: a 4 columnas, con los botones a 48 px. */
+  .avatar-grid{grid-template-columns:repeat(4,1fr)}
+}
+/* Teléfonos anchos (401–480 px): la pantalla de dibujo usa el mismo diseño
+   compacto que a ≤400 px (herramientas en 2 filas, lienzo de 340 px, fila
+   Deshacer en 1×4 y barra roja compacta con la paleta en su propia fila),
+   para que la paleta y ¡HECHO! se vean sin bajar con el dedo. Sin esto,
+   la paleta se apilaba en una columna vertical y la pantalla medía 1612 px. */
+@media(min-width:401px) and (max-width:480px){
+  #screen-play .progress,#screen-guess .progress{margin:4px 0}
+  #screen-play #progressText,#screen-guess #progressText{display:none}
+  #screen-play .draw-top,#screen-guess .draw-top{padding:6px 8px;font-size:.95rem}
+  #screen-play .prompt-box{padding:5px 10px;margin:4px 0}
+  #screen-play .prompt-box .phrase{font-size:1.05rem}
+  #screen-play .toolbar,#screen-guess .toolbar{flex-wrap:wrap;overflow-x:visible;margin:3px 0;gap:4px}
+  #screen-play .toolbar .tool-btn,#screen-guess .toolbar .tool-btn{flex:1 1 18%;min-height:48px;padding:6px 3px;font-size:.68rem;white-space:normal;text-align:center;line-height:1.15}
+  #screen-play .toolbar .tool-break,#screen-guess .toolbar .tool-break{display:block;flex-basis:100%;height:0}
+  #screen-play .swatches,#screen-guess .swatches{display:none}
+  #screen-play .draw-controls,#screen-guess .draw-controls{display:none}
+  #screen-play .canvas-wrap,#screen-guess .canvas-wrap{margin:0 auto;max-width:340px;max-height:none;border-radius:12px}
+  #screen-play .btn-row,#screen-guess .btn-row{margin:3px 0}
+  #screen-play .btn-row .btn,#screen-guess .btn-row .btn{flex:1 1 0;min-width:0;min-height:48px;padding:10px 2px;font-size:.75rem}
+  #screen-play .draw-bar,#screen-guess .draw-bar{padding:5px;flex-wrap:wrap;position:sticky;bottom:0;z-index:5}
+  #screen-play .draw-bar .palette,#screen-guess .draw-bar .palette{flex:1 1 100%;order:9}
 }
 </style>
 </head>
@@ -297,6 +402,12 @@ textarea{resize:vertical;min-height:84px}
       <button class="tab" id="tabVerif" type="button">VERIFICADO</button>
     </div>
     <div class="profile-box">
+      <div id="profileSummary" class="hidden" style="align-items:center;gap:10px">
+        <span id="profileSummaryAvatar" style="font-size:30px">🦊</span>
+        <span id="profileSummaryNick" style="flex:1;text-align:left;font-weight:800;color:#fff">Tú</span>
+        <button class="btn ghost small" id="btnEditProfile" type="button" style="flex:0 0 auto;margin:0;min-height:44px">Cambiar perfil</button>
+      </div>
+      <div id="profileEditor">
       <div class="bird-wrap">
         <div class="bird" aria-hidden="true"><span class="body"></span><span class="wing l"></span><span class="wing r"></span><span class="belly"></span><span class="eye l"></span><span class="eye r"></span><span class="beak"></span></div>
         <button class="bird-refresh" id="btnBirdRefresh" type="button" aria-label="Cambiar avatar" title="Cambiar avatar">↻</button>
@@ -306,6 +417,8 @@ textarea{resize:vertical;min-height:84px}
       <label style="color:#fff;text-align:left">Tu avatar</label>
       <div class="avatar-grid" id="avatarGrid"></div>
       <p class="hint" id="profileSaved" style="color:#e9ddff"></p>
+      <button class="btn ghost small" id="btnProfileDone" type="button">✓ Listo</button>
+      </div>
     </div>
     <button class="btn" id="btnSingle" type="button"><span class="play">▶</span> Normal · un solo teléfono</button>
     <button class="btn" id="btnGuessSingle" type="button"><span class="play">▶</span> Adivina el dibujo · un solo teléfono</button>
@@ -319,7 +432,7 @@ textarea{resize:vertical;min-height:84px}
       <button class="btn ghost" id="btnHow" type="button">Cómo se juega</button>
       <button class="btn ghost" id="btnSettings" type="button">⚙️ Ajustes</button>
     </div>
-    <p class="footer-note">Sin cuentas y sin internet: en la misma wifi, en el punto de acceso del anfitrión o en un solo teléfono. Tu apodo y tu avatar se guardan en este teléfono y se recuerdan al abrir la app.</p>
+    <p class="footer-note">Sin cuentas ni internet: juega en la misma wifi, en el punto de acceso del anfitrión o en un solo teléfono. Tu apodo y tu avatar se guardan en este teléfono.</p>
   </section>
 
   <!-- CONFIGURAR UN SOLO TELÉFONO -->
@@ -331,6 +444,7 @@ textarea{resize:vertical;min-height:84px}
         <button class="btn small" id="setupModeNormal" type="button">Normal</button>
         <button class="btn small" id="setupModeGuess" type="button">Adivina el dibujo</button>
       </div>
+      <p class="hint" id="modeHint"></p>
       <label for="numPlayers">Número de jugadores</label>
       <select id="numPlayers"></select>
       <p class="hint" id="numPlayersHint">Normal: de 3 a 8 jugadores. Adivina el dibujo: de 2 a 8.</p>
@@ -367,7 +481,7 @@ textarea{resize:vertical;min-height:84px}
   <section class="screen" id="screen-countdown">
     <div class="card center">
       <h2 id="cdTitle">Prepárense…</h2>
-      <div class="countdown" id="cdNumber">3</div>
+      <div class="cd-wrap"><div class="cd-starburst"></div><div class="cd-diamond"><span id="cdNumber">3</span></div><i class="cd-bulb"></i><i class="cd-bulb"></i><i class="cd-bulb"></i><i class="cd-bulb"></i><i class="cd-bulb"></i><i class="cd-bulb"></i><i class="cd-bulb"></i><i class="cd-bulb"></i></div>
       <p class="hint" id="cdSub">La partida empieza en unos segundos.</p>
       <button class="btn ghost small" id="btnCancelCountdown" type="button">Cancelar partida</button>
     </div>
@@ -423,7 +537,7 @@ textarea{resize:vertical;min-height:84px}
   <section class="screen" id="screen-album">
     <div class="card">
       <h2 id="albumTitle" style="color:var(--green)">ÁLBUM DE ANA</h2>
-      <p class="hint"><b>En el modo Normal no hay ganador</b>, la gracia es ver cómo se deformó la frase.</p>
+      <p class="hint" id="albumNote"><b>En el modo Normal no hay ganador</b>, la gracia es ver cómo se deformó la frase.</p>
       <p><span class="hint" id="albumSub">Álbum 1 de 4</span></p>
       <div class="album-players" id="albumPlayers"></div>
       <div id="albumBody"></div>
@@ -453,7 +567,7 @@ textarea{resize:vertical;min-height:84px}
   <section class="screen" id="screen-modes">
     <div class="card flat">
       <div class="avatar-row" id="modesAvatarRow"></div>
-      <div class="count-bar"><span id="modesCountLabel">14 JUGADORES</span><select id="modesMaxPlayers" aria-label="Número máximo de jugadores"><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="10">10</option><option value="14" selected>14</option></select></div>
+      <div class="count-bar"><span id="modesCountLabel">JUGADORES</span><select id="modesMaxPlayers" aria-label="Número máximo de jugadores"><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="10">10</option><option value="14" selected>14</option></select></div>
       <div class="tabs" style="margin-top:10px">
         <button class="tab active" id="tabPresets" type="button">PREESTABLECIDOS</button>
         <button class="tab" id="tabCustom" type="button">AJUSTES PERSONALIZADOS</button>
@@ -462,7 +576,7 @@ textarea{resize:vertical;min-height:84px}
         <div id="modesList"></div>
         <div id="customPanel" class="hidden">
           <div class="set-row"><span class="set-name">⏰ Tiempo</span></div>
-          <select id="customTime"><option value="normal" selected>Normal (45 s escribir · 60 s dibujar · 45 s describir)</option><option value="rapido">Rápido (30 s · 45 s · 30 s)</option><option value="lento">Lento (90 s · 120 s · 90 s)</option></select>
+          <select id="customTime"><option value="normal" selected>Normal (45/60/45 s)</option><option value="rapido">Rápido (30/45/30 s)</option><option value="lento">Lento (90/120/90 s)</option></select>
           <div class="set-row"><span class="set-name">✏️💬 Secuencia</span></div>
           <select id="customSequence"><option value="write-draw" selected>Escribir, Dibujar</option><option value="draw-only">Solo dibujar</option></select>
           <div class="set-row"><span class="set-name">🔀 Turnos</span></div>
@@ -527,14 +641,16 @@ textarea{resize:vertical;min-height:84px}
       <h2 style="color:#fff">Crear sala wifi</h2>
       <p class="hint" style="color:#e9ddff">Tu teléfono hace de anfitrión 👑. Los demás se unen con tu IP y el código de sala, desde la misma wifi o tu punto de acceso.</p>
       <div class="avatar-row" id="wifiAvatarRow"></div>
-      <div class="count-bar"><span id="wifiCountLabel">14 JUGADORES</span><select id="wifiMaxPlayers" aria-label="Número máximo de jugadores"><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="10">10</option><option value="14" selected>14</option></select></div>
+      <div class="count-bar"><span id="wifiCountLabel">JUGADORES</span><select id="wifiMaxPlayers" aria-label="Número máximo de jugadores"><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="10">10</option><option value="14" selected>14</option></select></div>
       <div class="room-code" id="roomCode">····</div>
-      <p><b>Dirección de la sala:</b> <span id="hostAddr">—</span></p>
+      <p><b>Dirección de la sala:</b> <span id="hostAddr">—</span> <button class="btn ghost small" id="btnRefreshIp" type="button" title="Volver a comprobar la IP de este teléfono">↻ IP</button></p>
       <p class="hint" id="wifiStatus" style="color:#e9ddff">Generando la sala…</p>
       <div class="btn-row" role="group" aria-label="Modo de la sala">
         <button class="btn small" id="wifiModeNormal" type="button">Normal</button>
         <button class="btn small" id="wifiModeGuess" type="button">Adivina el dibujo</button>
       </div>
+      <label for="wifiModeSelect" style="color:#fff">Modo de la sala (todos los modos)</label>
+      <select id="wifiModeSelect"></select>
       <div id="wifiSettingsSummary" class="notice"></div>
       <div id="wifiLobby"></div>
       <div class="btn-row">
@@ -600,21 +716,92 @@ var TIME_OPTIONS = [{v:15,l:"15 segundos"},{v:30,l:"30 segundos"},{v:45,l:"45 se
 var MODES = [
  {n:"Normal",ico:"📝",tag:"Jugable en v1",play:true,mode:"normal",d:"¡La base de todo! Escribe y dibuja alternativamente hasta llegar al último turno. Frase → dibujo → descripción → dibujo… Se ve solo el eslabón anterior. Sin puntos ni ganador."},
  {n:"Adivina el dibujo",ico:"🎨",tag:"Jugable en v2",play:true,mode:"guess",d:"¡Uno dibuja y los demás adivinan en vivo! Palabra secreta, pista con guiones, chat de adivinanzas y puntos por acertar rápido: 10, 8, 6, 4 y 2. El dibujante gana +5 por cada acierto."},
- {n:"Imitación",ico:"🖼️",tag:"Próximamente",play:false,mode:"",d:"Replicar los dibujos de memoria: miras el dibujo anterior brevemente y, en cuanto empiezas a trazar, desaparece. El tiempo se acorta en cada ronda. Solo se dibuja después de la frase inicial."},
- {n:"Animación",ico:"🎞️",tag:"Próximamente",play:false,mode:"",d:"Crear animaciones de forma colaborativa, sin escritura. Cada jugador dibuja un fotograma calcando tenuemente el anterior, y al final se monta como animación."},
- {n:"Rompehielos",ico:"🧊",tag:"Próximamente",play:false,mode:"",d:"Jugar con una sola frase: todos escriben una pregunta y después cada jugador dibuja las mismas frases. Al final se muestran juntos todos los dibujos de la misma frase. Pensado para conocerse."},
- {n:"Cadáver exquisito",ico:"🧟",tag:"Próximamente",play:false,mode:"",d:"Crear personajes surrealistas en 3 turnos: cabeza, torso y piernas. Cada jugador solo ve la franja inferior del dibujo anterior, así que dibuja su parte a ciegas."},
- {n:"Complementar",ico:"🍎",tag:"Próximamente",play:false,mode:"",d:"Completar el boceto: en el primer turno cada uno dibuja unas líneas aleatorias con muy poco tiempo, y los demás las completan hasta convertirlas en un dibujo completo. Las líneas iniciales no se pueden borrar."},
- {n:"Obra maestra",ico:"🖼️",tag:"Próximamente",play:false,mode:"",d:"Crear una obra de arte en un solo turno por jugador, sin límite de tiempo y sin escritura. Para dibujar con calma y lucirse."},
- {n:"Historia",ico:"📖",tag:"Próximamente",play:false,mode:"",d:"Solo escritura, sin dibujos: cada jugador continúa la historia con la frase siguiente a partir de la frase anterior que recibe. Al final queda una historia colectiva."},
- {n:"Pieza que falta",ico:"🧩",tag:"Próximamente",play:false,mode:"",d:"Empezar con un dibujo incompleto: en cada turno se añade una parte y se pierde otra, porque el juego borra la parte original al pasar al siguiente jugador."},
- {n:"Secreto",ico:"🤫",tag:"Próximamente",play:false,mode:"",d:"Igual que Normal, pero no ves lo que haces en tu propio turno: al escribir, tus palabras aparecen censuradas; al dibujar, la pantalla está en blanco o los trazos desaparecen. El modo más caótico."},
- {n:"Cooperativo",ico:"🤝",tag:"Próximamente",play:false,mode:"",d:"Crear juntos: 6 turnos (1 de escritura + 5 de dibujo). A partir de una frase, todos van añadiendo trazos al mismo dibujo, por turnos, hasta completar una única ilustración."},
- {n:"Puntuación",ico:"🏆",tag:"Próximamente",play:false,mode:"",d:"Igual que Normal, pero se anota 1 punto cada vez que se mantiene el significado del eslabón anterior. Al final hay marcador. El criterio exacto no está publicado por el juego original."},
- {n:"Sándwich",ico:"🥪",tag:"Próximamente",play:false,mode:"",d:"Empezar escribiendo y seguir dibujando turno tras turno, viendo el dibujo anterior brevemente. Al final, una última fase de escritura describe el último dibujo y cierra la cadena."},
- {n:"Fondo",ico:"🌄",tag:"Próximamente",play:false,mode:"",d:"Animaciones con contexto: primero un jugador dibuja un fondo fijo que permanece en todos los fotogramas, y el resto anima personajes y acción sobre ese fondo. Con el doble de fotogramas que Animación."},
- {n:"Solo",ico:"🧍",tag:"Próximamente",play:false,mode:"",d:"Haz tu propia animación en 5 fotogramas: un solo jugador crea su animación calcando tenuemente su fotograma anterior en cada turno. También se puede jugar con amigos a la vez, cada uno con la suya."}
+ {n:"Personalizado",ico:"⚙️",tag:"Ajustes propios",play:true,mode:"custom",d:"Normal con tus reglas: elige el tiempo, la secuencia (escribir y dibujar o solo dibujar), cuántas rondas (todas o aleatorias), si se sigue dibujando sobre el anterior, puntuación y secreto. Los ajustes se cambian en la pestaña AJUSTES PERSONALIZADOS."},
+ {n:"Imitación",ico:"🖼️",tag:"Jugable en v2.4",play:true,mode:"knockoff",d:"Replicar los dibujos de memoria: miras el dibujo anterior brevemente y, en cuanto empiezas a trazar, desaparece. El tiempo se acorta en cada ronda. Solo se dibuja después de la frase inicial."},
+ {n:"Animación",ico:"🎞️",tag:"Jugable en v2.4",play:true,mode:"animation",d:"Crear animaciones de forma colaborativa, sin escritura. Cada jugador dibuja un fotograma calcando tenuemente el anterior, y al final se monta como animación con reproductor."},
+ {n:"Rompehielos",ico:"🧊",tag:"Jugable en v2.4",play:true,mode:"icebreaker",d:"Jugar con una sola frase: todos escriben una pregunta y después TODOS dibujan cada pregunta. Al final se muestran juntos todos los dibujos de cada pregunta. Pensado para conocerse."},
+ {n:"Cadáver exquisito",ico:"🧟",tag:"Jugable en v2.4",play:true,mode:"corpse",d:"Crear personajes surrealistas en 3 turnos: cabeza, torso y piernas. Cada jugador solo ve la franja inferior del dibujo anterior, así que dibuja su parte a ciegas."},
+ {n:"Complementar",ico:"🍎",tag:"Jugable en v2.4",play:true,mode:"complement",d:"Completar el boceto: en el primer turno cada uno dibuja unas líneas con muy poco tiempo, y los demás las completan hasta convertirlas en un dibujo completo. Las líneas iniciales no se pueden borrar."},
+ {n:"Obra maestra",ico:"🖼️",tag:"Jugable en v2.4",play:true,mode:"masterpiece",d:"Crear una obra de arte en un solo turno por jugador, sin límite de tiempo y sin escritura. Para dibujar con calma y lucirse."},
+ {n:"Historia",ico:"📖",tag:"Jugable en v2.4",play:true,mode:"story",d:"Solo escritura, sin dibujos: cada jugador continúa la historia con la frase siguiente a partir de la frase anterior que recibe. Al final queda una historia colectiva."},
+ {n:"Pieza que falta",ico:"🧩",tag:"Jugable en v2.4",play:true,mode:"missing",d:"Empezar con un dibujo incompleto: en cada turno se dibuja encima y se pierde la parte más antigua, porque solo queda la última parte añadida."},
+ {n:"Secreto",ico:"🤫",tag:"Jugable en v2.4",play:true,mode:"secret",d:"Igual que Normal, pero no ves lo que haces en tu propio turno: al escribir, tus palabras aparecen censuradas; al dibujar, los trazos se van desvaneciendo. El modo más caótico."},
+ {n:"Cooperativo",ico:"🤝",tag:"Jugable en v2.4",play:true,mode:"coop",d:"Crear juntos: 6 turnos (1 de escritura + 5 de dibujo). A partir de una frase, todos van añadiendo trazos al mismo dibujo, por turnos, hasta completar una única ilustración."},
+ {n:"Puntuación",ico:"🏆",tag:"Jugable en v2.4",play:true,mode:"score",d:"Igual que Normal, pero se anota 1 punto por cada eslabón que mantiene el significado del anterior. Al final del álbum, el grupo marca los eslabones que lo mantuvieron y se ve el marcador."},
+ {n:"Sándwich",ico:"🥪",tag:"Jugable en v2.4",play:true,mode:"sandwich",d:"Empezar escribiendo y seguir dibujando turno tras turno, viendo el dibujo anterior brevemente. Al final, una última fase de escritura describe el último dibujo y cierra la cadena."},
+ {n:"Fondo",ico:"🌄",tag:"Jugable en v2.4",play:true,mode:"background",d:"Animaciones con contexto: primero un jugador dibuja un fondo fijo que permanece en todos los fotogramas, y el resto anima personajes y acción sobre ese fondo, calcando el fotograma anterior. El doble de fotogramas que Animación."},
+ {n:"Solo",ico:"🧍",tag:"Jugable en v2.4",play:true,mode:"solo",d:"Haz tu propia animación en 5 fotogramas: un solo jugador crea su animación calcando tenuemente su fotograma anterior en cada turno. También se puede jugar con amigos a la vez, cada uno con la suya."}
 ];
+
+/* ---------- especificaciones de cada modo (v2.4) ----------
+   Cada modo es una variación del motor de cadenas del Normal:
+   - steps(n): cuántos pasos tiene cada cadena (n = nº de jugadores).
+   - type(step, n): qué se hace en cada paso ("write" | "draw" | "describe").
+   - time(type, step, settings): segundos de ese paso (0 = sin límite).
+   - min: mínimo de jugadores. self: cada jugador trabaja en su propia
+     cadena (Solo). secret: censurar lo que uno mismo hace. memory: ver el
+     dibujo anterior solo antes de empezar a trazar (Imitación, Sándwich).
+     accumulate: dibujar encima del dibujo acumulado (Cooperativo,
+     Complementar, Fondo). strokesOnly: al pasar, solo queda la última
+     parte añadida (Pieza que falta). strip: solo se ve la franja inferior
+     del dibujo anterior (Cadáver exquisito). onion: piel de cebolla con
+     el fotograma anterior (Animación, Fondo, Solo). bg: el paso 0 dibuja
+     el fondo fijo (Fondo). scoring: votar en el álbum qué eslabones
+     mantuvieron el significado (Puntuación). album "anim": el álbum es un
+     reproductor de fotogramas. */
+function normalType(step){ return step===0 ? "write" : (step%2===1 ? "draw" : "describe"); }
+function normalTime(type, step, st){ if(type==="write") return st.write||0; if(type==="draw") return st.draw||0; return st.describe||0; }
+
+/* ---------- modo Personalizado (ajustes propios, basado en Normal) ----------
+   «Personalizado» no es un preset más: es la configuración de una partida
+   basada en Normal, con su configuración efectiva validada al empezar
+   (secuencia, duración por tipo de tarea, rondas, acumulación, puntuación
+   y secreto). El anfitrión comparte la configuración congelada y los
+   presets siguen usando sus reglas actuales. */
+var CURRENT_CUSTOM_CFG = null; /* configuración efectiva de la partida personalizada en curso */
+function effectiveCustom(){
+  var c=S.custom;
+  var times = c.time==="rapido" ? {write:30, draw:45, describe:30} : c.time==="lento" ? {write:90, draw:120, describe:90} : {write:45, draw:60, describe:45};
+  return { time:c.time, times:times,
+    sequence: c.sequence==="draw-only" ? "draw-only" : "write-draw",
+    turns: c.turns==="random" ? "random" : "all",
+    randomRounds: null, /* se sortea una sola vez al empezar, si toca */
+    keep: c.keep==="on", score: c.score==="on", secret: c.secret==="on" };
+}
+/* Rondas: «Todos» juega tantas rondas como jugadores; «Aleatorios» sortea
+   una duración entre 2 y el máximo válido (nº de jugadores), una sola vez
+   al iniciar. Todos juegan en cada ronda. */
+function customSteps(cfg, n){ if(cfg && cfg.turns==="random" && cfg.randomRounds) return cfg.randomRounds; return n; }
+function customType(step, cfg){ if(cfg && cfg.sequence==="draw-only") return "draw"; return normalType(step); }
+function customSpec(){
+  var c=CURRENT_CUSTOM_CFG||{};
+  return {min:3, steps:function(n){ return customSteps(c,n); }, type:function(s){ return customType(s,c); },
+    time:function(t,s,st){ return (c.times||{})[t]||0; }, wifi:true,
+    secret:!!c.secret, scoring:!!c.score};
+}
+var MODE_SPECS = {
+  normal:    {min:3, steps:function(n){ return n; }, type:normalType, time:normalTime, wifi:true},
+  custom:    {min:3, steps:function(n){ return n; }, type:normalType, time:normalTime, wifi:true},
+  story:     {min:3, steps:function(n){ return n; }, type:function(){ return "write"; }, time:function(t,s,st){ return st.write||0; }, wifi:true},
+  masterpiece:{min:2, steps:function(){ return 1; }, type:function(){ return "draw"; }, time:function(){ return 0; }, wifi:true},
+  secret:    {min:3, steps:function(n){ return n; }, type:normalType, time:function(t,s,st){ var v=normalTime(t,s,st); return v?Math.max(15,Math.round(v*0.66)):0; }, wifi:true, secret:true},
+  sandwich:  {min:3, steps:function(n){ return n; }, type:function(s,n){ return s===0 ? "write" : (s===n-1 ? "describe" : "draw"); }, time:normalTime, wifi:true, memory:true},
+  score:     {min:3, steps:function(n){ return n; }, type:normalType, time:normalTime, wifi:true, scoring:true},
+  icebreaker:{min:3, steps:function(n){ return n; }, type:function(s){ return s===0 ? "write" : "draw"; }, time:normalTime, wifi:true, icebreaker:true},
+  knockoff:  {min:3, steps:function(n){ return n; }, type:function(s){ return s===0 ? "write" : "draw"; }, time:function(t,s,st){ if(t==="write") return st.write||0; var base=st.draw||60; return Math.max(20, base-10*(s-1)); }, wifi:true, memory:true},
+  complement:{min:3, steps:function(n){ return n; }, type:function(){ return "draw"; }, time:function(t,s,st){ return s===0 ? 15 : (st.draw||60); }, wifi:true, accumulate:true, noErase:true},
+  missing:   {min:3, steps:function(n){ return n; }, type:function(){ return "draw"; }, time:function(t,s,st){ return st.draw||60; }, wifi:true, strokesOnly:true},
+  corpse:    {min:1, steps:function(){ return 3; }, type:function(){ return "draw"; }, time:function(t,s,st){ return st.draw||60; }, wifi:true, strip:true, parts:["Cabeza","Torso","Piernas"]},
+  coop:      {min:3, steps:function(){ return 6; }, type:function(s){ return s===0 ? "write" : "draw"; }, time:normalTime, wifi:true, accumulate:true},
+  animation: {min:2, steps:function(n){ return n; }, type:function(){ return "draw"; }, time:function(t,s,st){ return st.draw||60; }, wifi:true, onion:true, album:"anim"},
+  background:{min:2, steps:function(n){ return 2*n+1; }, type:function(){ return "draw"; }, time:function(t,s,st){ return Math.round((st.draw||60)*1.5); }, wifi:true, bg:true, onion:true, album:"anim"},
+  solo:      {min:1, steps:function(){ return 5; }, type:function(){ return "draw"; }, time:function(t,s,st,n){ return (n&&n<=1)?0:(st.draw||60); }, wifi:true, onion:true, self:true, album:"anim"}
+};
+function specFor(modeId){ if(modeId==="custom") return customSpec(); return MODE_SPECS[modeId] || MODE_SPECS.normal; }
+function modeName(modeId){
+  for(var i=0;i<MODES.length;i++) if(MODES[i].mode===modeId) return MODES[i].n;
+  return modeId==="guess" ? "Adivina el dibujo" : "Normal";
+}
 
 /* Palabras de Adivina el dibujo: 75, una sola palabra cada una (sin
    espacios, para que la pista de guiones sea clara), 15 por tema. */
@@ -688,15 +875,40 @@ function navReset(){ navStack=["screen-home"]; }
 function stopCountdown(){ if(S.cdTimer){ clearInterval(S.cdTimer); S.cdTimer=null; } }
 function stopAll(){
   stopTimer(); guessStopTimers(); stopNetPoll(); stopJoinPoll(); stopCountdown();
+  stopAnimPlayer(); stopDrawFade();
 }
+function stopAnimPlayer(){ if(S.animTimer){ clearInterval(S.animTimer); S.animTimer=null; } S.animPlaying=false; }
+function stopDrawFade(){ if(S.draw.fadeTimer){ clearInterval(S.draw.fadeTimer); S.draw.fadeTimer=null; } }
 function leaveGame(){
   /* Salir de una partida en curso: se pierde lo jugado. Si eres el
-     anfitrión wifi, la sala se cierra para los demás. */
+     anfitrión wifi, la sala se cierra para los demás. Se detienen sondeos,
+     temporizadores y reintentos, y se invalidan las respuestas pendientes
+     de esa sesión. */
   stopAll();
-  if(S.wifi.host){ HOST.active=false; HOST.started=false; HOST.engine=null; HOST.guess=null; }
+  S.net.submitToken=(S.net.submitToken||0)+1;
+  if(S.wifi.transport && !S.wifi.host && S.transport && S.transport.leave){ try{ S.transport.leave(); }catch(e){} }
+  if(S.wifi.host){ HOST.active=false; HOST.started=false; HOST.engine=null; HOST.guess=null; stopLanServer(); }
+  if(HOST.timer){ clearInterval(HOST.timer); HOST.timer=null; }
+  if(HOST.watchdog){ clearInterval(HOST.watchdog); HOST.watchdog=null; }
   S.engine=null; S.guess.engine=null;
   S.wifi.host=false; S.wifi.players=[];
   navReset(); show("screen-home");
+}
+/* Para el servidor local: elimina el listener onRequest (guardado al crear
+   la sala) y llama a disconnect(). Así al reabrir la sala se crea un solo
+   listener y no se responde dos veces a la misma petición. */
+function stopLanServer(){
+  if(S.wifi.lanListener){
+    try{
+      var h=S.wifi.lanListener; S.wifi.lanListener=null; S.wifi.lanListening=false;
+      if(h && typeof h.then==="function"){ h.then(function(handle){ if(handle && handle.remove) handle.remove(); }).catch(function(){}); }
+      else if(h && h.remove){ h.remove(); }
+    }catch(e){}
+  }
+  var plugin=(window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.LanServer) || window.LanServer || null;
+  if(plugin && typeof plugin.disconnect==="function"){
+    try{ var r=plugin.disconnect(); if(r && r.catch) r.catch(function(){}); }catch(e){}
+  }
 }
 function askLeaveGame(){
   openLeaveModal("SALIR DE LA PARTIDA", "¿Salir de la partida? Se pierde la partida en curso.", leaveGame);
@@ -708,7 +920,7 @@ function goBack(){
   if(st && st.classList.contains("open")){ st.classList.remove("open"); return; }
   var cur=currentScreen();
   if(IN_GAME_SCREENS.indexOf(cur)>=0){ askLeaveGame(); return; }
-  if(cur==="screen-create-wifi" && S.wifi.host){ HOST.active=false; S.wifi.host=false; }
+  if(cur==="screen-create-wifi" && S.wifi.host){ HOST.active=false; S.wifi.host=false; stopLanServer(); }
   if(cur==="screen-join-wifi"){ stopJoinPoll(); }
   if(navStack.length>1){
     navStack.pop();
@@ -755,7 +967,7 @@ function savePrefs(){ try{ localStorage.setItem("gartic-movil-ajustes", JSON.str
    aproximación afinada a ese carácter; Roi los juzga a oído en su teléfono.
    Frecuencias y caídas en LEEME_APK.md. */
 var AudioFX=(function(){
-  var ctx=null;
+  var ctx=null, alarmNodes=null;
   function ac(){ if(!ctx){ try{ ctx=new (window.AudioContext||window.webkitAudioContext)(); }catch(e){ ctx=null; } } if(ctx&&ctx.state==="suspended") ctx.resume(); return ctx; }
   function tone(freq,dur,o){
     if(!prefs.sound) return; var c=ac(); if(!c) return; o=o||{};
@@ -769,18 +981,38 @@ var AudioFX=(function(){
   }
   return {
     unlock:function(){ ac(); },
-    /* Sonidos medidos del original (vídeos de Vegetta777, ver LEEME):
-       al empezar cada turno suena un arpegio ascendente Sol5 (784 Hz)
-       → La5 (880 Hz) → Re6 (1174 Hz), notas separadas ~90 ms y cada una
-       ~0,2 s con caída rápida (vídeo 2 h JzQOa0IW6IQ, 797,1-797,4 s y
-       en cada cambio de turno; vídeo 16 min avQw9MnhpIo, 80,9-81,0 s).
-       La cuenta atrás usa esas mismas notas (3→784, 2→880, 1→1174) y
-       el "¡ya!" es el repique de dos tonos 1314 + 1550 Hz medido justo
-       antes del arpegio en los cambios de turno (795,58 s y 947,3 s). */
-    count:function(n){ if(n===true){ tone(1314,0.4,{vol:0.26}); tone(1550,0.4,{vol:0.2}); return; } var f={3:784,2:880,1:1174}[n]||784; tone(f,0.2,{vol:0.24}); },
-    tick:function(){ tone(1250,0.045,{vol:0.1}); },
+    /* Sonidos medidos del original (vídeos, ver LEEME y
+       VERIFICACION/v2.4/cuenta-atras/):
+       - Cuenta atrás: tic de ~1245 Hz por número y, al llegar a 0, el
+         arpegio 784→880→1174 Hz. Sin «¡ya!»: el 1314+1550 Hz es la
+         alarma de poco tiempo, no el final de la cuenta atrás.
+       - Cambio de turno: arpegio 784→880→1174 Hz.
+       - Alarma de poco tiempo: dos tonos sostenidos 1314 + 1550 Hz que
+         arrancan cuando el temporizador baja a ~1/6 y suenan hasta el
+         fin del turno (el dial se pone amarillo). */
+    count:function(n){ if(n===true){ this.turn(); return; } tone(1245,0.25,{vol:0.22}); },
+    alarmStart:function(){
+      if(alarmNodes) return; if(!prefs.sound) return; var c=ac(); if(!c) return;
+      var g=c.createGain(); g.gain.setValueAtTime(0.0001,c.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.09,c.currentTime+0.05);
+      g.connect(c.destination);
+      var o1=c.createOscillator(), o2=c.createOscillator();
+      o1.type="sine"; o2.type="sine";
+      o1.frequency.setValueAtTime(1314,c.currentTime);
+      o2.frequency.setValueAtTime(1550,c.currentTime);
+      o1.connect(g); o2.connect(g); o1.start(); o2.start();
+      alarmNodes={o1:o1,o2:o2,g:g};
+    },
+    alarmStop:function(){
+      if(!alarmNodes) return; var n=alarmNodes; alarmNodes=null;
+      try{ var t=n.g.context.currentTime; n.g.gain.cancelScheduledValues(t); n.g.gain.setValueAtTime(n.g.gain.value,t); n.g.gain.exponentialRampToValueAtTime(0.0001,t+0.1); n.o1.stop(t+0.15); n.o2.stop(t+0.15); }catch(e){}
+    },
     turn:function(){ tone(784,0.2,{vol:0.24}); setTimeout(function(){ tone(880,0.2,{vol:0.24}); },90); setTimeout(function(){ tone(1174,0.25,{vol:0.24}); },180); },
-    chime:function(){ tone(1314,0.5,{vol:0.24}); tone(1550,0.5,{vol:0.18}); },
+    /* Fin de ronda / álbum: acorde mayor (523+659+784 Hz a la vez), distinto
+       de la alarma de poco tiempo (1314+1550 Hz sostenidos) y del arpegio
+       de cambio de turno (784→880→1174 Hz seguidos). No es un sonido medido
+       del original: se eligió para que no se confunda con la alarma. */
+    chime:function(){ tone(523,0.5,{vol:0.2}); tone(659,0.5,{vol:0.2}); tone(784,0.5,{vol:0.2}); },
     hit:function(){ tone(659,0.22,{vol:0.26}); setTimeout(function(){ tone(880,0.4,{vol:0.28}); },100); setTimeout(function(){ tone(1318,0.3,{vol:0.18}); },200); }
   };
 })();
@@ -798,7 +1030,22 @@ function renderAvatarGrid(){
     g.appendChild(b);
   });
   $("nick").value = profile.nick||"";
+  renderProfileBox();
 }
+/* Perfil plegable del inicio: si el apodo ya está guardado, el inicio
+   muestra solo el resumen (avatar + apodo + «Cambiar perfil») para que
+   los botones quepan sin bajar; el editor se abre al tocarlo. */
+function renderProfileBox(){
+  var sum=$("profileSummary"), ed=$("profileEditor");
+  if(!sum||!ed) return;
+  var has=!!profile.nick;
+  sum.classList.toggle("hidden", !has || S.profileEditing);
+  sum.style.display=(!has || S.profileEditing)?"none":"flex";
+  ed.classList.toggle("hidden", has && !S.profileEditing);
+  if(has){ $("profileSummaryAvatar").textContent=profile.avatar; $("profileSummaryNick").textContent=profile.nick; }
+}
+$("btnEditProfile").addEventListener("click", function(){ S.profileEditing=true; renderProfileBox(); });
+$("btnProfileDone").addEventListener("click", function(){ saveProfile(true); S.profileEditing=false; renderProfileBox(); });
 function saveProfile(silent){
   profile.nick = $("nick").value.trim().slice(0,20);
   try{ localStorage.setItem("gartic-movil-perfil", JSON.stringify(profile)); }catch(e){}
@@ -823,18 +1070,25 @@ function saveProfile(silent){
    si se atasca, se reintenta. Como último recurso, el orden cíclico con
    los jugadores re-etiquetados al azar, que también es aleatorio y válido
    (y nadie dibuja su propia frase). */
-function buildOrders(n){
+function buildOrders(n, steps, self){
+  steps = steps || n;
+  if(self){
+    /* Solo: cada jugador trabaja en su propia cadena (su animación). */
+    var idn=[];
+    for(var c0=0;c0<n;c0++){ var r0=[]; for(var s0=0;s0<steps;s0++) r0.push(c0); idn.push(r0); }
+    return idn;
+  }
   for(var attempt=0; attempt<100; attempt++){
     var orders=[];
     var ok=true;
     for(var c=0;c<n;c++){
       var row=[c];
-      for(var s=1;s<n;s++){
+      for(var s=1;s<steps;s++){
         var usedCol=[];
         for(var r=0;r<c;r++) usedCol.push(orders[r][s]);
         var cand=[];
         for(var p=0;p<n;p++){
-          if(row.indexOf(p)>=0) continue;
+          if(s<n && row.indexOf(p)>=0) continue; /* en los primeros n pasos, sin repetir en la fila */
           if(usedCol.indexOf(p)>=0) continue;
           if(s===1 && p===c) continue; /* nadie dibuja su propia frase */
           cand.push(p);
@@ -847,16 +1101,60 @@ function buildOrders(n){
     }
     if(ok && orders.length===n) return orders;
   }
-  var sigma=shuffle([0,1,2,3,4,5,6,7].slice(0,n));
-  var inv=[]; for(var i=0;i<n;i++) inv[sigma[i]]=i;
+  /* Respaldo garantizado (cuadrado latino cíclico): si el reparto aleatorio
+     se atasca, no se usa una lista fija de 8 índices (con 10 o 14 jugadores
+     salían asignaciones vacías o repetidas). Los índices se construyen
+     desde el nº real de jugadores: se baraja el orden de jugadores y los
+     desplazamientos de ronda, con desplazamiento 0 en la primera. Para la
+     cadena cuyo autor ocupa la posición j en el orden barajado, el jugador
+     del paso s es orden[(j + desplazamiento[s]) % n]. Cada columna es una
+     permutación (cada jugador hace exactamente una tarea por paso) y el
+     paso 1 nunca es el autor. Si hay más pasos que jugadores, los
+     desplazamientos de los ciclos siguientes se vuelven a barajar. */
+  return cyclicOrders(n, steps);
+}
+function cyclicOrders(n, steps){
+  var idx=[]; for(var i=0;i<n;i++) idx.push(i);
+  var order=shuffle(idx);
+  var inv=[]; for(var i=0;i<n;i++) inv[order[i]]=i;
+  var rest=[]; for(var i=1;i<n;i++) rest.push(i);
+  rest=shuffle(rest);
+  var shifts=[];
+  for(var s=0;s<steps;s++){
+    if(s===0) shifts.push(0);
+    else if(s<n) shifts.push(rest[s-1]);
+    else shifts.push(Math.floor(Math.random()*n));
+  }
   var out=[];
-  for(var c2=0;c2<n;c2++){ var r2=[]; for(var s2=0;s2<n;s2++) r2.push(sigma[(inv[c2]+s2)%n]); out.push(r2); }
+  for(var c=0;c<n;c++){ var r=[]; for(var s2=0;s2<steps;s2++) r.push(order[(inv[c]+shifts[s2])%n]); out.push(r); }
   return out;
 }
-function GameEngine(players, settings){
+/* Valida un reparto antes de empezar: cada columna asigna exactamente una
+   tarea a cada jugador (permutación de 0..n-1), cada índice es válido y el
+   paso 1 no es el autor de la cadena (salvo con 1 jugador, que no tiene
+   más remedio). El reparto propio de Solo no se valida aquí. */
+function validateOrders(orders, n, steps){
+  if(!orders || orders.length!==n) return false;
+  for(var c=0;c<n;c++){
+    if(!orders[c] || orders[c].length!==steps) return false;
+    for(var s=0;s<steps;s++){ var v=orders[c][s]; if(typeof v!=="number" || v<0 || v>=n || Math.floor(v)!==v) return false; }
+    if(steps>1 && n>1 && orders[c][1]===c) return false;
+  }
+  for(var s3=0;s3<steps;s3++){
+    var seen={};
+    for(var c2=0;c2<n;c2++){ if(seen[orders[c2][s3]]) return false; seen[orders[c2][s3]]=true; }
+  }
+  return true;
+}
+function GameEngine(players, settings, modeId, customCfg){
   this.players = players.slice();
   this.settings = settings || {write:45, draw:60, describe:45};
+  this.mode = modeId || "normal";
+  this.customCfg = customCfg || null;
+  if(this.mode==="custom" && this.customCfg) CURRENT_CUSTOM_CFG = this.customCfg;
+  this.spec = specFor(this.mode);
   this.n = players.length;
+  this.steps = (this.mode==="custom") ? customSteps(this.customCfg, this.n) : this.spec.steps(this.n);
   this.chains = [];
   this.step = 0;
   this.finished = false;
@@ -867,8 +1165,13 @@ function GameEngine(players, settings){
 GameEngine.prototype.start = function(){
   this.chains = [];
   for(var i=0;i<this.n;i++) this.chains.push({origin:i, links:[]});
-  this.orders = buildOrders(this.n);
-  for(var s=0;s<this.n;s++){
+  this.orders = buildOrders(this.n, this.steps, !!this.spec.self);
+  /* El reparto se valida antes de empezar (y se regenera con el respaldo
+     garantizado si falla): cada columna asigna exactamente una tarea a
+     cada jugador y el paso 1 no es el autor. */
+  if(!this.spec.self && !validateOrders(this.orders, this.n, this.steps)) this.orders = cyclicOrders(this.n, this.steps);
+  this.stepMap = [];
+  for(var s=0;s<this.steps;s++){
     this.stepMap.push([]);
     for(var c=0;c<this.n;c++) this.stepMap[s][this.orders[c][s]] = c;
   }
@@ -878,21 +1181,44 @@ GameEngine.prototype.chainFor = function(playerIdx, step){
   if(this.stepMap && this.stepMap[step] && this.stepMap[step][playerIdx]!=null) return this.stepMap[step][playerIdx];
   return (playerIdx - step + this.n*2) % this.n;
 };
-GameEngine.prototype.taskType = function(step){ return step===0 ? "write" : (step%2===1 ? "draw" : "describe"); };
+GameEngine.prototype.taskType = function(step){ if(this.mode==="custom") return customType(step, this.customCfg); return this.spec.type(step, this.n); };
 GameEngine.prototype.taskFor = function(playerIdx, step){
   step = (step==null? this.step : step);
   var ci = this.chainFor(playerIdx, step);
   var chain = this.chains[ci];
   var type = this.taskType(step);
-  var t = { player:playerIdx, chain:ci, step:step, type:type };
-  if(type==="draw") t.promptText = chain.links[chain.links.length-1].text;
-  if(type==="describe") t.promptImage = chain.links[chain.links.length-1].image;
+  var t = { player:playerIdx, chain:ci, step:step, type:type, secret:!!(this.spec.secret || (this.customCfg && this.customCfg.secret)) };
+  /* El motor del cliente en wifi no llama a start(): sus cadenas están
+     vacías y no hay eslabón anterior; se devuelve la tarea sin pista en
+     vez de reventar. */
+  var last = (chain && chain.links.length) ? chain.links[chain.links.length-1] : null;
+  if(this.spec.icebreaker && type==="draw"){
+    /* Rompehielos: todos dibujan la MISMA pregunta (la frase inicial de
+       la cadena), no el dibujo anterior. Así cada pregunta la dibujan
+       todos los jugadores y el álbum las agrupa. */
+    if(chain && chain.links.length && chain.links[0].type==="text") t.promptText = chain.links[0].text;
+  }
+  else if(type==="draw" && last){
+    if(last.type==="text") t.promptText = last.text;
+    else { t.promptImage = last.image; if(last.strokes) t.promptStrokes = last.strokes; }
+  }
+  if(this.spec.strokesOnly && type==="draw" && last && last.type==="draw" && last.strokes){
+    /* Pieza que falta: se dibuja ENCIMA de la última parte añadida; la
+       parte más antigua ya no está. Solo sobreviven los trazos de
+       pincel/borrador del eslabón anterior (las formas y el cubo no se
+       guardan como trazos, como en el fondo acumulado). */
+    t.promptImage = strokesImage(last.strokes);
+  }
+  if(type==="describe" && last){
+    if(last.type==="draw") t.promptImage = last.image;
+    else t.promptText = last.text;
+  }
+  if(type==="write" && last && last.type==="text") t.promptText = last.text;
   return t;
 };
-GameEngine.prototype.timeFor = function(type){
-  if(type==="write") return this.settings.write||0;
-  if(type==="draw") return this.settings.draw||0;
-  return this.settings.describe||0;
+GameEngine.prototype.timeFor = function(type, step){
+  if(this.mode==="custom"){ var t=(this.customCfg&&this.customCfg.times)||{}; return t[type]||0; }
+  return this.spec.time(type, step, this.settings, this.n);
 };
 GameEngine.prototype.submit = function(playerIdx, step, link){
   if(this.finished) return false;
@@ -902,12 +1228,17 @@ GameEngine.prototype.submit = function(playerIdx, step, link){
   var clean = { author:playerIdx, type:link.type };
   if(link.type==="text"){ clean.text = (link.text||"").trim().slice(0,120) || "…"; }
   else { clean.image = link.image || ""; }
+  if(link.strokes) clean.strokes = link.strokes;
+  if(link.colors) clean.colors = link.colors;
+  /* Eslabón vacío del vigilante (el jugador no entregó): se marca para
+     que un reintento tardío del jugador no se confunda con su entrega. */
+  if(link.skipped) clean.skipped = true;
   chain.links.push(clean);
-  if(this.chains.every(function(c){ return c.links.length>=this.n; }, this)) this.finished=true;
+  if(this.chains.every(function(c){ return c.links.length>=this.steps; }, this)) this.finished=true;
   return true;
 };
 GameEngine.prototype.advance = function(){
-  if(this.step >= this.n-1){ this.finished = true; return false; }
+  if(this.step >= this.steps-1){ this.finished = true; return false; }
   this.step++; return true;
 };
 GameEngine.prototype.isFinished = function(){ return this.finished; };
@@ -929,6 +1260,13 @@ function GuessEngine(players, settings){
   this.round = 0; this.drawer = 0; this.phase = "lobby";
   this.word = ""; this.choices = []; this.revealed = [];
   this.strokes = []; this.chat = []; this.guessed = {};
+  /* Lienzo por Wi‑Fi (v2.4.1): se sincroniza el estado COMPLETO del lienzo
+     con un número de revisión, no la lista de trazos. Cada cambio
+     confirmado en el lienzo (pincel, borrador, formas, relleno, Deshacer,
+     Rehacer, Limpiar) incrementa la revisión de la ronda. El invitado
+     informa qué revisión tiene y el anfitrión le devuelve la imagen solo
+     si cambió. En un solo teléfono el flujo local no cambia. */
+  this.canvasRev = 0; this.canvasImage = "";
   this.correctCount = 0; this.timeLeft = 0; this.roundTime = this.settings.roundTime||60;
   this.roundSummaries = [];
   this.wordPool = shuffle(GUESS_WORDS.filter(function(w){ return this.settings.themes.indexOf(w.c)>=0; }.bind(this)).map(function(w){ return w.w; }));
@@ -950,7 +1288,12 @@ GuessEngine.prototype.beginRound = function(){
   this.drawer = this.round % this.n;
   this.choices = this.nextWords(3);
   this.word=""; this.revealed=[]; this.strokes=[]; this.chat=[]; this.guessed={};
+  this.canvasRev=0; this.canvasImage="";
   this.correctCount=0; this.timeLeft=this.roundTime; this.phase="choose";
+  /* Por wifi el dibujante elige desde su teléfono y su sondeo tarda ~1 s:
+     antes el anfitrión elegía solo al cabo de 1 s y el dibujante nunca veía
+     las opciones. Ahora tiene 15 s para elegir; si no elige, se auto-elige. */
+  this.chooseUntil=Date.now()+15000;
 };
 GuessEngine.prototype.chooseWord = function(playerIdx, word){
   if(this.phase!=="choose" || playerIdx!==this.drawer) return false;
@@ -961,7 +1304,7 @@ GuessEngine.prototype.chooseWord = function(playerIdx, word){
   return true;
 };
 GuessEngine.prototype.autoChoose = function(){
-  if(this.phase==="choose" && this.choices.length) this.chooseWord(this.drawer, this.choices[0]);
+  if(this.phase==="choose" && this.choices.length && Date.now()>=(this.chooseUntil||0)) this.chooseWord(this.drawer, this.choices[0]);
 };
 GuessEngine.prototype.hint = function(){
   if(!this.word) return "";
@@ -974,6 +1317,17 @@ GuessEngine.prototype.addStrokes = function(playerIdx, strokes){
   for(var i=0;i<strokes.length;i++) this.strokes.push(strokes[i]);
   if(this.strokes.length>600) this.strokes=this.strokes.slice(-600);
   return true;
+};
+/* Lienzo por Wi‑Fi: el dibujante sube la imagen completa del lienzo con
+   su revisión. El anfitrión conserva solo la última revisión aceptada de
+   la ronda, valida que provenga del dibujante de turno y descarta
+   revisiones viejas, duplicadas o de otra ronda. */
+GuessEngine.prototype.setCanvas = function(playerIdx, round, revision, image){
+  if(this.phase!=="draw" || playerIdx!==this.drawer) return {ok:false};
+  if(round!==this.round) return {ok:false, stale:true};
+  if(typeof revision!=="number" || revision<=this.canvasRev) return {ok:false, dup:true};
+  this.canvasRev=revision; this.canvasImage=image||"";
+  return {ok:true, rev:this.canvasRev};
 };
 GuessEngine.prototype.guess = function(playerIdx, text){
   if(this.phase!=="draw" || playerIdx===this.drawer) return {correct:false};
@@ -1035,37 +1389,103 @@ LocalTransport.prototype.getState = function(){ return Promise.resolve({step:thi
 LocalTransport.prototype.submit = function(playerIdx, step, link){ var ok=this.engine.submit(playerIdx, step, link); return Promise.resolve({ok:ok}); };
 LocalTransport.prototype.start = function(){ this.engine.start(); return Promise.resolve({ok:true}); };
 
+/* Puente nativo de Capacitor para HTTP. En la APK la WebView es HTTPS y el
+   anfitrión HTTP, así que fetch al anfitrión es contenido mixto bloqueado;
+   CapacitorHttp.request va por el puente nativo y no tiene ese bloqueo.
+   En el navegador (simulación) no hay puente y se usa fetch. */
+function nativeHttp(){
+  try{ return (window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.CapacitorHttp) || null; }catch(e){ return null; }
+}
+/* Valida una dirección de sala local (IPv4 + puerto) antes de pedir nada:
+   evita pedir a direcciones imposibles como 999.999.999.999. */
+function validRoomAddress(baseUrl){
+  var m=/^https?:\/\/(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})(?::(\d{1,5}))?$/.exec(baseUrl||"");
+  if(!m) return false;
+  for(var i=1;i<=4;i++){ if(+m[i]>255) return false; }
+  if(m[5] && (+m[5]<1 || +m[5]>65535)) return false;
+  return true;
+}
 function HttpTransport(baseUrl){
   this.baseUrl = baseUrl.replace(/\/+$/,""); this.kind="http";
   this.disconnectedSince = null;
+  this.badAddress = !validRoomAddress(this.baseUrl);
 }
 HttpTransport.prototype._fetch = function(path, opts, timeoutMs){
+  var self=this;
+  if(this.badAddress){
+    var ae=new Error("dirección de sala no válida"); ae.kind="address";
+    return Promise.reject(ae);
+  }
+  var url=this.baseUrl+path;
+  var method=(opts&&opts.method)||"GET";
+  var body=(opts&&opts.body)||null;
+  var to=timeoutMs||3000;
+  var nh=nativeHttp();
+  if(nh && typeof nh.request==="function"){
+    /* En Android, por el puente nativo: sin contenido mixto y con los
+       mismos tiempos de espera que en el navegador. */
+    var p=nh.request({url:url, method:method, headers:{"Content-Type":"application/json"}, data:body||undefined, connectTimeout:to, readTimeout:to, responseType:"json"});
+    return p.then(function(r){
+      if(!r) throw new Error("sin respuesta");
+      if(r.status && (r.status<200 || r.status>=300)){ var he=new Error("http "+r.status); he.kind="http"; he.status=r.status; throw he; }
+      var d=r.data;
+      if(typeof d==="string"){ try{ d=JSON.parse(d); }catch(e){ d={}; } }
+      return (d&&typeof d==="object")?d:{};
+    }).catch(function(e){
+      if(e && e.kind) throw e;
+      var msg=String((e&&e.message)||e||"error de red");
+      var err=new Error(msg);
+      err.kind=/timeout|timed out|tiempo/i.test(msg)?"timeout":"network";
+      throw err;
+    });
+  }
   var ctrl = new AbortController();
-  var to = setTimeout(function(){ ctrl.abort(); }, timeoutMs||3000);
-  var p = fetch(this.baseUrl+path, Object.assign({signal:ctrl.signal, headers:{"Content-Type":"application/json"}}, opts||{}));
-  return p.then(function(r){ clearTimeout(to); return r.json().catch(function(){ return {}; }); })
-    .catch(function(e){ clearTimeout(to); throw e; });
+  var timer = setTimeout(function(){ ctrl.abort(); }, to);
+  var fp = fetch(url, Object.assign({signal:ctrl.signal, headers:{"Content-Type":"application/json"}}, opts||{}));
+  return fp.then(function(r){ clearTimeout(timer); if(!r.ok){ var he2=new Error("http "+r.status); he2.kind="http"; he2.status=r.status; throw he2; } return r.json().catch(function(){ return {}; }); })
+    .catch(function(e){ clearTimeout(timer); if(e && e.kind) throw e; var err2=new Error(String((e&&e.message)||e||"error de red")); err2.kind=(e && e.name==="AbortError")?"timeout":"network"; throw err2; });
 };
 HttpTransport.prototype.ping = function(){ return this._fetch("/ping", null, 3000); };
-HttpTransport.prototype.join = function(player){ return this._fetch("/api/join", {method:"POST", body:JSON.stringify(player)}, 3000); };
+HttpTransport.prototype.join = function(player){ return this._fetch("/api/join", {method:"POST", body:JSON.stringify(player)}, 8000); };
 HttpTransport.prototype.getState = function(){
   var self=this;
   return this._fetch("/api/state", {method:"POST", body:JSON.stringify({playerId:this.playerId||""})}, 3000).then(function(s){ self.disconnectedSince=null; return s; })
     .catch(function(e){ if(!self.disconnectedSince) self.disconnectedSince=Date.now(); throw e; });
 };
-HttpTransport.prototype.submit = function(playerIdx, step, link){ return this._fetch("/api/submit", {method:"POST", body:JSON.stringify({player:playerIdx, step:step, link:link})}, 5000); };
+HttpTransport.prototype.submit = function(playerIdx, step, link){ return this._fetch("/api/submit", {method:"POST", body:JSON.stringify({player:playerIdx, step:step, link:link})}, 15000); };
+HttpTransport.prototype.leave = function(){ if(!this.playerId) return Promise.resolve({}); return this._fetch("/api/leave", {method:"POST", body:JSON.stringify({playerId:this.playerId})}, 3000).catch(function(){ return {}; }); };
 HttpTransport.prototype.start = function(){ return this._fetch("/api/start", {method:"POST", body:JSON.stringify({})}, 3000); };
 /* Adivina por wifi: el transporte HTTP actual NO empuja nada (no hay
    WebSocket ni SSE en el plugin LanServer); los clientes sondean el
    estado cada ~0,9 s y el dibujante sube sus trazos en lotes. En la red
    local eso se ve "en vivo" con ~1 s de retraso. Para trazos realmente
    instantáneos haría falta añadir SSE o WebSocket al plugin. */
-HttpTransport.prototype.guessState = function(playerId){ return this._fetch("/api/guess/state", {method:"POST", body:JSON.stringify({playerId:playerId||""})}, 3000); };
+HttpTransport.prototype.guessState = function(playerId, knownRev){ return this._fetch("/api/guess/state", {method:"POST", body:JSON.stringify({playerId:playerId||"", knownRev:(typeof knownRev==="number"?knownRev:-1)})}, 3000); };
 HttpTransport.prototype.guessWord = function(playerId, word){ return this._fetch("/api/guess/word", {method:"POST", body:JSON.stringify({playerId:playerId, word:word})}, 3000); };
-HttpTransport.prototype.guessStroke = function(playerId, strokes){ return this._fetch("/api/guess/stroke", {method:"POST", body:JSON.stringify({playerId:playerId, strokes:strokes})}, 3000); };
+HttpTransport.prototype.guessCanvas = function(playerId, round, revision, image){ return this._fetch("/api/guess/canvas", {method:"POST", body:JSON.stringify({playerId:playerId, round:round, revision:revision, image:image})}, 5000); };
 HttpTransport.prototype.guessChat = function(playerId, text){ return this._fetch("/api/guess/chat", {method:"POST", body:JSON.stringify({playerId:playerId, text:text})}, 3000); };
 HttpTransport.prototype.guessEnd = function(playerId){ return this._fetch("/api/guess/end", {method:"POST", body:JSON.stringify({playerId:playerId})}, 3000); };
+HttpTransport.prototype.scoreVote = function(album, link, vote){ return this._fetch("/api/score/vote", {method:"POST", body:JSON.stringify({playerId:this.playerId||"", album:album, link:link, vote:!!vote})}, 3000); };
 HttpTransport.prototype.offlineSeconds = function(){ return this.disconnectedSince ? Math.round((Date.now()-this.disconnectedSince)/1000) : 0; };
+
+/* ---------- Anfitrión como un cliente más (wifi Normal) ----------
+   Antes el anfitrión jugaba TODOS los turnos en su propio teléfono con
+   el flujo de un solo teléfono («Pásale el teléfono a Ana…») mientras
+   los clientes esperaban su turno sin que les llegara nunca: el anfitrión
+   avanzaba el paso antes de que los clientes vieran su tarea y sus
+   entregas se rechazaban. Ahora el anfitrión juega como un cliente más:
+   sondea su propio estado (HostTransport, sin HTTP) y solo hace su turno
+   de cada paso, igual que los demás. */
+function HostTransport(){ this.kind="host"; this.playerId="me"; }
+HostTransport.prototype.getState = function(){ return Promise.resolve(hostNormalState({playerId:this.playerId||"me"})); };
+HostTransport.prototype.submit = function(playerIdx, step, link){ return Promise.resolve(hostSubmit({player:playerIdx, step:step, link:link})); };
+HostTransport.prototype.leave = function(){ return Promise.resolve({}); };
+HostTransport.prototype.guessState = function(playerId, knownRev){ return Promise.resolve(hostGuessState({playerId:playerId||"me", knownRev:knownRev})); };
+HostTransport.prototype.guessWord = function(playerId, word){ return Promise.resolve(hostGuessWord({playerId:playerId, word:word})); };
+HostTransport.prototype.guessCanvas = function(playerId, round, revision, image){ return Promise.resolve(hostGuessCanvas({playerId:playerId||"me", round:round, revision:revision, image:image})); };
+HostTransport.prototype.guessChat = function(playerId, text){ return Promise.resolve(hostGuessChat({playerId:playerId, text:text})); };
+HostTransport.prototype.guessEnd = function(playerId){ return Promise.resolve(hostGuessEnd({playerId:playerId})); };
+HostTransport.prototype.scoreVote = function(album, link, vote){ return Promise.resolve(hostScoreVote({playerId:"me", album:album, link:link, vote:!!vote})); };
 
 /* ---------- Anfitrión wifi: responde a /api/* desde JS ----------
    El plugin LanServer reenvía CUALQUIER petición HTTP a JS con el evento
@@ -1076,7 +1496,9 @@ HttpTransport.prototype.offlineSeconds = function(){ return this.disconnectedSin
 var HOST = {
   active:false, mode:"normal", code:"", maxPlayers:14,
   players:[], engine:null, guess:null, started:false,
-  settingsSummary:"", timer:null, resultUntil:0
+  settingsSummary:"", timer:null, resultUntil:0,
+  stepStartedAt:0, stepLimit:0, watchdog:null, skippedThisStep:[], kickedNames:[], left:{}, bgCache:{},
+  lastSeen:{}, gameId:"", customCfg:null, scoreVotes:{}
 };
 function hostPlayerIdx(id){
   for(var i=0;i<HOST.players.length;i++) if(HOST.players[i].id===id) return i;
@@ -1087,56 +1509,139 @@ function hostRouter(data){
   var p=data.path, m=(data.method||"GET").toUpperCase();
   try{
     if(p==="/api/join" && m==="POST") return hostJoin(body);
+    if(p==="/api/leave" && m==="POST") return hostLeave(body);
     if(p==="/api/state") return hostNormalState(body);
     if(p==="/api/start" && m==="POST") return hostStart(body);
     if(p==="/api/submit" && m==="POST") return hostSubmit(body);
     if(p==="/api/guess/state") return hostGuessState(body);
     if(p==="/api/guess/word" && m==="POST") return hostGuessWord(body);
-    if(p==="/api/guess/stroke" && m==="POST") return hostGuessStroke(body);
+    if(p==="/api/guess/canvas" && m==="POST") return hostGuessCanvas(body);
     if(p==="/api/guess/chat" && m==="POST") return hostGuessChat(body);
     if(p==="/api/guess/end" && m==="POST") return hostGuessEnd(body);
+    if(p==="/api/score/vote" && m==="POST") return hostScoreVote(body);
     return {ok:false, error:"ruta desconocida: "+p};
   }catch(err){ return {ok:false, error:String(err&&err.message||err)}; }
 }
 function hostJoin(body){
   if(!HOST.active) return {ok:false, error:"sala cerrada"};
+  var name=String(body.name||"Jugador").trim().slice(0,20)||"Jugador";
+  /* Reconexión: un jugador que ya estaba en la partida y se le cayó el
+     hotspot vuelve con su mismo id y se le deja entrar aunque ya empezó. */
+  var reId=String(body.playerId||"");
+  if(reId){
+    var ri=hostPlayerIdx(reId);
+    if(ri>=0) return {ok:true, reconnect:true, playerId:reId, players:HOST.players, mode:HOST.mode, settings:HOST.settingsSummary, started:HOST.started};
+  }
   if(String(body.code||"").toUpperCase()!==HOST.code) return {ok:false, error:"código incorrecto"};
   if(HOST.started) return {ok:false, error:"la partida ya empezó"};
   if(HOST.players.length>=HOST.maxPlayers) return {ok:false, error:"sala llena"};
-  var name=String(body.name||"Jugador").slice(0,20);
+  if(HOST.kickedNames.indexOf(name.toLowerCase())>=0) return {ok:false, error:"expulsado"};
+  /* Dos jugadores con el mismo apodo se confunden en el lobby y en el
+     álbum: el segundo entra como «Ana 2», «Ana 3»… */
+  var base=name, n=2;
+  while(HOST.players.some(function(p){ return p.name.toLowerCase()===name.toLowerCase(); })){ name=base+" "+n; n++; }
   var id="p"+Date.now().toString(36)+Math.floor(Math.random()*90+10);
   HOST.players.push({id:id, name:name, avatar:body.avatar||"🦊", host:false});
   if(S.wifi.host) S.wifi.players=HOST.players.slice();
   renderWifiLobby(); updateWifiStart();
   return {ok:true, playerId:id, players:HOST.players, mode:HOST.mode, settings:HOST.settingsSummary};
 }
+function hostLeave(body){
+  if(!HOST.active) return {ok:false};
+  var idx=hostPlayerIdx(body.playerId||"");
+  if(idx<0) return {ok:false};
+  var p=HOST.players[idx];
+  if(!HOST.started){
+    HOST.players.splice(idx,1);
+    if(S.wifi.host){ S.wifi.players=HOST.players.slice(); renderWifiLobby(); updateWifiStart(); }
+  } else {
+    /* En mitad de la partida no se puede quitar al jugador del motor (los
+       órdenes y las cadenas usan su índice): se marca como ido y el
+       vigilante salta su turno enseguida. */
+    HOST.left[p.id]=true;
+  }
+  return {ok:true};
+}
 function hostNormalState(body){
   if(!HOST.active) return {ok:false, error:"sin sala"};
+  /* Latido: cada sondeo actualiza cuándo se vio por última vez a cada
+     jugador; el vigilante lo usa para saltar rápido al que desapareció. */
+  if(body.playerId) HOST.lastSeen[body.playerId]=Date.now();
   var out={ok:true, code:HOST.code, mode:HOST.mode, players:HOST.players, started:HOST.started,
-    settings:HOST.settingsSummary, maxPlayers:HOST.maxPlayers};
+    settings:HOST.settingsSummary, maxPlayers:HOST.maxPlayers, skipped:HOST.skippedThisStep.slice(),
+    gameId:HOST.gameId, scoreVotes:HOST.scoreVotes};
+  if(HOST.mode==="custom" && HOST.customCfg) out.customCfg=HOST.customCfg;
   if(HOST.engine){
     out.step=HOST.engine.step; out.finished=HOST.engine.finished;
     if(HOST.engine.finished) out.albums=HOST.engine.albums();
     var idx=hostPlayerIdx(body.playerId||"");
     if(idx>=0 && HOST.started && !HOST.engine.finished){
       var t=HOST.engine.taskFor(idx, HOST.engine.step);
-      out.myTask={type:t.type, promptText:t.promptText||"", promptImage:t.promptImage||"", step:HOST.engine.step, time:HOST.engine.timeFor(t.type)};
+      var promptImg=t.promptImage||"";
+      /* Acumulados (Cooperativo, Complementar, Fondo): el cliente no recibe
+         solo el último eslabón, sino el fondo acumulado hasta este paso.
+         El fondo no cambia durante el paso (cada cadena recibe un solo
+         eslabón por paso), así que se cachea por cadena+paso: sin caché,
+         el anfitrión lo volvía a componer en cada sondeo (~1 s). */
+      if(HOST.engine.spec.accumulate || (HOST.engine.spec.bg && HOST.engine.step>0)){
+        var bgKey=t.chain+"-"+HOST.engine.step, upto=HOST.engine.spec.accumulate?HOST.engine.step:1;
+        if(!HOST.bgCache[bgKey]) HOST.bgCache[bgKey]=chainBackgroundImage(HOST.engine, t.chain, upto);
+        promptImg=HOST.bgCache[bgKey];
+      }
+      /* El anfitrión es la referencia del tiempo: devuelve el tiempo
+         restante calculado por él (no la duración completa), para que el
+         reloj del cliente no se reinicie en cada sondeo. Sin límite: null. */
+      var total=HOST.engine.timeFor(t.type, HOST.engine.step);
+      var left=null;
+      if(total>0) left=Math.max(0, Math.ceil((HOST.stepStartedAt + total*1000 - Date.now())/1000));
+      out.myTask={type:t.type, promptText:t.promptText||"", promptImage:promptImg, step:HOST.engine.step, time:total, timeLeft:left, timeTotal:total, secret:!!(HOST.engine.spec.secret || (HOST.engine.customCfg && HOST.engine.customCfg.secret))};
       out.submitted = HOST.engine.chains[HOST.engine.chainFor(idx, HOST.engine.step)].links.length>HOST.engine.step;
     }
   }
   return out;
 }
+/* Reloj del paso (anfitrión): marca cuándo empezó el paso y cuál es el
+   tiempo máximo de sus tareas. El vigilante y el tiempo restante que se
+   devuelve a los clientes salen de aquí. */
+function hostSetStepClock(){
+  HOST.stepStartedAt=Date.now();
+  var limit=0;
+  if(HOST.engine){
+    ["write","draw","describe"].forEach(function(t){ var v=HOST.engine.timeFor(t, HOST.engine.step)||0; if(v>limit) limit=v; });
+  }
+  HOST.stepLimit=limit;
+  HOST.skippedThisStep=[];
+}
 function hostStart(){
   if(!HOST.active || HOST.started) return {ok:false};
-  if(HOST.players.length < (HOST.mode==="guess"?2:3)) return {ok:false, error:"faltan jugadores"};
+  if(HOST.players.length < (HOST.mode==="guess"?2:specFor(HOST.mode).min)) return {ok:false, error:"faltan jugadores"};
   HOST.started=true;
+  HOST.gameId="g"+Date.now().toString(36)+Math.floor(Math.random()*1e6).toString(36);
+  HOST.skippedThisStep=[]; HOST.left={}; HOST.bgCache={}; HOST.lastSeen={}; HOST.scoreVotes={};
+  HOST.players.forEach(function(p){ HOST.lastSeen[p.id]=Date.now(); });
   if(HOST.mode==="guess"){
+    HOST.customCfg=null; S.customCfg=null; CURRENT_CUSTOM_CFG=null;
     HOST.guess=new GuessEngine(HOST.players, S.guessSettings);
     HOST.guess.start();
     hostGuessTimer();
-  } else {
-    HOST.engine=new GameEngine(HOST.players, S.settings);
+  } else if(HOST.mode==="custom"){
+    /* Configuración personalizada congelada: se sortea el nº de rondas
+       una sola vez al empezar y se comparte con los invitados. */
+    var cfg=effectiveCustom();
+    if(cfg.turns==="random") cfg.randomRounds=2+Math.floor(Math.random()*Math.max(1,(HOST.players.length-1)));
+    HOST.customCfg=cfg; S.customCfg=cfg; CURRENT_CUSTOM_CFG=cfg;
+    S.settings=cfg.times;
+    HOST.settingsSummary=settingsSummaryText();
+    HOST.engine=new GameEngine(HOST.players, S.settings, "custom", cfg);
     HOST.engine.start();
+    hostSetStepClock();
+    hostStartWatchdog();
+  } else {
+    HOST.customCfg=null; S.customCfg=null; CURRENT_CUSTOM_CFG=null;
+    HOST.engine=new GameEngine(HOST.players, S.settings, HOST.mode);
+    HOST.engine.start();
+    hostSetStepClock();
+    hostStartWatchdog();
   }
   $("wifiStatus").textContent="La partida empezó.";
   return {ok:true};
@@ -1146,17 +1651,88 @@ function hostSubmit(body){
   var idx=hostPlayerIdx(body.player);
   if(idx<0) idx=parseInt(body.player,10);
   if(isNaN(idx)||idx<0) return {ok:false};
+  HOST.lastSeen[HOST.engine.players[idx].id]=Date.now();
+  var ci=HOST.engine.chainFor(idx, body.step);
+  var chain=HOST.engine.chains[ci];
+  /* Idempotente: si el cliente reintentó el envío porque la respuesta se
+     perdió (timeout de red), no es un error: su turno ya está dentro. Pero
+     si el eslabón que hay es el vacío del vigilante (el turno se saltó),
+     el reintento se cancela y se avisa: su entrega llegó tarde. */
+  if(chain && chain.links.length>body.step){
+    var existing=chain.links[body.step];
+    if(existing.author===idx && !existing.skipped)
+      return {ok:true, already:true, step:HOST.engine.step, finished:HOST.engine.finished};
+    if(existing.skipped)
+      return {ok:false, skipped:true, step:HOST.engine.step, finished:HOST.engine.finished};
+  }
   var ok=HOST.engine.submit(idx, body.step, body.link||{});
   /* Cuando todos entregaron el paso, avanzar (el anfitrión lo hace). */
-  if(HOST.engine.chains.every(function(c){ return c.links.length>HOST.engine.step; })) HOST.engine.advance();
+  if(HOST.engine.chains.every(function(c){ return c.links.length>HOST.engine.step; })){
+    HOST.engine.advance(); hostSetStepClock();
+  }
   return {ok:ok, step:HOST.engine.step, finished:HOST.engine.finished};
+}
+/* Vigilante del paso (wifi Normal): si un jugador no entrega su turno
+   (se le cayó el hotspot, cerró la app, se quedó sin batería), la partida
+   no se queda colgada esperándolo: pasado el tiempo del turno + 20 s de
+   margen (5 s si avisó que se iba), el anfitrión pone un eslabón vacío
+   por él y la partida sigue. El turno del cliente conectado ya se
+   auto-entrega al acabarse su temporizador, así que el vigilante solo
+   actúa con los desconectados. */
+function hostStartWatchdog(){
+  if(HOST.watchdog) clearInterval(HOST.watchdog);
+  HOST.watchdog=setInterval(hostWatchdog, 2000);
+}
+function hostWatchdog(){
+  if(!HOST.active || !HOST.started || !HOST.engine || HOST.engine.finished) return;
+  var eng=HOST.engine, step=eng.step;
+  /* El tiempo máximo del paso se fijó al empezar el paso (hostSetStepClock).
+     Sin límite (Obra maestra, limit 0): un jugador conectado que sigue
+     dibujando no se salta nunca, por mucho que pase el antiguo tope de
+     5 min; solo se salta al que avisó que se iba o al que desapareció. */
+  var limit=HOST.stepLimit||0;
+  var missing=[];
+  for(var i=0;i<eng.n;i++){
+    var ci=eng.chainFor(i, step);
+    if(eng.chains[ci].links.length<=step) missing.push(i);
+  }
+  if(!missing.length) return;
+  var age=(Date.now()-HOST.stepStartedAt)/1000;
+  var toSkip=missing.filter(function(i){
+    var pid=eng.players[i].id;
+    /* El que avisó que se iba se salta a los 5 s; el que desapareció sin
+       avisar (no sondea desde hace 20 s) se salta a los 10 s de paso; el
+       resto, cuando se acaba su tiempo + 15 s de margen para que su envío
+       llegue (un envío puede tardar segundos en un teléfono lento). */
+    if(HOST.left[pid]) return age>=5;
+    var silent=(Date.now()-(HOST.lastSeen[pid]||0))/1000;
+    if(limit===0) return silent>=20 && age>=10;
+    if(silent>=20) return age>=10;
+    return age >= limit+15;
+  });
+  if(!toSkip.length) return;
+  toSkip.forEach(function(i){
+    var type=eng.taskType(step);
+    var link = type==="draw" ? {type:"draw", image:"", skipped:true} : {type:"text", text:"…", skipped:true};
+    if(eng.submit(i, step, link)) HOST.skippedThisStep.push(eng.players[i].name);
+  });
+  if(eng.chains.every(function(c){ return c.links.length>eng.step; })){
+    eng.advance(); hostSetStepClock();
+  }
 }
 function hostGuessState(body){
   if(!HOST.active || !HOST.guess) return {ok:false, error:"sin partida"};
+  if(body.playerId) HOST.lastSeen[body.playerId]=Date.now();
   var g=HOST.guess, idx=hostPlayerIdx(body.playerId||"");
+  /* El invitado informa qué revisión del lienzo tiene (knownRev): el
+     anfitrión le devuelve la imagen solo si cambió, o si se reincorpora
+     sin imagen. Así no se reenvía el lienzo en cada sondeo. */
+  var known=(body && typeof body.knownRev==="number") ? body.knownRev : -1;
   var out={ok:true, mode:"guess", phase:g.phase, round:g.round, drawer:g.drawer,
     players:HOST.players, scores:g.scores.slice(), hint:g.hint(),
-    strokes:g.strokes, chat:g.chat.slice(-60), timeLeft:g.timeLeft, roundTime:g.roundTime,
+    chat:g.chat.slice(-60), timeLeft:g.timeLeft, roundTime:g.roundTime,
+    canvasRev:g.canvasRev, canvasImage:(known===g.canvasRev ? "" : g.canvasImage),
+    chooseLeft:(g.phase==="choose" && g.chooseUntil)?Math.max(0,Math.ceil((g.chooseUntil-Date.now())/1000)):0,
     word:"", choices:[], summaries:g.roundSummaries, podium:g.phase==="finished"?g.podium():[]};
   if(idx===g.drawer || g.phase==="result" || g.phase==="finished"){
     out.word=g.word;
@@ -1170,11 +1746,21 @@ function hostGuessWord(body){
   var ok=HOST.guess.chooseWord(idx, body.word);
   return {ok:ok, word:HOST.guess.word};
 }
-function hostGuessStroke(body){
+/* Lienzo de Adivina por Wi‑Fi: el dibujante sube la imagen completa con su
+   revisión; el anfitrión guarda solo la última aceptada de la ronda. */
+function hostGuessCanvas(body){
   if(!HOST.guess) return {ok:false};
   var idx=hostPlayerIdx(body.playerId);
-  var ok=HOST.guess.addStrokes(idx, body.strokes||[]);
-  return {ok:ok};
+  return HOST.guess.setCanvas(idx, body.round, body.revision, body.image);
+}
+/* Votos de Puntuación por Wi‑Fi: el marcador es común y lo decide el
+   anfitrión; cada voto se guarda aquí y se devuelve a todos. */
+function hostScoreVote(body){
+  if(!HOST.active) return {ok:false};
+  var key=body.album+"-"+body.link;
+  if(body.vote) HOST.scoreVotes[key]=true;
+  else delete HOST.scoreVotes[key];
+  return {ok:true, votes:HOST.scoreVotes};
 }
 function hostGuessChat(body){
   if(!HOST.guess) return {ok:false};
@@ -1211,30 +1797,46 @@ var S = {
   mode:"normal", selectedMode:"normal",
   step:0, turnIdx:0,
   stepDone:{},
-  albumIdx:0, timer:null, timeLeft:0, timerActive:false,
-  wifi:{ code:"", ip:"", host:false, players:[], kicked:[], transport:null, poll:null, disconnectedSince:null, myId:"me" },
-  draw:{ tool:"brush", color:"#1d1933", size:3, opacity:1, zoom:1, undo:[], redo:[], drawing:false, startPt:null, canvas:null, ctx:null, strokes:[], curStroke:null, onStrokeBatch:null, readOnly:false },
-  guess:{ engine:null, drawerIdx:0, guesserOrder:[], guesserPos:0, phase:"idle", localImage:"", localStrokes:[], timer:null, timeLeft:0, resultTimer:null },
-  net:{ kind:"local", poll:null, lastStrokeCount:0, lastChatLen:0, lastPhase:"", submittedStep:-1 },
+  albumIdx:0, timer:null, timeLeft:0, timeTotal:0, alarmKey:null, timerActive:false, profileEditing:false,
+  scoreVotes:{}, animTimer:null, animFrame:0, animPlaying:false,
+  wifi:{ code:"", ip:"", host:false, players:[], kicked:[], transport:null, poll:null, disconnectedSince:null, myId:"me", lanListener:null, lanListening:false },
+  draw:{ tool:"brush", color:"#1d1933", size:3, opacity:1, zoom:1, undo:[], redo:[], drawing:false, startPt:null, canvas:null, ctx:null, strokes:[], curStroke:null, onStrokeBatch:null, onCanvasChange:null, readOnly:false },
+  guess:{ engine:null, drawerIdx:0, guesserOrder:[], guesserPos:0, phase:"idle", localImage:"", localStrokes:[], timer:null, timeLeft:0, resultTimer:null, canvasRev:0, canvasPending:false, canvasSending:false, netRound:-1 },
+  net:{ kind:"local", poll:null, pollActive:false, pollTimer:null, session:0, taskKey:"", gameId:"", guessRev:-1, guessRound:-1, albumShown:false, lastChatLen:0, lastPhase:"", submittedStep:-1 },
   custom:{ time:"normal", sequence:"write-draw", turns:"all", keep:"off", score:"off", secret:"off" },
   maxPlayers:14
 };
-function stopTimer(){ if(S.timer){ clearInterval(S.timer); S.timer=null; } S.timerActive=false; }
-function setTimer(sec, onExpire){
+function stopTimer(){ if(S.timer){ clearInterval(S.timer); S.timer=null; } S.timerActive=false; stopLowAlarm(); }
+function setTimer(sec, onExpire, total){
   stopTimer();
   if(!sec || sec<=0){ var p=$("timerPill"); p.textContent="Sin límite"; p.className="timer-pill off"; return; }
-  S.timeLeft=sec; S.timerActive=true; drawTimer();
+  /* total es la duración completa del turno (para el aviso de poco tiempo
+     a ~1/6): en wifi el cliente puede entrar a mitad de turno y sec es el
+     tiempo restante, no la duración completa. */
+  S.timeLeft=sec; S.timeTotal=total||sec; S.timerActive=true; drawTimer();
   S.timer=setInterval(function(){
     S.timeLeft--; drawTimer();
-    if(S.timeLeft<=10 && S.timeLeft>0){ AudioFX.tick(); if(S.timeLeft===10) buzz([60,60,60]); }
+    lowAlarm(S.timeTotal, S.timeLeft, "turn");
     if(S.timeLeft<=0){ stopTimer(); onExpire(); }
   },1000);
 }
 function drawTimer(){
   var p=$("timerPill"); if(!p) return; p.textContent=fmtTime(S.timeLeft);
-  p.className="timer-pill"+(S.timeLeft<=10?" low":"");
+  p.className="timer-pill"+(S.timeTotal&&S.timeLeft>0&&S.timeLeft<=warnAt(S.timeTotal)?" warn":"");
 }
-function totalTurns(){ return S.engine ? S.engine.n * S.engine.n : 0; }
+/* Alarma de poco tiempo del original (dial amarillo a ~1/6 del tiempo):
+   se enciende cuando queda ~1/6 del turno y se apaga al terminar. Una
+   sola alarma a la vez; la clave distingue el turno (Normal, Adivina…). */
+function warnAt(total){ return Math.max(2, Math.floor((total||0)/6)); }
+function lowAlarm(total, left, key){
+  var on = total>0 && left>0 && left<=warnAt(total);
+  if(on){
+    if(S.alarmKey!==key){ if(S.alarmKey) AudioFX.alarmStop(); S.alarmKey=key; AudioFX.alarmStart(); buzz([60]); }
+  } else if(S.alarmKey===key){ S.alarmKey=null; AudioFX.alarmStop(); }
+  return on;
+}
+function stopLowAlarm(){ if(S.alarmKey){ S.alarmKey=null; AudioFX.alarmStop(); } }
+function totalTurns(){ return S.engine ? S.engine.n * S.engine.steps : 0; }
 function doneTurns(){
   var c=0; for(var k in S.stepDone) if(S.stepDone[k]) c++;
   return c;
@@ -1242,7 +1844,7 @@ function doneTurns(){
 function updateProgress(){
   var total=totalTurns()||1, done=doneTurns();
   $("progressBar").style.width=Math.round(done/total*100)+"%";
-  $("progressText").textContent="Ronda "+(S.step+1)+" de "+S.engine.n+" · Turno "+(S.turnIdx+1)+" de "+S.engine.n+" · "+done+" de "+total+" turnos";
+  $("progressText").textContent="Ronda "+(S.step+1)+" de "+(S.engine?S.engine.steps:1)+" · Turno "+(S.turnIdx+1)+" de "+S.engine.n+" · "+done+" de "+total+" turnos";
 }
 function applyCustomTimes(){
   if(S.custom.time==="rapido") S.settings={write:30, draw:45, describe:30};
@@ -1251,6 +1853,18 @@ function applyCustomTimes(){
 }
 function settingsSummaryText(){
   if(S.mode==="guess") return "Adivina el dibujo · "+S.guessSettings.roundTime+" s por ronda · temas: "+S.guessSettings.themes.join(", ")+" · puntos 10-8-6-4-2, +5 al dibujante.";
+  if(S.mode==="custom"){
+    var cfg=S.customCfg||effectiveCustom();
+    var tc=cfg.time==="rapido"?"Rápido":(cfg.time==="lento"?"Lento":"Normal");
+    var rounds=cfg.turns==="random"
+      ? (cfg.randomRounds ? cfg.randomRounds+" rondas (sorteadas)" : "rondas aleatorias (2 a "+(S.players.length||HOST.players.length||"N")+")")
+      : "todas las rondas";
+    return "Personalizado · tiempo "+tc+" (escribir "+cfg.times.write+" s · dibujar "+cfg.times.draw+" s · describir "+cfg.times.describe+" s) · secuencia "+(cfg.sequence==="draw-only"?"solo dibujar":"escribir, dibujar")+" · turnos: "+rounds+" · sigue dibujando: "+(cfg.keep?"habilitado":"deshabilitado")+" · puntuaciones: "+(cfg.score?"activado":"desactivado")+" · secretismo: "+(cfg.secret?"activado":"desactivado")+".";
+  }
+  if(S.mode!=="normal"){
+    var t2=S.custom.time==="rapido"?"Rápido":(S.custom.time==="lento"?"Lento":"Normal");
+    return modeName(S.mode)+" · tiempo "+t2+" (escribir "+S.settings.write+" s · dibujar "+S.settings.draw+" s · describir "+S.settings.describe+" s).";
+  }
   var t=S.custom.time==="rapido"?"Rápido":(S.custom.time==="lento"?"Lento":"Normal");
   return "Normal · tiempo "+t+" · secuencia "+($("customSequence")?$("customSequence").value:"Escribir, Dibujar")+" · turnos: "+(S.custom.turns==="random"?"aleatorios":"todos")+" · sigue dibujando: "+(S.custom.keep==="on"?"habilitado":"deshabilitado")+" · puntuaciones: "+(S.custom.score==="on"?"activado":"desactivado")+" · secretismo: "+(S.custom.secret==="on"?"activado":"desactivado")+".";
 }
@@ -1277,25 +1891,53 @@ function renderModesAvatars(){
     else { d.className="avatar-slot empty"; d.innerHTML='<div class="circ">☺</div><div class="nm">Vacío</div>'; }
     row.appendChild(d);
   }
-  var lbl=$("modesCountLabel"); if(lbl) lbl.textContent=S.maxPlayers+" JUGADORES";
+  var lbl=$("modesCountLabel"); if(lbl) lbl.textContent="JUGADORES";
 }
 function syncSetupMode(){
   var isGuess=S.mode==="guess";
-  $("setupModeNormal").className="btn small"+(isGuess?"":" sel");
+  var spec=specFor(S.mode);
+  $("setupModeNormal").className="btn small"+(S.mode==="normal"?" sel":"");
   $("setupModeGuess").className="btn small"+(isGuess?" sel":"");
-  $("setupTitle").textContent=isGuess?"Adivina el dibujo · un solo teléfono":"Normal · un solo teléfono";
-  $("normalTimes").classList.toggle("hidden", isGuess);
+  $("setupTitle").textContent=modeName(S.mode)+" · un solo teléfono";
+  $("normalTimes").classList.toggle("hidden", isGuess || S.mode==="masterpiece");
   $("guessTimes").classList.toggle("hidden", !isGuess);
-  $("btnStartSingle").innerHTML='<span class="play">▶</span> Empezar · '+(isGuess?"Adivina el dibujo":"Normal");
+  $("btnStartSingle").innerHTML='<span class="play">▶</span> Empezar · '+modeName(S.mode);
+  var hint=$("modeHint");
+  if(hint){
+    if(S.mode==="masterpiece") hint.textContent="Un solo turno por jugador, sin límite de tiempo: dibuja tu mejor obra con calma.";
+    else if(S.mode==="story") hint.textContent="Solo escritura: cada uno continúa la historia a partir de la frase anterior que recibe.";
+    else if(S.mode==="solo") hint.textContent="Cada jugador crea su propia animación en 5 fotogramas, calcando el anterior. También se puede jugar solo (1 jugador).";
+    else if(S.mode==="corpse") hint.textContent="3 turnos por criatura: cabeza, torso y piernas. Solo se ve la franja inferior del dibujo anterior. También se puede jugar solo (1 jugador).";
+    else if(S.mode==="animation") hint.textContent="Sin escritura: cada jugador dibuja un fotograma calcando tenuemente el anterior, y al final se monta la animación.";
+    else if(S.mode==="background") hint.textContent="Primero se dibuja un fondo fijo, y después cada jugador anima dos fotogramas sobre ese fondo (el doble que en Animación).";
+    else if(S.mode==="secret") hint.textContent="Igual que Normal, pero no verás lo que haces en tu propio turno: las palabras salen censuradas y los trazos se desvanecen.";
+    else if(S.mode==="knockoff") hint.textContent="Solo se dibuja: miras el dibujo anterior brevemente y lo replicas de memoria; el tiempo se acorta en cada ronda.";
+    else if(S.mode==="complement") hint.textContent="Primero unas líneas rápidas (15 s) y después a completarlas: las líneas iniciales no se pueden borrar.";
+    else if(S.mode==="missing") hint.textContent="En cada turno se dibuja encima del dibujo incompleto y se pierde la parte más antigua: solo queda la última parte añadida.";
+    else if(S.mode==="coop") hint.textContent="6 turnos: 1 de escritura + 5 de dibujo, todos añadiendo trazos al mismo dibujo.";
+    else if(S.mode==="sandwich") hint.textContent="Escribir, dibujar turno tras turno y describir el último dibujo para cerrar la cadena.";
+    else if(S.mode==="score") hint.textContent="Igual que Normal, pero al final del álbum el grupo marca los eslabones que mantuvieron el significado y se ve el marcador.";
+    else if(S.mode==="icebreaker") hint.textContent="Todos escriben una pregunta y después TODOS dibujan cada pregunta; al final se ven juntos todos los dibujos de cada pregunta.";
+    else if(S.mode==="custom") hint.textContent="Normal con tus reglas: los ajustes de la pestaña AJUSTES PERSONALIZADOS (tiempo, secuencia, turnos, sigue dibujando, puntuación y secreto).";
+    else hint.textContent="";
+  }
+  var nh=$("numPlayersHint");
+  if(nh) nh.textContent=modeName(S.mode)+": de "+spec.min+" a 8 jugadores."+(isGuess?" Adivina el dibujo: de 2 a 8.":"");
+  /* En Personalizado, los selectores de tiempo muestran los valores de la
+     configuración efectiva (no los de la última partida). */
+  if(S.mode==="custom"){
+    applyCustomTimes();
+    $("timeWrite").value=String(S.settings.write); $("timeDraw").value=String(S.settings.draw); $("timeDescribe").value=String(S.settings.describe);
+  }
   fillNumPlayers();
   renderPlayersList();
 }
 function fillNumPlayers(){
   var sel=$("numPlayers"), cur=parseInt(sel.value,10);
-  var min=S.mode==="guess"?2:3, max=8;
+  var min=S.mode==="guess"?2:specFor(S.mode).min, max=8;
   sel.innerHTML="";
   for(var n=min;n<=max;n++){ var o=document.createElement("option"); o.value=n; o.textContent=n+" jugadores"; sel.appendChild(o); }
-  var want=isNaN(cur)?4:Math.max(min,Math.min(max,cur));
+  var want=isNaN(cur)?Math.max(4,min):Math.max(min,Math.min(max,cur));
   sel.value=String(want);
 }
 
@@ -1346,20 +1988,37 @@ function renderGuessThemes(){
 }
 function startSingleGame(){
   saveProfile(true);
+  /* Al comenzar una partida de un solo teléfono se restablece
+     explícitamente el transporte local y el estado de red: un sondeo o un
+     reintento de una sala wifi anterior no debe colarse en esta partida. */
+  S.net.kind="local"; S.net.session=(S.net.session||0)+1; stopNetPoll(); stopJoinPoll();
+  S.net.submittedStep=-1; S.net.taskKey=""; S.net.gameId=""; S.net.albumShown=false;
   S.players = readPlayersFromSetup();
   if(S.mode==="guess"){
+    S.customCfg=null; CURRENT_CUSTOM_CFG=null;
     S.guessSettings.roundTime=parseInt($("guessRoundTime").value,10)||60;
     if(!S.guessSettings.themes.length) S.guessSettings.themes=GUESS_CATEGORIES.slice();
     startGuessLocal();
     return;
   }
-  S.settings = readSettings();
-  S.engine = new GameEngine(S.players, S.settings);
+  if(S.mode==="custom"){
+    /* Configuración personalizada efectiva, validada al empezar: si los
+       turnos son aleatorios, el nº de rondas se sortea una sola vez aquí. */
+    var cfg=effectiveCustom();
+    if(cfg.turns==="random") cfg.randomRounds=2+Math.floor(Math.random()*Math.max(1,(S.players.length-1)));
+    S.customCfg=cfg; CURRENT_CUSTOM_CFG=cfg;
+    S.settings=cfg.times;
+    S.engine = new GameEngine(S.players, S.settings, "custom", cfg);
+  } else {
+    S.customCfg=null; CURRENT_CUSTOM_CFG=null;
+    S.settings = readSettings();
+    S.engine = new GameEngine(S.players, S.settings, S.mode);
+  }
   S.transport = new LocalTransport(S.engine);
   S.engine.start();
   S.step=0; S.turnIdx=0; S.stepDone={}; S.albumIdx=0;
   $("cdTitle").textContent="Prepárense…";
-  $("cdSub").textContent=S.players.length+" jugadores · "+S.players.length+" rondas · modo Normal";
+  $("cdSub").textContent=S.players.length+" jugadores · "+S.engine.steps+" rondas · modo "+modeName(S.mode);
   show("screen-countdown");
   var n=3; $("cdNumber").textContent=n; AudioFX.count(n); buzz([25]);
   stopCountdown();
@@ -1385,16 +2044,95 @@ $("btnGotIt").addEventListener("click", function(){
 $("btnCancelCountdown").addEventListener("click", askLeaveGame);
 $("btnLeavePass").addEventListener("click", askLeaveGame);
 
+/* ---------- ayudas de dibujo por modo (v2.4) ---------- */
+/* Dibuja un trazo {c,s,o,p} sobre un contexto dado (como applyStroke,
+   pero sobre cualquier canvas, no solo el visible). */
+function drawStrokeOn(ctx, st){
+  if(!st.p || st.p.length<1) return;
+  ctx.save();
+  ctx.strokeStyle=st.c; ctx.fillStyle=st.c; ctx.lineWidth=st.s*2+2;
+  ctx.globalAlpha=(st.o==null?1:st.o); ctx.lineCap="round"; ctx.lineJoin="round";
+  ctx.beginPath(); ctx.moveTo(st.p[0][0], st.p[0][1]);
+  for(var i=1;i<st.p.length;i++) ctx.lineTo(st.p[i][0], st.p[i][1]);
+  ctx.stroke(); ctx.restore();
+}
+/* Imagen de unos trazos sueltos (Pieza que falta: la última parte
+   añadida, sin el resto del dibujo). */
+function strokesImage(strokes){
+  var cv=document.createElement("canvas"); cv.width=640; cv.height=440;
+  var ctx=cv.getContext("2d");
+  ctx.fillStyle="#ffffff"; ctx.fillRect(0,0,640,440);
+  (strokes||[]).forEach(function(st){ drawStrokeOn(ctx, st); });
+  return cv.toDataURL("image/png");
+}
+/* Fondo acumulado (Cooperativo, Complementar, Fondo): redibuja los trazos
+   de pincel/borrador de los eslabones de dibujo anteriores de la cadena y
+   devuelve su imagen. Las formas (línea, círculo, cuadrado) y el cubo no
+   se guardan como trazos, así que no aparecen en el fondo acumulado. */
+function chainBackgroundImage(engine, chainIdx, uptoStep){
+  var cv=document.createElement("canvas"); cv.width=640; cv.height=440;
+  var ctx=cv.getContext("2d");
+  ctx.fillStyle="#ffffff"; ctx.fillRect(0,0,640,440);
+  var links=engine.chains[chainIdx].links;
+  for(var i=0;i<links.length && i<uptoStep;i++){
+    var lk=links[i];
+    if(lk.type!=="draw" || !lk.strokes) continue;
+    for(var j=0;j<lk.strokes.length;j++) drawStrokeOn(ctx, lk.strokes[j]);
+  }
+  return cv.toDataURL("image/png");
+}
+function drawOptsFor(engine, task){
+  var spec=engine.spec, o={};
+  if(task.type!=="draw") return o;
+  var step=task.step;
+  if(spec.secret) o.secret=true;
+  if(spec.memory && task.promptImage) o.previewImage=task.promptImage;
+  if(spec.accumulate) o.initialImage=chainBackgroundImage(engine, task.chain, step);
+  if(spec.bg){
+    if(step===0) o.partLabel="Dibuja el fondo fijo: permanecerá en todos los fotogramas";
+    else o.initialImage=chainBackgroundImage(engine, task.chain, 1); /* solo el fondo */
+  }
+  if(spec.onion && task.promptImage) o.onionImage=task.promptImage;
+  if(spec.strokesOnly){
+    /* Pieza que falta: el dibujo anterior NO es una vista previa que
+       desaparece; es el lienzo sobre el que se dibuja (la última parte
+       añadida, ya pintada). Al pasar, la parte más antigua se pierde
+       porque el siguiente turno solo recibe los trazos de este. */
+    if(task.promptImage) o.initialImage=task.promptImage;
+    o.partLabel = step===0
+      ? "Dibuja un dibujo incompleto: en cada turno se añadirá una parte y se perderá la más antigua"
+      : "Completa el dibujo: dibuja encima; al pasar se borrará la parte más antigua";
+  }
+  if(spec.strip){
+    o.stripImage=task.promptImage;
+    o.partLabel="Dibuja: "+(spec.parts[step]||"")+" · solo ves la franja inferior";
+  }
+  if(spec.noErase) o.disableTools=true;
+  if(engine.mode==="custom" && engine.customCfg){
+    var cc=engine.customCfg;
+    if(cc.secret) o.secret=true;
+    /* Sigue dibujando: si la tarea actual y la anterior de la cadena son
+       dibujos, el anterior se carga como fondo editable con la imagen
+       final que recibió el álbum. Si la tarea parte de una frase, el
+       lienzo es nuevo. */
+    if(cc.keep && task.type==="draw" && task.promptImage) o.initialImage=task.promptImage;
+  }
+  return o;
+}
 /* ---------- turnos Normal ---------- */
 function showTurn(){
+  S.screen="play";
   var p=S.players[S.turnIdx];
   var task=S.engine.taskFor(S.turnIdx, S.step);
-  $("turnLabel").textContent="Turno de "+p.name+" "+p.avatar;
+  S.currentTask=task;
+  var label="Turno de "+p.name+" "+p.avatar+" · "+modeName(S.mode);
+  if(S.mode==="background" && task.type==="draw" && task.step===0) label+=" · Fondo fijo";
+  $("turnLabel").textContent=label;
   updateProgress();
   show("screen-play");
   var area=$("playArea"); area.innerHTML="";
   if(task.type==="write") renderWrite(area, task);
-  else if(task.type==="draw") renderDraw(area, task);
+  else if(task.type==="draw") renderDraw(area, task, drawOptsFor(S.engine, task));
   else renderDescribe(area, task);
 }
 function markDoneAndNext(){
@@ -1403,7 +2141,7 @@ function markDoneAndNext(){
   if(S.turnIdx < S.engine.n-1){ S.turnIdx++; AudioFX.turn(); buzz([40]); showPassFor(S.turnIdx); }
   else {
     S.turnIdx=0;
-    if(S.step >= S.engine.n-1){
+    if(S.step >= S.engine.steps-1){
       S.engine.finished=true;
       AudioFX.chime(); buzz([80,60,140]);
       showAlbum();
@@ -1416,12 +2154,38 @@ function markDoneAndNext(){
 }
 function submitCurrent(link){
   stopTimer();
-  if(S.net.kind==="wifi" && S.transport && S.transport.kind==="http"){
-    /* En wifi, el turno se entrega al anfitrión y se espera el siguiente paso. */
+  if(S.net.kind==="wifi" && S.transport){
+    /* En wifi, el turno se entrega al anfitrión y se espera el siguiente paso.
+       Si el envío falla (el hotspot parpadeó, el anfitrión tardó), se
+       reintenta cada 2 s hasta que entre: un turno no se pierde por un
+       fallo de red. Si el anfitrión ya saltó este turno (vigilante) o la
+       partida terminó, el sondeo cancela los reintentos. */
     S.net.submittedStep=S.step;
-    S.transport.submit(S.turnIdx, S.step, link).catch(function(){});
+    S.net.submitToken=(S.net.submitToken||0)+1;
+    var myToken=S.net.submitToken, tries=0;
     $("waitText").textContent="Turno enviado. Esperamos a que terminen los demás.";
     show("screen-wait");
+    (function trySubmit(){
+      if(myToken!==S.net.submitToken) return;
+      S.transport.submit(S.turnIdx, S.step, link).then(function(r){
+        if(myToken!==S.net.submitToken) return;
+        if(r && (r.ok || r.already)) return;
+        /* El anfitrión ya saltó este turno (vigilante): el reintento se
+           cancela y se avisa, no se sigue intentando en vano. */
+        if(r && r.skipped){
+          $("waitText").textContent="Tu turno se saltó (se acabó el tiempo). Esperando el siguiente…";
+          return;
+        }
+        tries++;
+        $("waitText").textContent="No entró el turno, reintentando… ("+tries+")";
+        setTimeout(trySubmit, 2000);
+      }).catch(function(){
+        if(myToken!==S.net.submitToken) return;
+        tries++;
+        $("waitText").textContent="Sin conexión con el anfitrión, reintentando el envío… ("+tries+")";
+        setTimeout(trySubmit, 2000);
+      });
+    })();
     return;
   }
   S.transport.submit(S.turnIdx, S.step, link);
@@ -1431,53 +2195,77 @@ function submitCurrent(link){
 /* --- escribir --- */
 function renderWrite(area, task){
   var isFirst = S.step===0;
-  var tsec=(task&&task.time!=null)?task.time:S.engine.timeFor("write");
+  var tsec=(task&&task.time!=null)?task.time:S.engine.timeFor("write", task.step);
+  var secretMode = (S.mode==="secret") || !!(task&&task.secret);
   /* Como en el original (ref-03): teléfono azul con «?» y el título
      «EMPIECE A ESCRIBIR UNA HISTORIA». El turno sigue en la barra de
      progreso de arriba. */
+  var promptHtml;
+  if(secretMode){
+    promptHtml='<div class="prompt-box"><small>'+(isFirst?"Frase inicial · secreta":"Frase anterior · secreta")+'</small><div class="phrase">●●● ●●● ●●●</div></div>';
+  } else if(task&&task.promptText){
+    promptHtml='<div class="prompt-box"><small>Frase anterior · continúa la historia</small><div class="phrase">'+esc(task.promptText)+'</div></div>';
+  } else {
+    promptHtml='<div class="prompt-box"><small>'+(isFirst?"Frase inicial · secreta":"")+'</small>'+
+    '<div class="phrase">'+(isFirst?"Escribe una frase concreta y dibujable. Nadie más la verá hasta el álbum.":"")+'</div></div>';
+  }
+  var inputHtml = secretMode
+    ? '<div class="censor-wrap"><textarea id="writeInput" maxlength="120" rows="3" placeholder="Escribe a ciegas: no verás lo que escribes"></textarea><div class="censor-overlay" id="censorOverlay"></div></div>'
+    : '<textarea id="writeInput" maxlength="120" rows="3" placeholder="'+(task&&task.promptText?"Continúa la historia a partir de la frase anterior":"Ej.: un perro tocando la guitarra en la playa")+'"></textarea>';
   area.innerHTML='<div class="draw-top">EMPIECE A ESCRIBIR UNA HISTORIA</div>'+
     '<div style="text-align:center;margin:10px 0 0"><svg width="100" height="78" viewBox="0 0 100 78" aria-hidden="true"><path d="M18 40 Q18 16 50 16 Q82 16 82 40" fill="none" stroke="#228be6" stroke-width="8" stroke-linecap="round"/><circle cx="18" cy="43" r="9" fill="#228be6" stroke="#2a1a5e" stroke-width="3"/><circle cx="82" cy="43" r="9" fill="#228be6" stroke="#2a1a5e" stroke-width="3"/><rect x="32" y="52" width="36" height="16" rx="6" fill="#228be6" stroke="#2a1a5e" stroke-width="3"/><circle cx="88" cy="14" r="11" fill="#ffc531" stroke="#2a1a5e" stroke-width="3"/><text x="88" y="19" font-size="14" font-weight="800" fill="#2a1a5e" text-anchor="middle">?</text></svg></div>'+
-    '<div class="prompt-box"><small>'+(isFirst?"Frase inicial · secreta":"")+'</small>'+
-    '<div class="phrase">'+(isFirst?"Escribe una frase concreta y dibujable. Nadie más la verá hasta el álbum.":"")+'</div></div>'+
+    promptHtml+
     '<label for="writeInput">Tu frase (máx. 120 caracteres)</label>'+
-    '<textarea id="writeInput" maxlength="120" rows="3" placeholder="Ej.: un perro tocando la guitarra en la playa"></textarea>'+
+    inputHtml+
     '<div class="counter"><span id="charCount">0</span>/120</div>'+
     '<button class="btn" id="btnSendWrite" type="button">¡HECHO!</button>';
   var inp=$("writeInput"), cnt=$("charCount");
-  inp.addEventListener("input", function(){ cnt.textContent=inp.value.length; });
+  inp.addEventListener("input", function(){
+    cnt.textContent=inp.value.length;
+    var ov=$("censorOverlay");
+    if(ov) ov.textContent="●".repeat(Math.min(inp.value.length, 40));
+  });
   inp.focus();
   $("btnSendWrite").onclick=function(){ submitCurrent({type:"text", text:inp.value}); };
-  setTimer(tsec, function(){ submitCurrent({type:"text", text:inp.value}); });
+  setTimer(tsec, function(){ submitCurrent({type:"text", text:inp.value}); }, (task&&task.timeTotal)||tsec);
 }
 
 /* --- describir --- */
 function renderDescribe(area, task){
+  var secretMode = (S.mode==="secret") || !!(task&&task.secret);
+  var inputHtml = secretMode
+    ? '<div class="censor-wrap"><textarea id="descInput" maxlength="120" rows="3" placeholder="Describe a ciegas: no verás lo que escribes"></textarea><div class="censor-overlay" id="censorOverlayDesc"></div></div>'
+    : '<textarea id="descInput" maxlength="120" rows="3" placeholder="Ej.: un perro cantando en la playa"></textarea>';
   area.innerHTML='<div class="draw-top">¿Y AHORA? DESCRIBE ESTA ESCENA</div>'+
     '<p><b>Describe lo que ves en el dibujo.</b> No inventes la frase original: escribe literalmente lo que se ve.</p>'+
     (task.promptImage ? '<img class="draw-img" id="descImg" alt="Dibujo a describir" src="'+esc(task.promptImage)+'">' : '<div class="prompt-box"><small>Dibujo a describir</small><div class="phrase">… (dibujo en blanco)</div></div>')+
     '<label for="descInput">Tu descripción (máx. 120 caracteres)</label>'+
-    '<textarea id="descInput" maxlength="120" rows="3" placeholder="Ej.: un perro cantando en la playa"></textarea>'+
+    inputHtml+
     '<div class="counter"><span id="charCount2">0</span>/120</div>'+
     '<button class="btn" id="btnSendDesc" type="button">¡HECHO!</button>';
   var inp=$("descInput");
-  inp.addEventListener("input", function(){ $("charCount2").textContent=inp.value.length; });
+  inp.addEventListener("input", function(){ $("charCount2").textContent=inp.value.length; var ov=$("censorOverlayDesc"); if(ov) ov.textContent="●".repeat(Math.min(inp.value.length, 40)); });
   inp.focus();
   $("btnSendDesc").onclick=function(){ submitCurrent({type:"text", text:inp.value}); };
-  setTimer((task&&task.time!=null)?task.time:S.engine.timeFor("describe"), function(){ submitCurrent({type:"text", text:inp.value}); });
+  setTimer((task&&task.time!=null)?task.time:S.engine.timeFor("describe", task.step), function(){ submitCurrent({type:"text", text:inp.value}); }, (task&&task.timeTotal)||((task&&task.time!=null)?task.time:S.engine.timeFor("describe", task.step)));
 }
 
 /* ---------- lienzo (compartido por Normal y Adivina) ---------- */
 /* opts: {topBar, promptText, onSubmit(image), timeSec, onExpire,
-   captureStrokes, onStrokeBatch, readOnly, initialStrokes, submitLabel} */
+   captureStrokes, onStrokeBatch, readOnly, initialStrokes, submitLabel,
+   previewImage, stripImage, onionImage, initialImage, secret,
+   disableTools, partLabel} */
 function renderDraw(area, task, opts){
   opts=opts||{};
   if(!opts.promptText && task && task.promptText) opts.promptText=task.promptText;
-  if(opts.timeSec===undefined) opts.timeSec=(S.engine&&S.engine.timeFor)?S.engine.timeFor("draw"):60;
-  if(!opts.onSubmit) opts.onSubmit=function(img){ submitCurrent({type:"draw", image:img}); };
-  if(!opts.onExpire) opts.onExpire=function(img){ submitCurrent({type:"draw", image:img}); };
+  if(opts.timeSec===undefined) opts.timeSec=(S.engine&&S.engine.timeFor)?S.engine.timeFor("draw", task?task.step:0):60;
+  if(!opts.onSubmit) opts.onSubmit=function(img){ submitCurrent({type:"draw", image:img, strokes:S.draw.strokes}); };
+  if(!opts.onExpire) opts.onExpire=function(img){ submitCurrent({type:"draw", image:img, strokes:S.draw.strokes}); };
   var topBar = opts.topBar || "HEY, ¡ES HORA DE DIBUJAR!";
   area.innerHTML='<div class="draw-top">'+esc(topBar)+'</div>'+
   (opts.promptText?'<div class="prompt-box"><small>Dibuja esta frase</small><div class="phrase">'+esc(opts.promptText)+'</div></div>':'')+
+  (opts.partLabel && !opts.stripImage?'<p class="hint"><b>'+esc(opts.partLabel)+'</b></p>':'')+
+  (opts.stripImage?'<div class="strip-preview"><small>'+esc(opts.partLabel||"Solo ves la franja inferior del dibujo anterior:")+'</small><img src="'+esc(opts.stripImage)+'" alt="Franja inferior del dibujo anterior"></div>':'')+
   '<div class="toolbar" id="toolBar" role="toolbar" aria-label="Herramientas de dibujo"></div>'+
   '<div class="swatches" id="swatches"></div>'+
   '<div class="draw-controls">'+
@@ -1488,6 +2276,7 @@ function renderDraw(area, task, opts){
     '<button class="tool-btn" id="btnZoomIn" type="button" aria-label="Acercar">+</button>'+
   '</div>'+
   '<div class="canvas-wrap" id="canvasWrap"><div class="watermark"><span>Gartic Móvil</span></div><canvas id="drawCanvas" width="640" height="440"></canvas>'+
+  (opts.previewImage?'<div class="draw-preview" id="drawPreview"><small>Desaparece al empezar a trazar</small><img src="'+esc(opts.previewImage)+'" alt="Dibujo anterior"></div>':'')+
   '<div class="side-tools"><div class="side-panel" id="sizePanel" title="Grosor"></div>'+
   '<div class="side-panel"><span class="opacity-lab">OPACIDAD</span><div class="opacity-wrap"><input type="range" id="opacityRange" min="10" max="100" value="100" aria-label="Opacidad del trazo"></div><span class="opacity-lab" id="opacityVal">100%</span></div></div></div>'+
   '<div class="btn-row"><button class="btn ghost small" id="btnUndo" type="button">Deshacer</button>'+
@@ -1499,9 +2288,11 @@ function renderDraw(area, task, opts){
   '<span class="bar-cur" id="barCurColor" title="Color actual"></span>'+
   '<div class="palette" id="barPalette"></div>'+
   '<button class="check" id="btnSendDraw" type="button"><span class="tick">✔</span> '+(opts.submitLabel||"¡HECHO!")+'</button></div>';
+  /* La vista previa va encima del lienzo (no ocupa alto en la pantalla)
+     y se ve a tamaño completo; desaparece sola al empezar a trazar. */
   initCanvas(task, opts);
   if(opts.timeSec!=null){
-    setTimer(opts.timeSec, function(){ if(opts.onExpire) opts.onExpire(canvasData()); else if(opts.onSubmit) opts.onSubmit(canvasData()); });
+    setTimer(opts.timeSec, function(){ if(opts.onExpire) opts.onExpire(canvasData()); else if(opts.onSubmit) opts.onSubmit(canvasData()); }, opts.timeTotal||opts.timeSec);
   }
   $("btnSendDraw").onclick=function(){ stopTimer(); if(opts.onSubmit) opts.onSubmit(canvasData()); };
 }
@@ -1521,14 +2312,25 @@ function initCanvas(task, opts){
      oculto: copiar y restaurar es instantáneo. */
   if(!S.draw.snap){ S.draw.snap=document.createElement("canvas"); S.draw.snap.width=640; S.draw.snap.height=440; }
   S.draw.strokes=[]; S.draw.curStroke=null; S.draw.onStrokeBatch=opts.onStrokeBatch||null;
+  S.draw.onCanvasChange=opts.onCanvasChange||null;
   S.draw.readOnly=!!opts.readOnly; S.draw.opacity=1;
   ctx.fillStyle="#ffffff"; ctx.fillRect(0,0,cv.width,cv.height);
   ctx.lineCap="round"; ctx.lineJoin="round";
+  /* Modos v2.4: piel de cebolla (Animación/Fondo/Solo) y velo de Secreto
+     (los trazos se desvanecen al soltar el dedo); la imagen inicial es el
+     fondo acumulado (Cooperativo, Complementar, Fondo). */
+  if(opts.onionImage){ var oi=document.createElement("img"); oi.className="onion-img"; oi.src=opts.onionImage; oi.alt="Fotograma anterior (tenue)"; cv.parentNode.insertBefore(oi, cv.nextSibling); }
+  if(opts.secret){ S.draw.secret=true; var veil=document.createElement("div"); veil.className="secret-veil"; veil.id="secretVeil"; cv.parentNode.insertBefore(veil, cv.nextSibling); } else S.draw.secret=false;
+  if(opts.initialImage) restoreData(opts.initialImage);
   var bar=$("toolBar");
-  TOOLS.forEach(function(t){
+  TOOLS.forEach(function(t,i){
+    if(opts.disableTools && t.id==="eraser") return; /* Complementar: las líneas iniciales no se pueden borrar */
     var b=document.createElement("button"); b.type="button"; b.className="tool-btn"+(S.draw.tool===t.id?" active":""); b.textContent=t.label;
     b.onclick=function(){ S.draw.tool=t.id; bar.querySelectorAll(".tool-btn").forEach(function(x){x.classList.remove("active");}); b.classList.add("active"); };
     bar.appendChild(b);
+    /* En pantallas pequeñas la tira se parte en 2 filas visibles (5+4):
+       los saltos solo se activan con la media query de ≤400 px. */
+    if(i===4){ var br=document.createElement("div"); br.className="tool-break"; br.setAttribute("aria-hidden","true"); bar.appendChild(br); }
   });
   var sw=$("swatches");
   COLORS12.forEach(function(c){
@@ -1546,7 +2348,8 @@ function initCanvas(task, opts){
   $("brushSize").addEventListener("change", function(e){ S.draw.size=parseInt(e.target.value,10); syncSizeDots(); });
   $("btnUndo").onclick=doUndo; $("btnRedo").onclick=doRedo;
   $("btnLeaveDraw").onclick=askLeaveGame;
-  $("btnClear").onclick=function(){ pushUndo(); ctx.fillStyle="#ffffff"; ctx.fillRect(0,0,cv.width,cv.height); S.draw.strokes=[]; };
+  $("btnClear").onclick=function(){ pushUndo(); ctx.fillStyle="#ffffff"; ctx.fillRect(0,0,cv.width,cv.height); S.draw.strokes=[]; notifyCanvasChange(); };
+  if(opts.disableTools) $("btnClear").style.display="none"; /* Complementar: las líneas iniciales no se pueden borrar */
   $("btnZoomIn").onclick=function(){ setZoom(S.draw.zoom+0.25); };
   $("btnZoomOut").onclick=function(){ setZoom(S.draw.zoom-0.25); };
   $("barPencil").onclick=function(){ S.draw.tool="brush"; bar.querySelectorAll(".tool-btn").forEach(function(x){x.classList.remove("active");}); var first=bar.querySelector(".tool-btn"); if(first) first.classList.add("active"); };
@@ -1592,23 +2395,27 @@ function setZoom(z){
   cv.style.height=(440*S.draw.zoom)+"px";
 }
 function canvasData(){ return S.draw.canvas ? S.draw.canvas.toDataURL("image/png") : ""; }
+/* Avisa de que el lienzo cambió (pincel, borrador, formas, relleno,
+   Deshacer, Rehacer, Limpiar): en Adivina por wifi el dibujante sube la
+   imagen completa con su revisión; en Normal no hace nada. */
+function notifyCanvasChange(){ if(S.draw.onCanvasChange) S.draw.onCanvasChange(); }
 function pushUndo(){
   try{ S.draw.undo.push(S.draw.canvas.toDataURL("image/png")); if(S.draw.undo.length>30) S.draw.undo.shift(); S.draw.redo=[]; }catch(e){}
 }
-function restoreData(url){
+function restoreData(url, done){
   var img=new Image();
-  img.onload=function(){ var ctx=S.draw.ctx; ctx.fillStyle="#ffffff"; ctx.fillRect(0,0,640,440); ctx.drawImage(img,0,0); };
+  img.onload=function(){ var ctx=S.draw.ctx; ctx.fillStyle="#ffffff"; ctx.fillRect(0,0,640,440); ctx.drawImage(img,0,0); if(done) done(); };
   img.src=url;
 }
 function doUndo(){
   if(!S.draw.undo.length) return;
   try{ S.draw.redo.push(S.draw.canvas.toDataURL("image/png")); }catch(e){}
-  restoreData(S.draw.undo.pop());
+  restoreData(S.draw.undo.pop(), function(){ notifyCanvasChange(); });
 }
 function doRedo(){
   if(!S.draw.redo.length) return;
   try{ S.draw.undo.push(S.draw.canvas.toDataURL("image/png")); }catch(e){}
-  restoreData(S.draw.redo.pop());
+  restoreData(S.draw.redo.pop(), function(){ notifyCanvasChange(); });
 }
 function canvasPos(e){
   var r=S.draw.canvas.getBoundingClientRect();
@@ -1634,6 +2441,9 @@ function applyStrokes(list){
 function onPointerDown(e){
   e.preventDefault();
   var _st=document.querySelector(".side-tools"); if(_st) _st.classList.remove("open");
+  /* Imitación / Pieza que falta: la vista previa desaparece en cuanto se
+     empieza a trazar; a partir de ahí se dibuja de memoria. */
+  var pv=$("drawPreview"); if(pv) pv.classList.add("hidden");
   var cv=S.draw.canvas; try{ cv.setPointerCapture(e.pointerId); }catch(err){}
   var p=canvasPos(e), ctx=S.draw.ctx;
   if(S.draw.tool==="picker"){
@@ -1642,7 +2452,7 @@ function onPointerDown(e){
     setDrawColor(hex);
     return;
   }
-  if(S.draw.tool==="fill"){ pushUndo(); floodFill(Math.round(p.x), Math.round(p.y), S.draw.color); return; }
+  if(S.draw.tool==="fill"){ pushUndo(); floodFill(Math.round(p.x), Math.round(p.y), S.draw.color); notifyCanvasChange(); return; }
   S.draw.drawing=true; S.draw.startPt=p;
   S.draw.snap.getContext("2d").drawImage(cv,0,0);
   if(S.draw.tool==="brush" || S.draw.tool==="eraser"){
@@ -1683,11 +2493,16 @@ function onPointerUp(e){
       if(S.draw.onStrokeBatch) S.draw.onStrokeBatch([S.draw.curStroke]);
       S.draw.curStroke=null;
     }
+    /* Secreto: al soltar el dedo, el velo blanco cubre el lienzo y los
+       trazos se desvanecen; se sigue dibujando a ciegas. */
+    if(S.draw.secret){ var v=$("secretVeil"); if(v) v.style.opacity="1"; }
+    notifyCanvasChange();
     return;
   }
   restoreSnap();
   pushUndo();
   drawShape(ctx, S.draw.tool, S.draw.startPt, p, S.draw.color, S.draw.size);
+  notifyCanvasChange();
 }
 function drawShape(ctx, tool, a, b, color, size){
   var w=size*2+2;
@@ -1731,13 +2546,56 @@ function showAlbum(){
   show("screen-album");
   renderAlbum();
 }
+function voteLabel(voted){
+  /* Criterio de voto: en Solo dibujar se conserva la idea del dibujo
+     anterior (no hay frase que mantener); en el resto, el significado. */
+  var soloDraw = S.mode==="custom" && S.customCfg && S.customCfg.sequence==="solo-draw";
+  if(voted) return soloDraw ? "✓ Conservó la idea" : "✓ Mantuvo el significado";
+  return soloDraw ? "¿Conservó la idea del dibujo anterior?" : "¿Mantuvo el significado?";
+}
+/* Actualiza el marcador y los botones de voto sin volver a montar el
+   álbum entero: así un voto por wifi no borra la posición en que uno
+   está mirando el álbum. */
+function refreshScoreVotes(){
+  var albums=(S.engine && S.engine.albums) ? S.engine.albums() : [];
+  var al=albums[S.albumIdx];
+  var board=$("albumBody") && $("albumBody").querySelector(".score-board");
+  if(al && board){
+    var totals={};
+    al.links.forEach(function(lk,li){ if(S.scoreVotes[S.albumIdx+"-"+li]) totals[lk.author]=(totals[lk.author]||0)+1; });
+    var lines=board.querySelectorAll(".score-line span:last-child");
+    S.players.forEach(function(p,i){ if(lines[i]) lines[i].textContent=(totals[i]||0)+" pt"+((totals[i]||0)===1?"":"s"); });
+  }
+  if($("albumBody")){
+    $("albumBody").querySelectorAll(".vote-btn").forEach(function(b){
+      var k=S.albumIdx+"-"+b.getAttribute("data-link");
+      var voted=!!S.scoreVotes[k];
+      b.classList.toggle("voted", voted);
+      b.textContent=voteLabel(voted);
+    });
+  }
+}
 function renderAlbum(){
+  stopAnimPlayer();
   var albums=S.engine.albums();
   if(!albums.length){ $("albumBody").innerHTML="<p>No hay álbumes todavía.</p>"; return; }
   S.albumIdx=Math.max(0, Math.min(S.albumIdx, albums.length-1));
   var al=albums[S.albumIdx];
   $("albumTitle").textContent="ÁLBUM DE "+S.players[al.origin].name.toUpperCase();
   $("albumSub").textContent="Álbum "+(S.albumIdx+1)+" de "+albums.length;
+  /* Puntuación activa también en Personalizado si se marcó la opción. */
+  var scoring = S.mode==="score" || (S.mode==="custom" && S.customCfg && S.customCfg.score);
+  var note=$("albumNote");
+  if(note){
+    if(scoring) note.innerHTML="<b>Puntuación:</b> marca en cada eslabón si mantuvo el significado del anterior: 1 punto por eslabón que lo mantuvo. El marcador está arriba del álbum.";
+    else if(S.mode==="animation"||S.mode==="background"||S.mode==="solo") note.innerHTML="<b>La animación se reproduce fotograma a fotograma</b> con el botón ▶ de abajo.";
+    else if(S.mode==="corpse") note.innerHTML="<b>Un personaje surrealista creado entre todos:</b> cabeza, torso y piernas, cada parte dibujada a ciegas.";
+    else if(S.mode==="story") note.innerHTML="<b>Una historia escrita entre todos,</b> frase a frase.";
+    else if(S.mode==="masterpiece") note.innerHTML="<b>Las obras de arte del grupo,</b> dibujadas sin límite de tiempo.";
+    else if(S.mode==="secret") note.innerHTML="<b>Nadie vio lo que hacía hasta el álbum:</b> esto es lo que salió.";
+    else if(S.mode==="normal") note.innerHTML="<b>En el modo Normal no hay ganador</b>, la gracia es ver cómo se deformó la frase.";
+    else note.innerHTML="<b>Álbum de "+esc(modeName(S.mode))+"</b>: así quedó la cadena.";
+  }
   /* Tira de jugadores (como en el original: la lista de la izquierda con
      el dueño del álbum resaltado); en el móvil va encima del álbum. */
   var strip="";
@@ -1748,28 +2606,178 @@ function renderAlbum(){
   $("btnPrevAlbum").disabled = S.albumIdx===0;
   $("btnNextAlbum").disabled = S.albumIdx===albums.length-1;
   var html="";
-  al.links.forEach(function(link){
+  /* Puntuación: marcador de este álbum (1 punto por eslabón votado). */
+  if(scoring){
+    var totals={};
+    al.links.forEach(function(lk,li){
+      if(S.scoreVotes[S.albumIdx+"-"+li]) totals[lk.author]=(totals[lk.author]||0)+1;
+    });
+    html+='<div class="score-board"><h3>🏆 Marcador de este álbum</h3>';
+    S.players.forEach(function(p,i){
+      html+='<div class="score-line"><span>'+esc(p.avatar)+' '+esc(p.name)+'</span><span>'+(totals[i]||0)+' pt'+((totals[i]||0)===1?"":"s")+'</span></div>';
+    });
+    html+='<p class="hint" style="margin:6px 0 0">El grupo decide: pulsa «Mantuvo el significado» en los eslabones que no se desviaron.</p></div>';
+  }
+  /* Animación / Fondo / Solo: reproductor de fotogramas. En Fondo, el
+     primer dibujo es el fondo fijo, no un fotograma. */
+  var spec=specFor(S.mode);
+  if(spec.album==="anim"){
+    var frames=al.links.filter(function(lk){ return lk.type==="draw" && lk.image; });
+    if(S.mode==="background" && frames.length) frames=frames.slice(1);
+    if(frames.length){
+      /* Como en el original, la animación la publica el bot «Gartic». */
+      html+='<div class="album-step"><div class="avatar-dot">📱</div><div class="bubble"><small>Gartic</small><div class="txt">¡Aquí está la animación que crearon entre todos!</div></div></div>';
+      html+='<div class="anim-player"><img id="animFrame" src="'+esc(frames[0].image)+'" alt="Fotograma de la animación">'+
+        '<div class="btn-row"><button class="btn small" id="btnAnimPrev" type="button">◀ Anterior</button>'+
+        '<button class="btn small" id="btnAnimPlay" type="button">▶ Reproducir</button>'+
+        '<button class="btn small" id="btnAnimNext" type="button">Siguiente ▶</button></div>'+
+        '<div class="btn-row"><select id="animSpeed" aria-label="Velocidad de la animación"><option value="1">1&#39;s</option><option value="2">2&#39;s</option><option value="3">3&#39;s</option><option value="4" selected>4&#39;s</option><option value="10">10&#39;s</option></select>'+
+        '<select id="animLoop" aria-label="Modo de bucle"><option value="loop" selected>🔁 Infinito</option><option value="pingpong">↔️ Adelante y atrás</option><option value="once">⏹ Una vez</option></select></div>'+
+        '<div class="anim-exposure" id="animExposure"></div>'+
+        '<p class="hint" id="animLabel">Fotograma 1 de '+frames.length+'</p></div>';
+      html+='<p class="hint">Fotogramas: '+frames.map(function(lk){ return esc(S.players[lk.author].name); }).join(" → ")+'</p>';
+    }
+  }
+  al.links.forEach(function(link, li){
     var p=S.players[link.author];
-    html+='<div class="album-step"><div class="avatar-dot">'+esc(p.avatar)+'</div><div class="bubble"><small>'+esc(p.name)+'</small>';
+    var partLabel = (S.mode==="corpse") ? (specFor("corpse").parts[li]||"")+" · " : "";
+    html+='<div class="album-step"><div class="avatar-dot">'+esc(p.avatar)+'</div><div class="bubble"><small>'+esc(partLabel+p.name)+'</small>';
     if(link.type==="text") html+='<div class="txt">'+esc(link.text||"…")+'</div>';
     else html+= link.image ? '<img src="'+esc(link.image)+'" alt="Dibujo de '+esc(p.name)+'">' : '<div class="txt">… (dibujo en blanco)</div>';
+    if(scoring){
+      var voted=!!S.scoreVotes[S.albumIdx+"-"+li];
+      html+='<button class="btn small vote-btn'+(voted?" voted":"")+'" type="button" data-link="'+li+'">'+voteLabel(voted)+'</button>';
+    }
     html+='</div></div>';
   });
+  /* Divisor de fin de álbum, como en el original: «— FIN DEL ÁLBUM DE X —». */
+  html+='<div class="album-end">— FIN DEL ÁLBUM DE '+esc(S.players[al.origin].name.toUpperCase())+' —</div>';
   $("albumBody").innerHTML=html;
+  if(spec.album==="anim"){
+    var frames2=al.links.filter(function(lk){ return lk.type==="draw" && lk.image; });
+    if(S.mode==="background" && frames2.length) frames2=frames2.slice(1);
+    if(frames2.length){
+      S.animFrame=0; S.animPlaying=false;
+      S.animExposure=frames2.map(function(){ return 1; });
+      var img=$("animFrame"), lbl=$("animLabel"), playBtn=$("btnAnimPlay");
+      var speedSel=$("animSpeed"), loopSel=$("animLoop");
+      var animDir=1;
+      var speedMs=function(){ var v=speedSel?parseInt(speedSel.value,10):4; return {1:100,2:200,3:300,4:400,10:1000}[v]||400; };
+      var loopMode=function(){ return loopSel?loopSel.value:"loop"; };
+      var exposure=function(i){ return (S.animExposure&&S.animExposure[i]!=null)?S.animExposure[i]:1; };
+      var showFrame=function(i){
+        S.animFrame=(i+frames2.length)%frames2.length;
+        if(img) img.src=frames2[S.animFrame].image;
+        if(lbl) lbl.textContent="Fotograma "+(S.animFrame+1)+" de "+frames2.length+" · "+S.players[frames2[S.animFrame].author].name;
+      };
+      var stepFrame=function(){
+        var n=frames2.length, i=S.animFrame, lm=loopMode();
+        for(var k=0;k<n;k++){
+          i+=animDir;
+          if(lm==="once"){ if(i<0||i>=n) return -1; }
+          else if(lm==="pingpong"){ if(i>=n){ animDir=-1; i=n-2; } else if(i<0){ animDir=1; i=1; } if(n<2) i=0; }
+          else { i=(i+n)%n; }
+          if(exposure(i)>0) return i;
+        }
+        return -1;
+      };
+      var schedule=function(){
+        if(!S.animPlaying) return;
+        S.animTimer=setTimeout(playNext, speedMs()*Math.max(1,exposure(S.animFrame)));
+      };
+      var playNext=function(){
+        if(!S.animPlaying) return;
+        var nx=stepFrame();
+        if(nx<0){ stopAnimPlayer(); if(playBtn) playBtn.textContent="▶ Reproducir"; return; }
+        showFrame(nx);
+        schedule();
+      };
+      var prev=$("btnAnimPrev"), next=$("btnAnimNext");
+      if(prev) prev.onclick=function(){ stopAnimPlayer(); animDir=-1; showFrame(S.animFrame-1); if(playBtn) playBtn.textContent="▶ Reproducir"; };
+      if(next) next.onclick=function(){ stopAnimPlayer(); animDir=1; showFrame(S.animFrame+1); if(playBtn) playBtn.textContent="▶ Reproducir"; };
+      if(playBtn) playBtn.onclick=function(){
+        if(S.animPlaying){ stopAnimPlayer(); playBtn.textContent="▶ Reproducir"; }
+        else { S.animPlaying=true; animDir=1; playBtn.textContent="⏸ Pausa"; schedule(); }
+      };
+      /* Exposición por fotograma (0x/1x/2x/3x): 0x quita el fotograma de
+         la reproducción; 2x y 3x lo dejan el doble o el triple. */
+      var exBox=$("animExposure");
+      if(exBox){
+        frames2.forEach(function(lk,fi){
+          var b=document.createElement("button"); b.type="button"; b.className="tool-btn";
+          var lab=function(){ return "F"+(fi+1)+" · "+(S.animExposure[fi]===0?"0x":S.animExposure[fi]+"x"); };
+          b.textContent=lab();
+          b.onclick=function(){ S.animExposure[fi]=S.animExposure[fi]===1?2:(S.animExposure[fi]===2?3:(S.animExposure[fi]===3?0:1)); b.textContent=lab(); };
+          exBox.appendChild(b);
+        });
+      }
+    }
+  }
+  if(scoring){
+    $("albumBody").querySelectorAll(".vote-btn").forEach(function(b){
+      b.onclick=function(){
+        var k=S.albumIdx+"-"+b.getAttribute("data-link");
+        var vote=!S.scoreVotes[k];
+        if(S.net.kind==="wifi" && S.transport && S.transport.scoreVote){
+          /* Voto común: el anfitrión guarda el marcador y lo comparte;
+             los demás lo reciben en su sondeo del álbum. */
+          var alIdx=S.albumIdx, li=+b.getAttribute("data-link");
+          S.transport.scoreVote(alIdx, li, vote).then(function(r){
+            if(r && r.votes) S.scoreVotes=r.votes;
+            else S.scoreVotes[k]=vote;
+            refreshScoreVotes();
+          }).catch(function(){ S.scoreVotes[k]=vote; refreshScoreVotes(); });
+        } else {
+          S.scoreVotes[k]=vote;
+          renderAlbum();
+        }
+      };
+    });
+  }
 }
 $("btnPrevAlbum").addEventListener("click", function(){ S.albumIdx--; renderAlbum(); });
 $("btnNextAlbum").addEventListener("click", function(){ S.albumIdx++; renderAlbum(); });
 $("btnReplay").addEventListener("click", function(){
-  S.engine=new GameEngine(S.players, S.settings);
+  stopNetPoll();
+  if(S.net.kind==="wifi"){
+    if(S.wifi.host){
+      /* El anfitrión vuelve al lobby para empezar otra ronda con los
+         mismos jugadores (misma sala, mismo código). */
+      HOST.started=false; HOST.engine=null; HOST.guess=null; HOST.scoreVotes={}; HOST.customCfg=null;
+      HOST.stepStartedAt=0; HOST.stepLimit=0; HOST.skippedThisStep=[]; HOST.left={}; HOST.bgCache={}; HOST.lastSeen={};
+      if(HOST.watchdog){ clearInterval(HOST.watchdog); HOST.watchdog=null; }
+      if(HOST.timer){ clearInterval(HOST.timer); HOST.timer=null; }
+      S.net.taskKey=""; S.net.submittedStep=-1; S.net.albumShown=false;
+      renderWifiLobby(); updateWifiStart(); syncWifiModeButtons();
+      show("screen-create-wifi");
+    } else {
+      /* El invitado espera a que el anfitrión empiece otra ronda. */
+      S.net.taskKey=""; S.net.submittedStep=-1; S.net.albumShown=false;
+      $("waitText").textContent="Esperando a que el anfitrión empiece otra ronda…";
+      show("screen-wait");
+      waitForNextWifiGame();
+    }
+    return;
+  }
+  if(S.mode==="custom"){
+    var cfgR=effectiveCustom();
+    if(cfgR.turns==="random") cfgR.randomRounds=2+Math.floor(Math.random()*Math.max(1,(S.players.length-1)));
+    S.customCfg=cfgR; CURRENT_CUSTOM_CFG=cfgR;
+    S.settings=cfgR.times;
+    S.engine=new GameEngine(S.players, S.settings, "custom", cfgR);
+  } else {
+    S.customCfg=null; CURRENT_CUSTOM_CFG=null;
+    S.engine=new GameEngine(S.players, S.settings, S.mode);
+  }
   S.transport=new LocalTransport(S.engine);
-  S.engine.start(); S.step=0; S.turnIdx=0; S.stepDone={}; S.albumIdx=0;
+  S.engine.start(); S.step=0; S.turnIdx=0; S.stepDone={}; S.albumIdx=0; S.scoreVotes={};
   $("cdTitle").textContent="Otra ronda…";
   show("screen-countdown");
   var n=3; $("cdNumber").textContent=n; AudioFX.count(n); buzz([25]);
   stopCountdown();
   S.cdTimer=setInterval(function(){ n--; if(n<=0){ stopCountdown(); AudioFX.count(true); buzz([70]); showPassFor(0); } else { $("cdNumber").textContent=n; AudioFX.count(n); buzz([25]); } },700);
 });
-$("btnNewGame").addEventListener("click", function(){ stopTimer(); renderPlayersList(); show("screen-setup"); });
+$("btnNewGame").addEventListener("click", function(){ stopTimer(); stopNetPoll(); renderPlayersList(); show("screen-setup"); });
 $("btnAlbumHome").addEventListener("click", function(){ stopTimer(); show("screen-home"); });
 
 /* ---------- Adivina el dibujo: un solo teléfono ---------- */
@@ -1791,6 +2799,7 @@ function startGuessLocal(){
 function guessStopTimers(){
   if(S.guess.timer){ clearInterval(S.guess.timer); S.guess.timer=null; }
   if(S.guess.resultTimer){ clearTimeout(S.guess.resultTimer); S.guess.resultTimer=null; }
+  stopLowAlarm();
 }
 function showGuessTurn(){
   var g=S.guess.engine;
@@ -1823,8 +2832,9 @@ function guessTickLocal(){
   var g=S.guess.engine;
   if(!g || g.phase!=="draw") return;
   g.tick();
-  if(g.timeLeft<=10 && g.timeLeft>0){ AudioFX.tick(); if(g.timeLeft===10) buzz([60,60,60]); }
+  lowAlarm(g.roundTime, g.timeLeft, "guess-"+g.round);
   $("guessTimerPill").textContent=fmtTime(g.timeLeft);
+  $("guessTimerPill").className="timer-pill"+(g.timeLeft>0&&g.timeLeft<=warnAt(g.roundTime)?" warn":"");
   $("guessTimeBar").style.width=Math.max(0,Math.round(g.timeLeft/g.roundTime*100))+"%";
   var hb=$("guessHintBar"); if(hb) hb.innerHTML="<small>ADIVINA LA PALABRA</small>"+esc(g.hint());
   if(g.phase==="result") finishDrawLocal();
@@ -1873,7 +2883,8 @@ function renderGuesserLocal(){
   var left=30;
   S.guess.timer=setInterval(function(){
     left--; $("guessTimerPill").textContent=fmtTime(left);
-    if(left<=10 && left>0){ AudioFX.tick(); if(left===10) buzz([60,60,60]); }
+    $("guessTimerPill").className="timer-pill"+(left>0&&left<=warnAt(30)?" warn":"");
+    lowAlarm(30, left, "guesser-"+g.round+"-"+S.guess.guesserPos);
     $("guessTimeBar").style.width=Math.max(0,Math.round(left/30*100))+"%";
     if(left<=0){ guessStopTimers(); nextGuesserLocal(); }
   },1000);
@@ -1964,30 +2975,81 @@ $("btnPodiumReplay").addEventListener("click", function(){ S.players=S.players.l
 $("btnPodiumNew").addEventListener("click", function(){ stopTimer(); guessStopTimers(); syncSetupMode(); show("screen-setup"); });
 $("btnPodiumHome").addEventListener("click", function(){ stopTimer(); guessStopTimers(); goHome(); });
 
-/* ---------- Adivina el dibujo por wifi (anfitrión y clientes) ---------- */
+/* ---------- Adivina el dibujo por wifi (anfitrión y clientes) ----------
+   El dibujo se sincroniza por REVISIÓN, no por trazos: el dibujante sube
+   la imagen completa del lienzo (640×440) cada vez que cambia, con su nº
+   de revisión; el anfitrión guarda solo la última aceptada de la ronda y
+   los invitados la reciben en su sondeo. Así llegan también las formas,
+   el relleno, Deshacer, Rehacer y Limpiar (que antes solo cambiaban el
+   lienzo local), y no hay un cursor por nº de trazos que se rompa al
+   cortar la lista. */
 function guessIoFor(kind){
   if(kind==="host"){
     return {
-      postStroke:function(batch){ HOST.guess.addStrokes(0, batch); return Promise.resolve({ok:true}); },
+      postCanvas:function(image, revision, round){ var r=HOST.guess.setCanvas(0, round, revision, image); return Promise.resolve(r); },
       postChat:function(text){ var r=HOST.guess.guess(0, text); return Promise.resolve({correct:!!r.correct, pts:r.pts||0}); },
       postWord:function(word){ var ok=HOST.guess.chooseWord(0, word); return Promise.resolve({ok:ok}); },
       endDraw:function(){ if(HOST.guess.phase==="draw") HOST.guess.endRound(); return Promise.resolve({ok:true}); },
-      state:function(){ return Promise.resolve(hostGuessState({playerId:"me"})); }
+      state:function(knownRev){ return Promise.resolve(hostGuessState({playerId:"me", knownRev:knownRev})); }
     };
   }
   var t=S.wifi.transport;
   return {
-    postStroke:function(batch){ return t.guessStroke(S.wifi.myId, batch); },
+    postCanvas:function(image, revision, round){ return t.guessCanvas(S.wifi.myId, round, revision, image); },
     postChat:function(text){ return t.guessChat(S.wifi.myId, text); },
     postWord:function(word){ return t.guessWord(S.wifi.myId, word); },
     endDraw:function(){ return t.guessEnd(S.wifi.myId); },
-    state:function(){ return t.guessState(S.wifi.myId); }
+    state:function(knownRev){ return t.guessState(S.wifi.myId, knownRev); }
   };
+}
+/* El dibujante marca que el lienzo cambió: se incrementa la revisión y se
+   programa el envío de la imagen completa. Los cambios cercanos se
+   agrupan (un solo envío en curso; si cambia algo mientras se envía, se
+   conserva la última revisión pendiente y se envía después). */
+function guessCanvasDirty(){
+  if(!S.guess.io) return;
+  S.guess.canvasRev=(S.guess.canvasRev||0)+1;
+  S.guess.canvasPending=true;
+  guessCanvasSend();
+}
+function guessCanvasSend(){
+  if(!S.guess.io || S.guess.canvasSending || !S.guess.canvasPending) return;
+  S.guess.canvasSending=true; S.guess.canvasPending=false;
+  var rev=S.guess.canvasRev;
+  var img=canvasData();
+  var round=S.guess.netRound;
+  S.guess.io.postCanvas(img, rev, round).then(function(){
+    S.guess.canvasSending=false;
+    if(S.guess.canvasPending) setTimeout(guessCanvasSend, 250);
+  }).catch(function(){
+    /* Si se pierde la respuesta, se reenvía la última imagen disponible. */
+    S.guess.canvasSending=false;
+    S.guess.canvasPending=true;
+    setTimeout(guessCanvasSend, 800);
+  });
+}
+/* Al pulsar «Hecho», se confirma primero el último dibujo si hubo cambios
+   pendientes, y después se cierra la ronda. */
+function guessFlushCanvas(){
+  if(!S.guess.io) return Promise.resolve();
+  if(!S.guess.canvasPending && !S.guess.canvasSending) return Promise.resolve();
+  S.guess.canvasPending=true;
+  guessCanvasSend();
+  return new Promise(function(resolve){
+    var tries=0;
+    var iv=setInterval(function(){
+      tries++;
+      if(!S.guess.canvasPending && !S.guess.canvasSending){ clearInterval(iv); resolve(); }
+      else if(tries>15){ clearInterval(iv); resolve(); } /* no bloquear «Hecho» más de ~3 s */
+    }, 200);
+  });
 }
 function startGuessNet(kind){
   S.guess.io=guessIoFor(kind);
   S.net.kind=kind==="host"?"host":"wifi";
-  S.net.lastStrokeCount=0; S.net.lastChatLen=0; S.net.lastPhase=""; S.net.roundKey="";
+  S.net.lastChatLen=0; S.net.lastPhase=""; S.net.roundKey="";
+  S.net.guessRev=-1; S.net.guessRound=-1;
+  S.guess.canvasRev=0; S.guess.canvasPending=false; S.guess.canvasSending=false; S.guess.netRound=-1;
   show("screen-guess");
   if(S.net.poll) clearInterval(S.net.poll);
   S.net.poll=setInterval(pollGuessNet, 900);
@@ -1995,8 +3057,16 @@ function startGuessNet(kind){
 }
 function pollGuessNet(){
   if(!S.guess.io) return;
-  S.guess.io.state().then(function(st){
-    if(!st || !st.ok) return;
+  /* El invitado informa qué revisión del lienzo tiene: el anfitrión solo
+     le devuelve la imagen si cambió. */
+  S.guess.io.state(S.net.guessRev).then(function(st){
+    if(!st || !st.ok){
+      /* El anfitrión cerró la sala: no seguir sondeando en silencio. */
+      if(S.net.poll){ clearInterval(S.net.poll); S.net.poll=null; }
+      $("guessRoundLabel").textContent="El anfitrión cerró la sala";
+      $("guessArea").innerHTML='<div class="prompt-box"><small>Sala cerrada</small><div class="phrase">El anfitrión cerró la sala. Vuelve al inicio para crear o unirte a otra.</div></div><button class="btn" type="button" onclick="goHome()">Volver al inicio</button>';
+      return;
+    }
     renderGuessFromState(st);
   }).catch(function(){});
 }
@@ -2009,18 +3079,19 @@ function renderGuessFromState(st){
   var g={scores:st.scores, guessed:{}, chat:st.chat, round:st.round, drawer:st.drawer, hint:function(){ return st.hint; }};
   st.chat.forEach(function(m){ if(m.hit) g.guessed[m.player]=true; });
   $("guessRoundLabel").textContent="Ronda "+(st.round+1)+" · dibuja "+(st.players[st.drawer]?st.players[st.drawer].name:"?");
-  $("guessTimerPill").textContent=st.phase==="draw"?fmtTime(st.timeLeft):(st.phase==="choose"?"Elige":"¡Ronda!");
+  $("guessTimerPill").textContent=st.phase==="draw"?fmtTime(st.timeLeft):(st.phase==="choose"?("Elige"+(st.chooseLeft?" · "+st.chooseLeft+" s":"")):"¡Ronda!");
+  $("guessTimerPill").className="timer-pill"+(st.phase==="draw"&&st.timeLeft>0&&st.timeLeft<=warnAt(st.roundTime)?" warn":"");
   $("guessTimeBar").style.width=st.phase==="draw"?Math.max(0,Math.round(st.timeLeft/st.roundTime*100))+"%":"100%";
-  /* Sonido y vibración por wifi: acierto propio y aviso de 10 s (el anfitrión
-     también pasa por aquí, porque su estado se sondea igual que el de un cliente). */
+  /* Alarma de poco tiempo (dial amarillo a ~1/6): suena en todos los
+     teléfonos, incluido el del anfitrión, que también sondea su estado. */
+  if(st.phase==="draw") lowAlarm(st.roundTime, st.timeLeft, "wifiguess-"+st.round+"-"+st.drawer);
+  else if(S.alarmKey && S.alarmKey.indexOf("wifiguess-")===0) stopLowAlarm();
+  /* Sonido y vibración por wifi: acierto propio (el anfitrión también
+     pasa por aquí, porque su estado se sondea igual que el de un cliente). */
   if(st.chat && st.chat.length>(S.net.lastChatLen||0)){
     var _lm=st.chat[st.chat.length-1];
     if(_lm && _lm.hit && _lm.player===me){ AudioFX.hit(); buzz([50,50,90]); }
     S.net.lastChatLen=st.chat.length;
-  }
-  if(st.phase==="draw" && me!==st.drawer){
-    if(st.timeLeft===10 && S.net.lastWarn!==st.round+"-"+st.drawer){ S.net.lastWarn=st.round+"-"+st.drawer; buzz([60,60,60]); }
-    if(st.timeLeft<=10 && st.timeLeft>0 && S.net.lastTickLeft!==st.timeLeft){ S.net.lastTickLeft=st.timeLeft; AudioFX.tick(); }
   }
   var area=$("guessArea");
   var key=st.phase+"-"+st.round+"-"+(me===st.drawer?"d":"g");
@@ -2040,12 +3111,15 @@ function renderGuessFromState(st){
   } else if(st.phase==="draw"){
     if(me===st.drawer){
       if(S.net.lastPhase!==key){
+        /* Ronda nueva para el dibujante: revisión a cero y ronda actual
+           fijada, para que el primer envío lleve la ronda correcta. */
+        S.guess.canvasRev=0; S.guess.canvasPending=false; S.guess.canvasSending=false; S.guess.netRound=st.round;
         area.innerHTML='<div class="hint-bar"><small>TU PALABRA SECRETA · SOLO LA VES TÚ</small>'+esc((st.word||"").toUpperCase())+'</div><div id="guessDrawHost"></div>';
         renderDraw($("guessDrawHost"), null, {
           topBar:"RONDA "+(st.round+1)+" · DIBUJA: "+(st.word||"").toUpperCase(),
           timeSec:null, submitLabel:"¡HECHO!",
-          onStrokeBatch:function(batch){ S.guess.io.postStroke(batch); },
-          onSubmit:function(){ S.guess.io.endDraw(); }
+          onCanvasChange:function(){ guessCanvasDirty(); },
+          onSubmit:function(){ guessFlushCanvas().then(function(){ S.guess.io.endDraw(); }); }
         });
       }
     } else {
@@ -2058,7 +3132,7 @@ function renderGuessFromState(st){
           '<button class="btn ghost" id="btnGuessLeave" type="button">Salir de la sala</button>';
         S.draw.canvas=$("liveCanvas"); S.draw.ctx=$("liveCanvas").getContext("2d");
         S.draw.ctx.fillStyle="#ffffff"; S.draw.ctx.fillRect(0,0,640,440);
-        S.net.lastStrokeCount=0;
+        S.net.guessRev=-1; S.net.guessRound=st.round;
         var send=function(){
           var inp=$("guessInput"); if(!inp.value.trim()) return;
           S.guess.io.postChat(inp.value); inp.value="";
@@ -2069,9 +3143,29 @@ function renderGuessFromState(st){
       } else {
         var hb=$("guessHintBar"); if(hb) hb.innerHTML="<small>ADIVINA LA PALABRA</small>"+esc(st.hint);
       }
-      if(st.strokes.length>S.net.lastStrokeCount){
-        applyStrokes(st.strokes.slice(S.net.lastStrokeCount));
-        S.net.lastStrokeCount=st.strokes.length;
+      /* Lienzo por revisión: si el anfitrión trae una revisión nueva, se
+         carga la imagen completa. La comprobación se hace en onload: si
+         mientras se cargaba llegó una revisión posterior (o cambió la
+         ronda y el lienzo ya es otro elemento), no se sobrescribe el
+         dibujo más reciente. */
+      if(st.canvasRev!=null && st.canvasRev!==S.net.guessRev){
+        var myRound=st.round, myRev=st.canvasRev;
+        S.net.guessRev=myRev; S.net.guessRound=myRound;
+        var liveCv=$("liveCanvas");
+        if(liveCv && st.canvasImage){
+          var liveImg=new Image();
+          liveImg.onload=function(){
+            if($("liveCanvas")!==liveCv) return;
+            if(S.net.guessRev!==myRev) return;
+            var ctx2=liveCv.getContext("2d");
+            ctx2.fillStyle="#ffffff"; ctx2.fillRect(0,0,640,440);
+            ctx2.drawImage(liveImg,0,0);
+          };
+          liveImg.src=st.canvasImage;
+        } else if(liveCv){
+          var ctx3=liveCv.getContext("2d");
+          ctx3.fillStyle="#ffffff"; ctx3.fillRect(0,0,640,440);
+        }
       }
       renderGuessSideNet(st, g);
     }
@@ -2148,6 +3242,8 @@ function renderWifiLobby(){
   box.querySelectorAll("[data-kick]").forEach(function(b){
     b.onclick=function(){
       var id=b.getAttribute("data-kick");
+      var kicked=S.wifi.players.filter(function(p){ return String(p.id)===String(id); })[0];
+      if(kicked) HOST.kickedNames.push(kicked.name.toLowerCase());
       S.wifi.kicked.push(id);
       S.wifi.players=S.wifi.players.filter(function(p){ return String(p.id)!==String(id); });
       HOST.players=HOST.players.filter(function(p){ return String(p.id)!==String(id); });
@@ -2157,15 +3253,22 @@ function renderWifiLobby(){
 }
 function updateWifiStart(){
   var btn=$("btnStartWifi");
-  var min=S.mode==="guess"?2:3;
+  var min=S.mode==="guess"?2:specFor(S.mode).min;
   btn.disabled = !(S.wifi.host && S.wifi.players.length>=min);
   btn.textContent = S.wifi.players.length>=min ? "EMPEZAR" : "EMPEZAR (mín. "+min+")";
   btn.innerHTML='<span class="play">▶</span> '+btn.textContent;
 }
 function syncWifiModeButtons(){
   var isGuess=S.mode==="guess";
-  $("wifiModeNormal").className="btn small"+(isGuess?"":" sel");
+  $("wifiModeNormal").className="btn small"+((!isGuess && S.mode==="normal")?" sel":"");
   $("wifiModeGuess").className="btn small"+(isGuess?" sel":"");
+  var sel=$("wifiModeSelect");
+  if(sel){
+    if(!sel.options.length){
+      MODES.forEach(function(m){ var o=document.createElement("option"); o.value=m.mode; o.textContent=m.n; sel.appendChild(o); });
+    }
+    sel.value=S.mode;
+  }
   $("wifiSettingsSummary").innerHTML="<b>Ajustes de la sala (solo los cambia el anfitrión):</b><br>"+esc(settingsSummaryText());
 }
 function createWifiRoom(){
@@ -2178,6 +3281,9 @@ function createWifiRoom(){
   S.wifi.kicked=[];
   HOST.active=true; HOST.mode=S.mode; HOST.code=S.wifi.code; HOST.maxPlayers=S.maxPlayers;
   HOST.players=S.wifi.players.slice(); HOST.started=false; HOST.engine=null; HOST.guess=null;
+  HOST.kickedNames=[]; HOST.left={}; HOST.bgCache={}; HOST.skippedThisStep=[];
+  if(HOST.watchdog){ clearInterval(HOST.watchdog); HOST.watchdog=null; }
+  if(HOST.timer){ clearInterval(HOST.timer); HOST.timer=null; }
   HOST.settingsSummary=settingsSummaryText();
   $("roomCode").textContent=S.wifi.code;
   $("hostAddr").textContent="—";
@@ -2190,10 +3296,16 @@ function createWifiRoom(){
     plugin.connect().then(function(info){
       var ip = (info && (info.ip || info.address || info.host)) || "";
       var port = (info && info.port) || 7777;
+      S.wifi.port=port;
       if(ip){ S.wifi.ip=ip; $("hostAddr").textContent=ip+":"+port; $("wifiStatus").textContent="Sala lista. Comparte la IP y el código con tus amigos."; }
       else { $("hostAddr").textContent="Puerto "+port; $("wifiStatus").textContent="El servidor arrancó, pero no devolvió una IP. Revisa la wifi del teléfono."; }
-      if(plugin.addListener){
-        plugin.addListener("onRequest", function(data){
+      if(plugin.addListener && !S.wifi.lanListening){
+        /* Un solo listener por sala: al reabrir la sala no se registra
+           otro (si no, cada petición se respondería dos veces y unirse
+           metería al jugador dos veces). Se guarda para eliminarlo al
+           cerrar la sala. */
+        S.wifi.lanListening=true;
+        S.wifi.lanListener=plugin.addListener("onRequest", function(data){
           var r=hostRouter(data);
           if(plugin.sendResponse) plugin.sendResponse({requestId:data.requestId, body:JSON.stringify(r)});
         });
@@ -2206,18 +3318,31 @@ function createWifiRoom(){
     $("hostAddr").textContent="Puerto 7777 (en la APK)";
   }
 }
+/* Actualizar la IP anunciada (por si el teléfono cambió de wifi a punto
+   de acceso o al revés después de crear la sala): la IP que anuncia el
+   anfitrión es la que el invitado tiene que poder alcanzar. */
+$("btnRefreshIp").addEventListener("click", function(){
+  var plugin=(window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.LanServer) || window.LanServer || null;
+  if(!plugin || typeof plugin.getLanIp!=="function"){ toast("En el navegador no hay IP local; en la APK aparece sola."); return; }
+  plugin.getLanIp().then(function(info){
+    var ip=(info && info.ip)||"";
+    if(ip){ S.wifi.ip=ip; $("hostAddr").textContent=ip+":"+(S.wifi.port||7777); $("wifiStatus").textContent="Sala lista. Comparte la IP y el código con tus amigos."; }
+    else toast("No se encontró una IP de red local.");
+  }).catch(function(){ toast("No se pudo comprobar la IP."); });
+});
 /* INVITAR (como en el lobby original): copia la IP y el código de la
    sala para pegarlos en WhatsApp/Telegram; si el portapapeles no deja,
    avisa y se copian a mano de arriba. */
 $("btnWifiInvite").addEventListener("click", function(){
-  var txt="Gartic Móvil · sala "+(S.wifi.code||"")+" · IP "+($("hostAddr").textContent||"")+" · puerto 7777";
+  var port=S.wifi.port||7777;
+  var txt="Gartic Móvil · sala "+(S.wifi.code||"")+" · IP "+($("hostAddr").textContent||"")+" · puerto "+port;
   function done(ok){ toast(ok?"Copiado: IP y código de la sala":"Copia la IP y el código de arriba"); }
   if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(function(){ done(true); }, function(){ done(false); }); }
   else { try{ var ta=document.createElement("textarea"); ta.value=txt; document.body.appendChild(ta); ta.select(); document.execCommand("copy"); document.body.removeChild(ta); done(true); }catch(e){ done(false); } }
 });
 $("btnStartWifi").addEventListener("click", function(){
   if(!S.wifi.host) return;
-  var min=S.mode==="guess"?2:3;
+  var min=S.mode==="guess"?2:specFor(S.mode).min;
   if(S.wifi.players.length<min) return;
   var r=hostStart();
   if(!r.ok) return;
@@ -2226,22 +3351,33 @@ $("btnStartWifi").addEventListener("click", function(){
     S.guess.engine=HOST.guess;
     startGuessNet("host");
   } else {
-    S.engine=HOST.engine; S.transport=new LocalTransport(HOST.engine); S.net.kind="local";
-    S.step=0; S.turnIdx=0; S.stepDone={}; S.albumIdx=0;
+    /* El anfitrión juega como un cliente más (HostTransport): solo su
+       turno de cada paso, no todos los turnos en su teléfono. */
     $("cdTitle").textContent="Prepárense…";
-    $("cdSub").textContent=S.players.length+" jugadores · modo Normal por wifi";
+    $("cdSub").textContent=S.players.length+" jugadores · "+modeName(S.mode)+" por wifi";
     show("screen-countdown");
     var n=3; $("cdNumber").textContent=n; AudioFX.count(n); buzz([25]);
     stopCountdown();
-    S.cdTimer=setInterval(function(){ n--; if(n<=0){ stopCountdown(); AudioFX.count(true); buzz([70]); showPassFor(0); } else { $("cdNumber").textContent=n; AudioFX.count(n); buzz([25]); } },700);
+    S.cdTimer=setInterval(function(){ n--; if(n<=0){ stopCountdown(); AudioFX.count(true); buzz([70]); startNormalWifiClient({players:HOST.players, mode:HOST.mode}, new HostTransport()); } else { $("cdNumber").textContent=n; AudioFX.count(n); buzz([25]); } },700);
   }
 });
 
 /* Unirse por IP */
 var joinPoll=null, joinRetryUntil=0;
 function stopJoinPoll(){ if(joinPoll){ clearInterval(joinPoll); joinPoll=null; } }
-function stopNetPoll(){ if(S.net.poll){ clearInterval(S.net.poll); S.net.poll=null; } }
+function stopNetPoll(){
+  /* Detiene el sondeo wifi y invalida las respuestas pendientes de esa
+     sesión: una respuesta tardía del anfitrión no debe remontar una
+     pantalla que ya no existe. */
+  S.net.pollActive=false;
+  if(S.net.pollTimer){ clearTimeout(S.net.pollTimer); S.net.pollTimer=null; }
+  if(S.net.poll){ clearInterval(S.net.poll); S.net.poll=null; }
+  if(S.net.replayTimer){ clearInterval(S.net.replayTimer); S.net.replayTimer=null; }
+  S.net.session=(S.net.session||0)+1;
+}
 $("btnDoJoin").addEventListener("click", function(){
+  var btn=$("btnDoJoin");
+  if(btn.disabled) return;
   var rawIp=$("joinIp").value.trim();
   var code=$("joinCode").value.trim().toUpperCase();
   var msg=$("joinMsg");
@@ -2249,59 +3385,92 @@ $("btnDoJoin").addEventListener("click", function(){
   var m=/^(\d{1,3}(\.\d{1,3}){3})(?::(\d{1,5}))?$/.exec(rawIp);
   if(!m){ msg.innerHTML='<div class="notice err">Esa dirección no tiene buen formato. Debe ser algo como 192.168.43.1 o 192.168.43.1:7778.</div>'; return; }
   var ip=m[1];
+  /* Cada número de la IP tiene que ser de 0 a 255 (999.999.999.999 no es
+     una dirección y el error sería confuso). */
+  var octets=ip.split(".");
+  for(var oi=0;oi<4;oi++){ if(+octets[oi]>255){ msg.innerHTML='<div class="notice err">Esa IP no es válida: cada número tiene que ser de 0 a 255.</div>'; return; } }
   var port=m[3] ? parseInt(m[3],10) : 7777;
   if(port<1 || port>65535){ msg.innerHTML='<div class="notice err">Ese puerto no es válido (de 1 a 65535).</div>'; return; }
   var hostLabel=ip+":"+port;
   if(code.length!==4){ msg.innerHTML='<div class="notice err">El código tiene 4 letras. Pídeselo al anfitrión.</div>'; return; }
   saveProfile(true);
+  btn.disabled=true;
   msg.innerHTML='<div class="notice">Conectando con '+esc(hostLabel)+'…</div>';
   var transport=new HttpTransport("http://"+hostLabel);
   S.wifi.transport=transport; S.wifi.ip=ip; S.wifi.port=port; S.wifi.code=code; S.wifi.host=false;
-  var ctrl=new AbortController();
-  var to=setTimeout(function(){ ctrl.abort(); }, 3000);
-  var showJoinError=function(){
-    clearTimeout(to);
-    msg.innerHTML='<div class="notice err">No se pudo conectar con '+esc(hostLabel)+'. Revisa que estés en la misma wifi o en el punto de acceso del anfitrión, que la IP y el puerto sean correctos y que el anfitrión tenga la sala abierta.</div>';
+  /* Reconexión: si este teléfono ya estaba en esta sala, vuelve con su
+     mismo id y el anfitrión lo readmite aunque la partida ya empezó. */
+  var savedWifi=null;
+  try{ savedWifi=JSON.parse(localStorage.getItem("gartic-movil-wifi")||"null"); }catch(e){}
+  var savedPlayerId=(savedWifi && savedWifi.code===code && savedWifi.ip===ip)?savedWifi.playerId:"";
+  var showJoinError=function(kind){
+    btn.disabled=false;
+    var why=(kind==="timeout")?"tardó demasiado en responder (¿el anfitrión está lejos o la wifi va lenta?)":"no se pudo conectar";
+    msg.innerHTML='<div class="notice err">El anfitrión '+why+'. Revisa que estés en la misma wifi o en el punto de acceso del anfitrión, que la IP y el puerto sean correctos y que el anfitrión tenga la sala abierta.</div>';
   };
-  var pingPromise;
-  try{
-    if(typeof fetch!=="function") throw new Error("sin fetch");
-    pingPromise=fetch("http://"+hostLabel+"/ping", {signal:ctrl.signal});
-  }catch(err){ showJoinError(); return; }
-  pingPromise
-    .then(function(r){ clearTimeout(to); if(!r.ok) throw new Error("bad"); return r.json().catch(function(){ return {}; }); })
+  /* El ping va por el mismo transporte que todo lo demás (en la APK, por
+     el puente nativo CapacitorHttp; en el navegador, por fetch). Así no
+     hay un fetch directo que el contenido mixto pueda bloquear. */
+  transport.ping()
     .then(function(data){
+      if(!data || data.ok===false) throw new Error("sin respuesta");
       if(data && data.code && String(data.code).toUpperCase()!==code){
+        btn.disabled=false;
         msg.innerHTML='<div class="notice err">Esa sala existe, pero el código no coincide. Revisa las 4 letras.</div>'; return;
       }
       msg.innerHTML='<div class="notice ok">Conectado con el anfitrión. Entrando a la sala…</div>';
-      $("joinStatus").textContent="En la sala "+code+". Esperando a que el anfitrión configure y comience el juego.";
-      transport.join({name:profile.nick||"Jugador", avatar:profile.avatar, code:code}).then(function(j){
-        if(j && j.playerId) S.wifi.myId=j.playerId;
-        if(j && j.mode){ S.mode=j.mode; }
-        if(j && j.settings){ var js=$("joinSettings"); js.classList.remove("hidden"); js.innerHTML="<b>Ajustes de la sala (los puso el anfitrión, tú solo los ves):</b><br>"+esc(j.settings); }
-      }).catch(function(){});
-      joinRetryUntil=Date.now()+30000;
-      stopJoinPoll();
-      joinPoll=setInterval(function(){
-        transport.getState().then(function(st){
-          if(st && st.players){ renderJoinLobby(st.players); }
-          if(st && st.started){
-            $("joinStatus").textContent="La partida empezó.";
-            stopJoinPoll();
-            if(st.mode==="guess"){ S.players=st.players; startGuessNet("wifi"); }
-            else startNormalWifiClient(st);
-          }
-        }).catch(function(){
-          var off=transport.offlineSeconds();
-          $("joinStatus").textContent="Sin conexión con el anfitrión, esperando… ("+off+" s). No te hemos expulsado: seguimos reintentando.";
-          if(Date.now()>joinRetryUntil){ stopJoinPoll(); $("joinStatus").textContent="No se pudo reconectar en 30 s. Revisa la wifi y vuelve a intentarlo con el botón Unirse."; }
-        });
-      }, 2000);
+      transport.join({name:profile.nick||"Jugador", avatar:profile.avatar, code:code, playerId:savedPlayerId}).then(function(j){
+        /* Antes se decía «En la sala» antes de saber si el anfitrión te
+           había aceptado: un expulsado o una sala llena veía «En la sala»
+           aunque no estaba dentro. Ahora solo se entra si j.ok. */
+        if(!j || !j.ok){
+          btn.disabled=false;
+          var why=(j && j.error)||"no se pudo entrar";
+          msg.innerHTML='<div class="notice err">No pudiste entrar a la sala: '+esc(why)+'.</div>';
+          return;
+        }
+        if(j.playerId){
+          S.wifi.myId=j.playerId; transport.playerId=j.playerId;
+          try{ localStorage.setItem("gartic-movil-wifi", JSON.stringify({code:code, ip:ip, port:port, playerId:j.playerId})); }catch(e){}
+        }
+        if(j.mode){ S.mode=j.mode; }
+        if(j.settings){ var js=$("joinSettings"); js.classList.remove("hidden"); js.innerHTML="<b>Ajustes de la sala (los puso el anfitrión, tú solo los ves):</b><br>"+esc(j.settings); }
+        $("joinStatus").textContent=j.reconnect?"Volviste a la sala "+code+".":"En la sala "+code+". Esperando a que el anfitrión configure y comience el juego.";
+        joinRetryUntil=Date.now()+30000;
+        stopJoinPoll();
+        joinPoll=setInterval(function(){
+          transport.getState().then(function(st){
+            if(!st || !st.ok){
+              stopJoinPoll(); btn.disabled=false;
+              $("joinStatus").textContent="El anfitrión cerró la sala. Vuelve a intentarlo con el botón Unirse.";
+              return;
+            }
+            if(st && st.players){ renderJoinLobby(st.players); }
+            if(S.wifi.myId && S.wifi.myId!=="me" && st.players && !st.players.some(function(p){ return String(p.id)===String(S.wifi.myId); })){
+              /* Te expulsaron del lobby: no seguir esperando en silencio. */
+              stopJoinPoll(); btn.disabled=false;
+              $("joinStatus").textContent="El anfitrión te expulsó de la sala.";
+              return;
+            }
+            if(st && st.started){
+              $("joinStatus").textContent="La partida empezó.";
+              stopJoinPoll();
+              if(st.mode==="guess"){ S.players=st.players; startGuessNet("wifi"); }
+              else startNormalWifiClient(st);
+            }
+          }).catch(function(){
+            var off=transport.offlineSeconds();
+            $("joinStatus").textContent="Sin conexión con el anfitrión, esperando… ("+off+" s). No te hemos expulsado: seguimos reintentando.";
+            if(Date.now()>joinRetryUntil){ stopJoinPoll(); btn.disabled=false; $("joinStatus").textContent="No se pudo reconectar en 30 s. Revisa la wifi y vuelve a intentarlo con el botón Unirse."; }
+          });
+        }, 2000);
+      }).catch(function(){
+        btn.disabled=false;
+        msg.innerHTML='<div class="notice err">Se perdió la conexión al entrar a la sala. Vuelve a intentarlo.</div>';
+      });
     })
-    .catch(function(){
-      clearTimeout(to);
-      msg.innerHTML='<div class="notice err">No se pudo conectar con '+esc(hostLabel)+'. Revisa que estés en la misma wifi o en el punto de acceso del anfitrión, que la IP y el puerto sean correctos y que el anfitrión tenga la sala abierta.</div>';
+    .catch(function(err){
+      showJoinError(err && err.kind);
     });
 });
 function renderJoinLobby(players){
@@ -2313,46 +3482,164 @@ function renderJoinLobby(players){
   });
   box.innerHTML=html;
 }
-/* Cliente Normal por wifi: sondea el estado y juega su turno cuando toca. */
-function startNormalWifiClient(firstState){
+/* Cliente Normal por wifi: sondea el estado y juega su turno cuando toca.
+   El anfitrión usa este mismo bucle con HostTransport (sin HTTP): así
+   juega solo su turno de cada paso, como los demás.
+   El turno MOSTRADO se separa del turno ENVIADO: el anfitrión identifica
+   la partida (gameId) y el paso, y el cliente guarda la clave del último
+   turno mostrado (partida+paso+jugador). Solo al recibir una clave nueva
+   se vuelve a montar la pantalla (showWifiTask); con la misma clave solo
+   se actualizan el reloj (con el tiempo restante del anfitrión) y el
+   estado de red. Así un sondeo nunca borra la frase, el lienzo ni el
+   foco, ni reinicia el reloj. El sondeo es serializado: la próxima
+   consulta sale después de resolver la anterior, y una respuesta tardía
+   se descarta si ya cambió la partida o el usuario salió. */
+function startNormalWifiClient(firstState, transportOverride){
   S.players=firstState.players||[];
-  S.mode="normal";
-  S.engine=new GameEngine(S.players, {write:45, draw:60, describe:45});
-  S.transport=S.wifi.transport; S.transport.playerId=S.wifi.myId;
-  S.net.kind="wifi"; S.net.submittedStep=-1;
+  S.mode=(firstState.mode && firstState.mode!=="guess")?firstState.mode:"normal";
+  var cfg=firstState.customCfg||S.customCfg||null;
+  if(cfg){ S.customCfg=cfg; CURRENT_CUSTOM_CFG=cfg; }
+  S.engine=new GameEngine(S.players, cfg?cfg.times:{write:45, draw:60, describe:45}, S.mode, cfg);
+  S.transport=transportOverride||S.wifi.transport; S.transport.playerId=S.wifi.myId;
+  S.net.kind="wifi"; S.net.submittedStep=-1; S.net.offlineSince=0;
+  S.net.taskKey=""; S.net.gameId=firstState.gameId||""; S.net.albumShown=false;
   S.step=0; S.turnIdx=0; S.stepDone={};
   $("waitText").textContent="La partida empezó. Esperando tu turno…";
   show("screen-wait");
   stopNetPoll();
-  S.net.poll=setInterval(function(){
+  S.net.pollActive=true;
+  var mySession=S.net.session;
+  var meIdx=function(st){ for(var i=0;i<st.players.length;i++) if(String(st.players[i].id)===String(S.wifi.myId)) return i; return 0; };
+  function scheduleNext(){ if(S.net.pollActive && mySession===S.net.session) S.net.pollTimer=setTimeout(pollOnce, 1000); }
+  function pollOnce(){
+    if(!S.net.pollActive || mySession!==S.net.session) return;
     S.transport.getState().then(function(st){
-      if(!st || !st.ok) return;
-      if(st.finished && st.albums){
-        stopNetPoll();
-        S.engine.finished=true;
-        S.engine.chains=st.albums.map(function(a){ return {origin:a.origin, links:a.links}; });
-        S.engine.n=S.players.length;
-        showAlbum();
+      if(!S.net.pollActive || mySession!==S.net.session) return;
+      if(!st || !st.ok){
+        /* El anfitrión cerró la sala: no seguir sondeando en silencio.
+           Se vuelve a la espera (con el temporizador parado) para que el
+           aviso se vea aunque el jugador estaba en mitad de su turno. */
+        stopNetPoll(); stopTimer();
+        show("screen-wait");
+        $("waitText").textContent="El anfitrión cerró la sala. Vuelve al inicio para crear o unirte a otra.";
+        toast("El anfitrión cerró la sala");
         return;
       }
-      if(st.myTask && !st.submitted && st.step!==S.net.submittedStep){
-        S.step=st.step; S.engine.step=st.step;
-        S.turnIdx=myNetIndex(st);
-        showWifiTask(st.myTask);
+      if(st.customCfg){ S.customCfg=st.customCfg; CURRENT_CUSTOM_CFG=st.customCfg; }
+      if(S.net.offlineSince){ S.net.offlineSince=0; toast("Conexión recuperada"); $("waitText").textContent="La partida empezó. Esperando tu turno…"; }
+      /* Si el paso avanzó o la partida terminó, ya no hay nada que
+         reintentar: el turno pendiente quedó saltado por el vigilante. */
+      if(st.finished || (typeof st.step==="number" && st.step!==S.net.submittedStep && S.net.submittedStep>=0)) S.net.submitToken=(S.net.submitToken||0)+1;
+      if(st.finished && st.albums){
+        if(!S.net.albumShown){
+          S.net.albumShown=true;
+          S.engine.finished=true;
+          S.engine.chains=st.albums.map(function(a){ return {origin:a.origin, links:a.links}; });
+          S.engine.n=S.players.length;
+          if(st.scoreVotes) S.scoreVotes=st.scoreVotes;
+          showAlbum();
+        } else if(st.scoreVotes && JSON.stringify(st.scoreVotes)!==JSON.stringify(S.scoreVotes)){
+          /* Marcador común de Puntuación: el anfitrión lo actualiza y los
+             invitados lo ven sin volver a montar el álbum. */
+          S.scoreVotes=st.scoreVotes;
+          refreshScoreVotes();
+        }
+        /* Con puntuación activa se sigue sondeando el marcador; sin ella,
+           la partida terminó y se para el sondeo. */
+        var scoring = S.mode==="score" || (S.mode==="custom" && S.customCfg && S.customCfg.score);
+        if(!scoring){ stopNetPoll(); return; }
+        scheduleNext();
+        return;
       }
-    }).catch(function(){});
-  }, 2000);
+      if(st.skipped && st.skipped.length) $("waitText").textContent="Se saltó el turno de "+st.skipped.join(", ")+" (no respondía). Esperando tu turno…";
+      if(st.myTask && !st.submitted){
+        var key=(st.gameId||st.code||"")+"|"+st.step+"|"+meIdx(st);
+        if(key!==S.net.taskKey){
+          /* Turno nuevo: si el anterior se saltó y era el mío, se avisa
+             qué pasó antes de mostrar la nueva tarea. */
+          if(S.net.taskKey && st.skipped && st.skipped.length){
+            var myName=(S.players[meIdx(st)]||{}).name;
+            if(myName && st.skipped.indexOf(myName)>=0) toast("Se saltó tu turno anterior (no respondías)");
+          }
+          S.net.taskKey=key;
+          S.net.gameId=st.gameId||S.net.gameId;
+          S.step=st.step; S.engine.step=st.step;
+          S.turnIdx=meIdx(st);
+          showWifiTask(st.myTask);
+        } else if(st.myTask.timeLeft!=null){
+          /* Mismo turno: solo el reloj (tiempo restante del anfitrión) y
+             la alarma de poco tiempo. El borrador, el lienzo y el foco
+             se conservan intactos. */
+          S.timeLeft=st.myTask.timeLeft; drawTimer();
+          lowAlarm(S.timeTotal||st.myTask.timeTotal||st.myTask.time||0, S.timeLeft, "turn");
+          if(S.timeLeft<=0 && S.timerActive) stopTimer();
+        }
+      }
+      scheduleNext();
+    }).catch(function(){
+      if(!S.net.pollActive || mySession!==S.net.session) return;
+      /* Sin conexión con el anfitrión: se conserva el turno visible, se
+         avisa en esa misma pantalla y se reanuda al recuperar la conexión. */
+      if(!S.net.offlineSince){ S.net.offlineSince=Date.now(); toast("Sin conexión con el anfitrión… seguimos reintentando"); }
+      var off=Math.round((Date.now()-S.net.offlineSince)/1000);
+      $("waitText").textContent="Sin conexión con el anfitrión… ("+off+" s). Seguimos reintentando, no te hemos sacado de la partida.";
+      scheduleNext();
+    });
+  }
+  pollOnce();
 }
 function showWifiTask(task){
   S.net.taskTime=task.time||0;
-  $("turnLabel").textContent="Turno de "+S.players[S.turnIdx].name+" "+S.players[S.turnIdx].avatar;
-  $("progressText").textContent="Ronda "+(task.step+1)+" · modo Normal por wifi";
-  $("progressBar").style.width=Math.round((task.step)/(S.players.length||1)*100)+"%";
+  /* El temporizador arranca con el tiempo RESTANTE del anfitrión (no con
+     la duración completa): así no se reinicia el reloj al entrar a mitad
+     de turno ni al reconectar. */
+  if(task.timeLeft!=null) task.time=task.timeLeft;
+  if(task.timeTotal==null) task.timeTotal=task.time||0;
+  $("turnLabel").textContent="Turno de "+S.players[S.turnIdx].name+" "+S.players[S.turnIdx].avatar+" · "+modeName(S.mode);
+  $("progressText").textContent="Ronda "+(task.step+1)+" · modo "+modeName(S.mode)+" por wifi";
+  $("progressBar").style.width=Math.round((task.step)/(S.engine?S.engine.steps:(S.players.length||1))*100)+"%";
   show("screen-play");
   var area=$("playArea"); area.innerHTML="";
   if(task.type==="write") renderWrite(area, task);
-  else if(task.type==="draw") renderDraw(area, task, {promptText:task.promptText});
+  else if(task.type==="draw"){
+    var spec=specFor(S.mode), o={promptText:task.promptText, timeSec:task.time, timeTotal:task.timeTotal};
+    if(task.secret) o.secret=true;
+    if(spec.memory && task.promptImage) o.previewImage=task.promptImage;
+    if(spec.strokesOnly && task.promptImage) o.initialImage=task.promptImage;
+    if(spec.strokesOnly) o.partLabel = task.step===0 ? "Dibuja un dibujo incompleto: en cada turno se añadirá una parte y se perderá la más antigua" : "Completa el dibujo: dibuja encima; al pasar se borrará la parte más antigua";
+    if((spec.accumulate || (spec.bg && task.step>0)) && task.promptImage) o.initialImage=task.promptImage;
+    if(spec.onion && task.promptImage) o.onionImage=task.promptImage;
+    if(spec.strip && task.promptImage) o.stripImage=task.promptImage;
+    if(spec.bg && task.step===0) o.partLabel="Dibuja el fondo fijo: permanecerá en todos los fotogramas";
+    if(spec.strip) o.partLabel="Dibuja: "+(spec.parts[task.step]||"")+" · solo ves la franja inferior";
+    if(spec.noErase) o.disableTools=true;
+    /* Personalizado: Sigue dibujando carga el dibujo anterior como fondo
+       editable; Secreto censura lo que uno mismo hace. */
+    if(S.mode==="custom" && S.customCfg){
+      if(S.customCfg.keep && task.promptImage) o.initialImage=task.promptImage;
+    }
+    renderDraw(area, task, o);
+  }
   else renderDescribe(area, task);
+}
+/* «Otra ronda» desde el álbum Wi‑Fi: en wifi no se juega en un solo
+   teléfono; el anfitrión vuelve al lobby para empezar otra ronda con los
+   mismos jugadores y el invitado espera a que el anfitrión la empiece. */
+function waitForNextWifiGame(){
+  var oldGame=S.net.gameId||"";
+  var t=S.transport;
+  if(!t) return;
+  var iv=setInterval(function(){
+    t.getState().then(function(st){
+      if(!st || !st.ok){ clearInterval(iv); $("waitText").textContent="El anfitrión cerró la sala. Vuelve al inicio para crear o unirte a otra."; return; }
+      if(st.started && st.gameId && st.gameId!==oldGame){
+        clearInterval(iv);
+        if(st.mode==="guess"){ S.players=st.players; startGuessNet("wifi"); }
+        else startNormalWifiClient(st);
+      }
+    }).catch(function(){});
+  }, 2000);
+  S.net.replayTimer=iv;
 }
 
 /* ---------- salas locales ---------- */
@@ -2360,7 +3647,7 @@ function renderLocalRooms(){
   var box=$("localRoomsList"); if(!box) return;
   var html="";
   if(HOST.active){
-    html+='<div class="mode-card sel"><span class="ico">🏠</span><span><h3>Sala local · '+(HOST.mode==="guess"?"Adivina el dibujo":"Normal")+' #'+esc(HOST.code)+'</h3><span class="tag play">Eres el anfitrión 👑</span><p>👥 '+HOST.players.length+'/'+HOST.maxPlayers+' jugadores · '+(S.wifi.ip?esc(S.wifi.ip):"puerto 7777")+'</p></span></div>';
+    html+='<div class="mode-card sel"><span class="ico">🏠</span><span><h3>Sala local · '+esc(modeName(HOST.mode))+' #'+esc(HOST.code)+'</h3><span class="tag play">Eres el anfitrión 👑</span><p>👥 '+HOST.players.length+'/'+HOST.maxPlayers+' jugadores · '+(S.wifi.ip?esc(S.wifi.ip):"puerto 7777")+'</p></span></div>';
   } else if(S.wifi.transport && S.wifi.code){
     html+='<div class="mode-card sel"><span class="ico">🏠</span><span><h3>Sala local #'+esc(S.wifi.code)+'</h3><span class="tag play">Te uniste por IP</span><p>👥 En la sala del anfitrión · '+esc(S.wifi.ip||"")+'</p></span></div>';
   } else {
@@ -2400,8 +3687,8 @@ $("btnBackHome1").addEventListener("click", goHome);
 $("btnModesBack").addEventListener("click", goHome);
 $("btnHowBack").addEventListener("click", goHome);
 $("btnHowPlay").addEventListener("click", function(){ S.mode="normal"; syncSetupMode(); show("screen-setup"); });
-$("btnCreateWifiBack").addEventListener("click", goHome);
-$("btnJoinBack").addEventListener("click", function(){ stopJoinPoll(); goHome(); });
+$("btnCreateWifiBack").addEventListener("click", function(){ if(S.wifi.host){ HOST.active=false; S.wifi.host=false; stopLanServer(); } goHome(); });
+$("btnJoinBack").addEventListener("click", function(){ stopJoinPoll(); if(S.wifi.transport && S.wifi.transport.leave){ try{ S.wifi.transport.leave(); }catch(e){} } goHome(); });
 $("btnRoomsBack").addEventListener("click", goHome);
 $("btnNewLocalRoom").addEventListener("click", createWifiRoom);
 $("btnWaitBack").addEventListener("click", goHome);
@@ -2411,12 +3698,13 @@ $("setupModeNormal").addEventListener("click", function(){ S.mode="normal"; S.se
 $("setupModeGuess").addEventListener("click", function(){ S.mode="guess"; S.selectedMode="guess"; syncSetupMode(); });
 $("wifiModeNormal").addEventListener("click", function(){ S.mode="normal"; HOST.mode="normal"; syncWifiModeButtons(); updateWifiStart(); });
 $("wifiModeGuess").addEventListener("click", function(){ S.mode="guess"; HOST.mode="guess"; syncWifiModeButtons(); updateWifiStart(); });
+$("wifiModeSelect").addEventListener("change", function(){ S.mode=$("wifiModeSelect").value; HOST.mode=S.mode; syncWifiModeButtons(); updateWifiStart(); });
 $("modesMaxPlayers").addEventListener("change", function(){ S.maxPlayers=parseInt($("modesMaxPlayers").value,10); renderModesAvatars(); });
 $("wifiMaxPlayers").addEventListener("change", function(){ S.maxPlayers=parseInt($("wifiMaxPlayers").value,10); HOST.maxPlayers=S.maxPlayers; renderWifiLobby(); });
 $("btnModesInvite").addEventListener("click", createWifiRoom);
 $("btnModesStart").addEventListener("click", function(){ S.mode=S.selectedMode||"normal"; syncSetupMode(); show("screen-setup"); });
-$("tabPresets").addEventListener("click", function(){ $("tabPresets").classList.add("active"); $("tabCustom").classList.remove("active"); $("modesList").classList.remove("hidden"); $("customPanel").classList.add("hidden"); });
-$("tabCustom").addEventListener("click", function(){ $("tabCustom").classList.add("active"); $("tabPresets").classList.remove("active"); $("modesList").classList.add("hidden"); $("customPanel").classList.remove("hidden"); });
+$("tabPresets").addEventListener("click", function(){ $("tabPresets").classList.add("active"); $("tabCustom").classList.remove("active"); $("modesList").classList.remove("hidden"); $("customPanel").classList.add("hidden"); if(S.mode==="custom" || S.selectedMode==="custom"){ S.mode="normal"; S.selectedMode="normal"; syncSetupMode(); } });
+$("tabCustom").addEventListener("click", function(){ $("tabCustom").classList.add("active"); $("tabPresets").classList.remove("active"); $("modesList").classList.add("hidden"); $("customPanel").classList.remove("hidden"); S.mode="custom"; S.selectedMode="custom"; syncSetupMode(); });
 $("customTime").addEventListener("change", function(){ S.custom.time=$("customTime").value; applyCustomTimes(); });
 $("customSequence").addEventListener("change", function(){ S.custom.sequence=$("customSequence").value; });
 $("customTurns").addEventListener("change", function(){ S.custom.turns=$("customTurns").value; });
@@ -2488,6 +3776,63 @@ function runShot(name){
       var r=$("btnSendDraw").getBoundingClientRect();
       testReport({shot:"draw-tools", panelHiddenBefore:!before, panelOpenAfter:after, listoVisible:r.top>=0&&r.bottom<=window.innerHeight});
     }, 600);
+    return;
+  }
+  else if(name==="draw-memory"){
+    /* Imitación, paso 2: el jugador ve el dibujo anterior arriba y, al
+       empezar a trazar, la vista previa desaparece. */
+    S.mode="knockoff"; S.settings={write:0, draw:0, describe:0};
+    S.engine=new GameEngine(players, S.settings, "knockoff"); S.engine.start();
+    var tmp=document.createElement("canvas"); tmp.width=640; tmp.height=440;
+    var tctx=tmp.getContext("2d"); tctx.fillStyle="#fff"; tctx.fillRect(0,0,640,440);
+    tctx.strokeStyle="#1d1933"; tctx.lineWidth=6; tctx.beginPath(); tctx.arc(320,200,100,0,Math.PI*2); tctx.stroke();
+    tctx.fillStyle="#e03131"; tctx.beginPath(); tctx.arc(290,170,12,0,Math.PI*2); tctx.fill();
+    tctx.beginPath(); tctx.arc(350,170,12,0,Math.PI*2); tctx.fill();
+    var img=tmp.toDataURL("image/png");
+    S.engine.submit(0,0,{type:"text",text:"un sol con gafas"});
+    S.engine.submit(1,0,{type:"text",text:"un gato con sombrero"});
+    S.engine.submit(2,0,{type:"text",text:"un pez volando"});
+    S.engine.submit(3,0,{type:"text",text:"un sol con gafas"});
+    for(var dm=0;dm<4;dm++) S.engine.submit(dm,1,{type:"draw", image:img, strokes:[{c:"#1d1933",s:3,o:1,p:[[220,200],[420,200]]}]});
+    S.step=2; S.engine.step=2; S.turnIdx=1;
+    showTurn();
+    setTimeout(function(){ testReport({shot:"draw-memory", previewVisible:!!document.querySelector("#drawPreview")}); }, 500);
+    return;
+  }
+  else if(name==="secret-write"){
+    /* Secreto, paso 0: al escribir no se ve lo que se escribe (censura ●●●). */
+    S.mode="secret"; S.settings={write:0, draw:0, describe:0};
+    S.engine=new GameEngine(players, S.settings, "secret"); S.engine.start();
+    S.step=0; S.engine.step=0; S.turnIdx=0;
+    showTurn();
+    setTimeout(function(){ testReport({shot:"secret-write", censored:!!document.querySelector("#censorOverlay")}); }, 500);
+    return;
+  }
+  else if(name.indexOf("play-")===0){
+    /* #shot=play-<modo>: pantalla de juego en mitad de una partida del
+       modo (paso 1 si existe), con su vista previa / piel de cebolla /
+       fondo acumulado / censura según el modo. */
+    var mid=name.slice(5);
+    S.mode=mid; S.settings={write:0, draw:0, describe:0};
+    S.engine=new GameEngine(players, S.settings, mid); S.engine.start();
+    var tmp2=document.createElement("canvas"); tmp2.width=640; tmp2.height=440;
+    var tc2=tmp2.getContext("2d"); tc2.fillStyle="#fff"; tc2.fillRect(0,0,640,440);
+    tc2.strokeStyle="#1d1933"; tc2.lineWidth=6; tc2.beginPath(); tc2.arc(320,200,100,0,Math.PI*2); tc2.stroke();
+    tc2.fillStyle="#228be6"; tc2.beginPath(); tc2.arc(290,170,12,0,Math.PI*2); tc2.fill();
+    tc2.beginPath(); tc2.arc(350,170,12,0,Math.PI*2); tc2.fill();
+    var img2=tmp2.toDataURL("image/png");
+    var midStep=Math.min(1, S.engine.steps-1);
+    for(var ms=0; ms<midStep; ms++){
+      for(var mp=0;mp<4;mp++){
+        var mty=S.engine.taskType(ms);
+        if(mty==="write") S.engine.submit(mp, ms, {type:"text", text:"frase "+mid+" "+(mp+1)});
+        else if(mty==="describe") S.engine.submit(mp, ms, {type:"text", text:"descripción "+(mp+1)});
+        else S.engine.submit(mp, ms, {type:"draw", image:img2, strokes:[{c:"#1d1933",s:3,o:1,p:[[220,200],[420,200]]}]});
+      }
+    }
+    S.step=midStep; S.engine.step=midStep; S.turnIdx=1;
+    showTurn();
+    setTimeout(function(){ testReport({shot:name, step:midStep}); }, 500);
     return;
   }
   else if(name==="modes"){ renderModes(); show("screen-modes"); }
@@ -2597,10 +3942,46 @@ function runShot(name){
   else { show("screen-home"); }
   setTimeout(function(){ testReport({shot:name}); }, 400);
 }
+/* Partida completa del motor con n jugadores y un modo dado (para
+   #auto=distrib): valida las órdenes y que cada álbum sea una
+   permutación de los jugadores (un eslabón por jugador y paso). */
+function playFullDistrib(nn, modeId, customCfg){
+  var ps=[]; for(var i=0;i<nn;i++) ps.push({id:i,name:"J"+(i+1),avatar:"🦊"});
+  S.players=ps; S.mode=modeId; S.settings={write:0, draw:0, describe:0};
+  var eng=new GameEngine(ps, S.settings, modeId, customCfg||null);
+  S.engine=eng; S.transport=new LocalTransport(eng);
+  eng.start();
+  if(!validateOrders(eng.orders, nn, eng.steps)) throw new Error("órdenes inválidas en "+modeId+" n="+nn);
+  for(var s=0;s<eng.steps;s++){
+    for(var p=0;p<nn;p++){
+      var ty=eng.taskType(s);
+      if(ty==="write") eng.submit(p, s, {type:"text", text:"frase "+(p+1)});
+      else if(ty==="describe") eng.submit(p, s, {type:"text", text:"descripción "+(p+1)});
+      else eng.submit(p, s, {type:"draw", image:"data:image/png;base64,AAA", strokes:[{c:"#1d1933",s:3,o:1,p:[[10,10],[50,50]]}]});
+    }
+    if(s<eng.steps-1) eng.step++;
+  }
+  if(!eng.finished) throw new Error("el motor "+modeId+" n="+nn+" no terminó");
+  var alb=eng.albums();
+  /* Invariante del reparto: cada jugador hace exactamente un eslabón por
+     paso (total = nº de pasos). Si los pasos no superan a los jugadores,
+     además ningún álbum repite autor. */
+  var counts={};
+  alb.forEach(function(a){
+    var authors=a.links.map(function(l){ return l.author; });
+    if(eng.steps<=nn){
+      var uniq={}; authors.forEach(function(x){ uniq[x]=true; });
+      if(Object.keys(uniq).length!==authors.length) throw new Error("autor repetido en un álbum de "+modeId+" n="+nn);
+    }
+    authors.forEach(function(x){ counts[x]=(counts[x]||0)+1; });
+  });
+  for(var pi=0;pi<nn;pi++){ if((counts[pi]||0)!==eng.steps) throw new Error("reparto desigual en "+modeId+" n="+nn+": jugador "+pi+" hizo "+(counts[pi]||0)+" de "+eng.steps); }
+  return {steps:eng.steps, albums:alb.length, links:alb[0].links.length};
+}
 function runAuto(kind){
   var players=[{id:0,name:"Ana",avatar:"🦊"},{id:1,name:"Beto",avatar:"🐼"},{id:2,name:"Carla",avatar:"🦁"},{id:3,name:"Dan",avatar:"🐸"}];
   S.players=players;
-  var fxOk=true; try{ AudioFX.count(false); AudioFX.tick(); AudioFX.turn(); AudioFX.chime(); AudioFX.hit(); buzz([10]); }catch(e){ fxOk=false; }
+  var fxOk=true; try{ AudioFX.count(false); AudioFX.count(true); AudioFX.alarmStart(); AudioFX.alarmStop(); AudioFX.turn(); AudioFX.chime(); AudioFX.hit(); buzz([10]); }catch(e){ fxOk=false; }
   try{
     if(kind==="normal"){
       S.settings={write:0, draw:0, describe:0};
@@ -2634,6 +4015,73 @@ function runAuto(kind){
       testReport({auto:"normal", albums:alb.length, linksPerAlbum:alb[0].links.length, fxOk:fxOk,
         validPermutation:seqOk, randomOrder:anyRandom,
         orders:alb.map(function(a){ return a.links.map(function(l){ return S.players[l.author].name; }).join(">"); }).join(" | ")});
+    } else if(kind.indexOf("mode:")===0){
+      /* #auto=mode:<id>: partida completa de uno de los 14 modos nuevos,
+         con el flujo real (pasos, tipos de turno y álbum del modo). */
+      var modeId=kind.slice(5);
+      S.mode=modeId; S.settings={write:0, draw:0, describe:0};
+      S.engine=new GameEngine(players, S.settings, modeId); S.transport=new LocalTransport(S.engine);
+      S.engine.start();
+      var steps=S.engine.steps;
+      for(var st2=0; st2<steps; st2++){
+        for(var p2=0;p2<4;p2++){
+          var ty=S.engine.taskType(st2);
+          if(ty==="write") S.engine.submit(p2, st2, {type:"text", text:"frase "+modeId+" "+(p2+1)});
+          else if(ty==="describe") S.engine.submit(p2, st2, {type:"text", text:"descripción "+(p2+1)});
+          else S.engine.submit(p2, st2, {type:"draw", image:"data:image/png;base64,AAA", strokes:[{c:"#1d1933",s:3,o:1,p:[[10,10],[50,50]]}]});
+        }
+        if(st2<steps-1) S.engine.step++;
+      }
+      if(!S.engine.finished) throw new Error("el motor "+modeId+" no terminó");
+      /* El álbum del modo debe renderizarse sin errores (reproductor de
+         animación, marcador de Puntuación, partes del cadáver…). */
+      showAlbum();
+      if(S.mode==="score"){
+        var vb=document.querySelector(".vote-btn");
+        if(!vb) throw new Error("Puntuación: no apareció el botón de voto");
+        vb.click();
+        var tot=document.querySelector(".score-board");
+        if(!tot) throw new Error("Puntuación: no apareció el marcador");
+      }
+      if(specFor(modeId).album==="anim"){
+        var ap=document.querySelector("#animFrame");
+        if(!ap) throw new Error(modeId+": no apareció el reproductor de animación");
+        var pb=document.querySelector("#btnAnimPlay");
+        if(pb) pb.click();
+      }
+      var alb2=S.engine.albums();
+      testReport({auto:"mode:"+modeId, albums:alb2.length, linksPerAlbum:alb2[0].links.length, steps:steps, fxOk:fxOk});
+    } else if(kind==="distrib"){
+      /* #auto=distrib: reparto forzando el respaldo (punto 2 de ChatGPT).
+         Para n=1..14 y pasos 1, 2, n y 2n+1, el respaldo cíclico y el
+         reparto general deben dar columnas que sean permutaciones, sin
+         índices fuera de rango y sin que el paso 1 sea el autor (salvo
+         n=1). Además, partidas completas con modos más cortos (Obra
+         maestra, 1 paso) y más largos (Fondo, 2n+1 pasos) que el nº de
+         jugadores, Normal a 10 y 14 jugadores, y Personalizado con
+         turnos aleatorios (pasos entre 2 y n). */
+      var bad=[];
+      for(var n=1;n<=14;n++){
+        var stepSets=[1,2,n,2*n+1];
+        for(var si=0;si<stepSets.length;si++){
+          var stp=stepSets[si];
+          for(var rep=0;rep<20;rep++){
+            if(!validateOrders(cyclicOrders(n, stp), n, stp)) bad.push("cyclic n="+n+" steps="+stp);
+            if(!validateOrders(buildOrders(n, stp, false), n, stp)) bad.push("build n="+n+" steps="+stp);
+          }
+        }
+      }
+      var fallbackChecks=14*4*20*2;
+      var games={};
+      games.masterpiece4=playFullDistrib(4, "masterpiece");
+      games.background4=playFullDistrib(4, "background");
+      games.normal10=playFullDistrib(10, "normal");
+      games.normal14=playFullDistrib(14, "normal");
+      games.background10=playFullDistrib(10, "background");
+      var cfgR={time:"normal", times:{write:0, draw:0, describe:0}, sequence:"write-draw", turns:"random", randomRounds:2, keep:false, score:false, secret:false};
+      games.customRandom3=playFullDistrib(3, "custom", cfgR);
+      if(games.customRandom3.steps<2 || games.customRandom3.steps>3) throw new Error("turnos aleatorios fuera de rango: "+games.customRandom3.steps);
+      testReport({auto:"distrib", fallbackBad:bad.slice(0,10), fallbackChecks:fallbackChecks, games:games, fxOk:fxOk});
     } else {
       var g=new GuessEngine(players, {roundTime:60, themes:GUESS_CATEGORIES.slice()});
       S.guess.engine=g; g.start();
@@ -2693,6 +4141,7 @@ fillTimeSelect($("timeWrite"), 45);
 fillTimeSelect($("timeDraw"), 60);
 fillTimeSelect($("timeDescribe"), 45);
 renderAvatarGrid();
+renderProfileBox();
 renderPlayersList();
 renderModes();
 renderGuessThemes();

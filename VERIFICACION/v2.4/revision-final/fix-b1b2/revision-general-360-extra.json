@@ -1,0 +1,149 @@
+{
+  "album": {
+    "screen": "screen-album",
+    "errors": [],
+    "overflow": false,
+    "scrollW": 360,
+    "docH": 999,
+    "innerH": 800,
+    "textLen": 396,
+    "items": [
+      {
+        "tag": "button",
+        "id": "btnPrevAlbum",
+        "text": "Álbum anterior",
+        "x": 28,
+        "y": 634,
+        "w": 148,
+        "h": 78,
+        "low48": false,
+        "low44": false,
+        "clip": false,
+        "outH": false,
+        "belowFold": false,
+        "outV": false
+      },
+      {
+        "tag": "button",
+        "id": "btnNextAlbum",
+        "text": "Álbum siguiente",
+        "x": 184,
+        "y": 634,
+        "w": 148,
+        "h": 78,
+        "low48": false,
+        "low44": false,
+        "clip": false,
+        "outH": false,
+        "belowFold": false,
+        "outV": false
+      },
+      {
+        "tag": "button",
+        "id": "btnReplay",
+        "text": "Volver a jugar (mismos jugadores)",
+        "x": 28,
+        "y": 728,
+        "w": 304,
+        "h": 78,
+        "low48": false,
+        "low44": false,
+        "clip": false,
+        "outH": false,
+        "belowFold": false,
+        "outV": true
+      },
+      {
+        "tag": "button",
+        "id": "btnNewGame",
+        "text": "Nueva partida",
+        "x": 28,
+        "y": 814,
+        "w": 304,
+        "h": 53,
+        "low48": false,
+        "low44": false,
+        "clip": false,
+        "outH": false,
+        "belowFold": true,
+        "outV": false
+      },
+      {
+        "tag": "button",
+        "id": "btnAlbumHome",
+        "text": "Volver al inicio",
+        "x": 28,
+        "y": 875,
+        "w": 304,
+        "h": 53,
+        "low48": false,
+        "low44": false,
+        "clip": false,
+        "outH": false,
+        "belowFold": true,
+        "outV": false
+      }
+    ],
+    "overlaps": [],
+    "boxes": {
+      ".app": {
+        "x": 0,
+        "y": 0,
+        "w": 360,
+        "h": 999,
+        "disp": "block"
+      },
+      ".screen.active .card": {
+        "x": 10,
+        "y": 10,
+        "w": 340,
+        "h": 945,
+        "disp": "block"
+      },
+      ".btn-row": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0,
+        "disp": "flex"
+      },
+      "#screen-play": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0,
+        "disp": "none"
+      },
+      "#topbar": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0,
+        "disp": "none"
+      }
+    },
+    "hasArrowGlyph": false,
+    "fontOk700": true,
+    "fontOk800": true,
+    "fontStatus": "loaded",
+    "contrast": [
+      {
+        "text": "ÁLBUM DE ANA",
+        "fg": "rgb(34, 197, 94)",
+        "bg": "rgb(230, 220, 255)",
+        "ratio": 1.74,
+        "size": 24
+      }
+    ],
+    "enFound": [],
+    "canvas": null,
+    "title": "TEST OK",
+    "_ready": true,
+    "_ms": 1163,
+    "_console": []
+  },
+  "_timings": {
+    "viewport": "360x800",
+    "skipped": true
+  }
+}

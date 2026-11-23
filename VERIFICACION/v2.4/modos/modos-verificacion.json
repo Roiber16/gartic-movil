@@ -1,0 +1,356 @@
+{
+ "auto:story": {
+  "errors": [],
+  "overflow": false,
+  "scrollW": 360,
+  "innerW": 360,
+  "auto": "mode:story",
+  "albums": 4,
+  "linksPerAlbum": 4,
+  "steps": 4,
+  "fxOk": true
+ },
+ "shot:play-story": {
+  "errors": [],
+  "overflow": false,
+  "scrollW": 360,
+  "innerW": 360,
+  "shot": "play-story",
+  "step": 1
+ },
+ "auto:masterpiece": {
+  "errors": [],
+  "overflow": false,
+  "scrollW": 360,
+  "innerW": 360,
+  "auto": "mode:masterpiece",
+  "albums": 4,
+  "linksPerAlbum": 1,
+  "steps": 1,
+  "fxOk": true
+ },
+ "shot:play-masterpiece": {
+  "errors": [],
+  "overflow": false,
+  "scrollW": 360,
+  "innerW": 360,
+  "shot": "play-masterpiece",
+  "step": 0
+ },
+ "auto:secret": {
+  "errors": [],
+  "overflow": false,
+  "scrollW": 360,
+  "innerW": 360,
+  "auto": "mode:secret",
+  "albums": 4,
+  "linksPerAlbum": 4,
+  "steps": 4,
+  "fxOk": true
+ },
+ "shot:play-secret": {
+  "errors": [],
+  "overflow": false,
+  "scrollW": 360,
+  "innerW": 360,
+  "shot": "play-secret",
+  "step": 1
+ },
+ "auto:sandwich": {
+  "errors": [],
+  "overflow": false,
+  "scrollW": 360,
+  "innerW": 360,
+  "auto": "mode:sandwich",
+  "albums": 4,
+  "linksPerAlbum": 4,
+  "steps": 4,
+  "fxOk": true
+ },
+ "shot:play-sandwich": {
+  "errors": [],
+  "overflow": false,
+  "scrollW": 360,
+  "innerW": 360,
+  "shot": "play-sandwich",
+  "step": 1
+ },
+ "auto:score": {
+  "errors": [],
+  "overflow": false,
+  "scrollW": 360,
+  "innerW": 360,
+  "auto": "mode:score",
+  "albums": 4,
+  "linksPerAlbum": 4,
+  "steps": 4,
+  "fxOk": true
+ },
+ "shot:play-score": {
+  "errors": [],
+  "overflow": false,
+  "scrollW": 360,
+  "innerW": 360,
+  "shot": "play-score",
+  "step": 1
+ },
+ "auto:icebreaker": {
+  "errors": [],
+  "overflow": false,
+  "scrollW": 360,
+  "innerW": 360,
+  "auto": "mode:icebreaker",
+  "albums": 4,
+  "linksPerAlbum": 4,
+  "steps": 4,
+  "fxOk": true
+ },
+ "shot:play-icebreaker": {
+  "errors": [],
+  "overflow": false,
+  "scrollW": 360,
+  "innerW": 360,
+  "shot": "play-icebreaker",
+  "step": 1
+ },
+ "auto:knockoff": {
+  "errors": [],
+  "overflow": false,
+  "scrollW": 360,
+  "innerW": 360,
+  "auto": "mode:knockoff",
+  "albums": 4,
+  "linksPerAlbum": 4,
+  "steps": 4,
+  "fxOk": true
+ },
+ "shot:play-knockoff": {
+  "errors": [],
+  "overflow": false,
+  "scrollW": 360,
+  "innerW": 360,
+  "shot": "play-knockoff",
+  "step": 1
+ },
+ "auto:complement": {
+  "errors": [],
+  "overflow": false,
+  "scrollW": 360,
+  "innerW": 360,
+  "auto": "mode:complement",
+  "albums": 4,
+  "linksPerAlbum": 4,
+  "steps": 4,
+  "fxOk": true
+ },
+ "shot:play-complement": {
+  "errors": [],
+  "overflow": false,
+  "scrollW": 360,
+  "innerW": 360,
+  "shot": "play-complement",
+  "step": 1
+ },
+ "auto:missing": {
+  "errors": [],
+  "overflow": false,
+  "scrollW": 360,
+  "innerW": 360,
+  "auto": "mode:missing",
+  "albums": 4,
+  "linksPerAlbum": 4,
+  "steps": 4,
+  "fxOk": true
+ },
+ "shot:play-missing": {
+  "errors": [],
+  "overflow": false,
+  "scrollW": 360,
+  "innerW": 360,
+  "shot": "play-missing",
+  "step": 1
+ },
+ "auto:corpse": {
+  "errors": [],
+  "overflow": false,
+  "scrollW": 360,
+  "innerW": 360,
+  "auto": "mode:corpse",
+  "albums": 4,
+  "linksPerAlbum": 3,
+  "steps": 3,
+  "fxOk": true
+ },
+ "shot:play-corpse": {
+  "errors": [],
+  "overflow": false,
+  "scrollW": 360,
+  "innerW": 360,
+  "shot": "play-corpse",
+  "step": 1
+ },
+ "auto:coop": {
+  "errors": [],
+  "overflow": false,
+  "scrollW": 360,
+  "innerW": 360,
+  "auto": "mode:coop",
+  "albums": 4,
+  "linksPerAlbum": 6,
+  "steps": 6,
+  "fxOk": true
+ },
+ "shot:play-coop": {
+  "errors": [],
+  "overflow": false,
+  "scrollW": 360,
+  "innerW": 360,
+  "shot": "play-coop",
+  "step": 1
+ },
+ "auto:animation": {
+  "errors": [],
+  "overflow": false,
+  "scrollW": 360,
+  "innerW": 360,
+  "auto": "mode:animation",
+  "albums": 4,
+  "linksPerAlbum": 4,
+  "steps": 4,
+  "fxOk": true
+ },
+ "shot:play-animation": {
+  "errors": [],
+  "overflow": false,
+  "scrollW": 360,
+  "innerW": 360,
+  "shot": "play-animation",
+  "step": 1
+ },
+ "auto:background": {
+  "errors": [],
+  "overflow": false,
+  "scrollW": 360,
+  "innerW": 360,
+  "auto": "mode:background",
+  "albums": 4,
+  "linksPerAlbum": 9,
+  "steps": 9,
+  "fxOk": true
+ },
+ "shot:play-background": {
+  "errors": [],
+  "overflow": false,
+  "scrollW": 360,
+  "innerW": 360,
+  "shot": "play-background",
+  "step": 1
+ },
+ "auto:solo": {
+  "errors": [],
+  "overflow": false,
+  "scrollW": 360,
+  "innerW": 360,
+  "auto": "mode:solo",
+  "albums": 4,
+  "linksPerAlbum": 5,
+  "steps": 5,
+  "fxOk": true
+ },
+ "shot:play-solo": {
+  "errors": [],
+  "overflow": false,
+  "scrollW": 360,
+  "innerW": 360,
+  "shot": "play-solo",
+  "step": 1
+ },
+ "auto-normal": {
+  "errors": [],
+  "overflow": false,
+  "scrollW": 360,
+  "innerW": 360,
+  "auto": "normal",
+  "albums": 4,
+  "linksPerAlbum": 4,
+  "fxOk": true,
+  "validPermutation": true,
+  "randomOrder": true,
+  "orders": "Ana&gt;Dan&gt;Beto&gt;Carla | Beto&gt;Carla&gt;Ana&gt;Dan | Carla&gt;Beto&gt;Dan&gt;Ana | Dan&gt;Ana&gt;Carla&gt;Beto"
+ },
+ "auto-guess": {
+  "errors": [],
+  "overflow": false,
+  "scrollW": 360,
+  "innerW": 360,
+  "auto": "guess",
+  "podium": "Carla:38,Dan:34,Beto:30,Ana:10",
+  "drawerBonusCheck": 34,
+  "fxOk": true
+ },
+ "auto-distrib": {
+  "errors": [],
+  "overflow": false,
+  "scrollW": 360,
+  "innerW": 360,
+  "auto": "distrib",
+  "fallbackBad": [],
+  "fallbackChecks": 2240,
+  "games": {
+   "masterpiece4": {
+    "steps": 1,
+    "albums": 4,
+    "links": 1
+   },
+   "background4": {
+    "steps": 9,
+    "albums": 4,
+    "links": 9
+   },
+   "normal10": {
+    "steps": 10,
+    "albums": 10,
+    "links": 10
+   },
+   "normal14": {
+    "steps": 14,
+    "albums": 14,
+    "links": 14
+   },
+   "background10": {
+    "steps": 21,
+    "albums": 10,
+    "links": 21
+   },
+   "customRandom3": {
+    "steps": 2,
+    "albums": 3,
+    "links": 2
+   }
+  },
+  "fxOk": true
+ },
+ "shot-draw-memory": {
+  "errors": [],
+  "overflow": false,
+  "scrollW": 360,
+  "innerW": 360,
+  "shot": "draw-memory",
+  "previewVisible": true
+ },
+ "shot-secret-write": {
+  "errors": [],
+  "overflow": false,
+  "scrollW": 360,
+  "innerW": 360,
+  "shot": "secret-write",
+  "censored": true
+ },
+ "shot-modes": {
+  "errors": [],
+  "overflow": false,
+  "scrollW": 360,
+  "innerW": 360,
+  "shot": "modes"
+ }
+}

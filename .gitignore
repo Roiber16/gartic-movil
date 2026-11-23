@@ -35,4 +35,5 @@ Thumbs.db
 # se puede volver a descargar de YouTube con yt-dlp (IDs en el LEEME).
 VERIFICACION/v2.3-referencias/*.m4a
 VERIFICACION/v2.3-referencias/sonidos/*.m4a
+VERIFICACION/v2.3-referencias/sonidos/*.webm
 VERIFICACION/v2.3-referencias/sonidos/audio-*.wav
