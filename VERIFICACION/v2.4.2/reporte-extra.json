@@ -1,0 +1,27 @@
+[
+  {
+    "screen": "screen-album",
+    "errors": [],
+    "overflow": false,
+    "scrollW": 360,
+    "vw": 360,
+    "animPlayer": true,
+    "animSpeedValue": "2",
+    "animSpeedLabel": "2's",
+    "animLoopValue": "pingpong",
+    "animLoopLabel": "↔️ Adelante y atrás",
+    "visibleSelects": 0,
+    "shot": "shots-360/shot-album-anim.png"
+  },
+  {
+    "screen": "screen-play",
+    "errors": [],
+    "overflow": false,
+    "scrollW": 360,
+    "vw": 360,
+    "brushMenu": true,
+    "brushHidden": true,
+    "visibleSelects": 0,
+    "shot": "shots-360/shot-draw.png"
+  }
+]

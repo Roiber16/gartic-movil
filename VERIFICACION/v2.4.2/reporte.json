@@ -1,0 +1,289 @@
+[
+  {
+    "screen": "screen-home",
+    "errors": [],
+    "overflow": false,
+    "scrollW": 360,
+    "vw": 360,
+    "topbarVisible": true,
+    "logo": {
+      "src": "assets/icon-1024.png",
+      "ok": true
+    },
+    "tabAnon": false,
+    "tabVerif": false,
+    "jugable": false,
+    "verificado": false,
+    "verificacionTxt": false,
+    "modeTags": 0,
+    "menuBtns": 16,
+    "visibleSelects": 0,
+    "avatars": 22,
+    "avatarGroups": [
+      "Animales",
+      "Personas"
+    ],
+    "menuOpen": false,
+    "chevGap": 0,
+    "homeAvatars": 22,
+    "profileBoxRadius": "16px",
+    "size": "360x800",
+    "shot": "shots-360/shot-home.png"
+  },
+  {
+    "screen": "screen-modes",
+    "errors": [],
+    "overflow": false,
+    "scrollW": 360,
+    "vw": 360,
+    "topbarVisible": true,
+    "logo": {
+      "src": "assets/icon-1024.png",
+      "ok": true
+    },
+    "tabAnon": false,
+    "tabVerif": false,
+    "jugable": false,
+    "verificado": false,
+    "verificacionTxt": false,
+    "modeTags": 0,
+    "menuBtns": 16,
+    "visibleSelects": 0,
+    "avatars": 22,
+    "avatarGroups": [
+      "Animales",
+      "Personas"
+    ],
+    "menuOpen": false,
+    "chevGap": 0,
+    "modesMaxLabel": "8",
+    "modesSlots": 8,
+    "size": "360x800",
+    "shot": "shots-360/shot-modes.png"
+  },
+  {
+    "screen": "screen-setup",
+    "errors": [],
+    "overflow": false,
+    "scrollW": 360,
+    "vw": 360,
+    "topbarVisible": true,
+    "logo": {
+      "src": "assets/icon-1024.png",
+      "ok": true
+    },
+    "tabAnon": false,
+    "tabVerif": false,
+    "jugable": false,
+    "verificado": false,
+    "verificacionTxt": false,
+    "modeTags": 0,
+    "menuBtns": 17,
+    "visibleSelects": 0,
+    "avatars": 22,
+    "avatarGroups": [
+      "Animales",
+      "Personas"
+    ],
+    "menuOpen": false,
+    "chevGap": 18,
+    "numPlayersValue": "5",
+    "numRows": 5,
+    "numLabel": "5 jugadores",
+    "avatarValue": "👩🏼",
+    "size": "360x800",
+    "shot": "shots-360/shot-setup.png"
+  },
+  {
+    "screen": "screen-setup",
+    "errors": [],
+    "overflow": false,
+    "scrollW": 360,
+    "vw": 360,
+    "topbarVisible": true,
+    "logo": {
+      "src": "assets/icon-1024.png",
+      "ok": true
+    },
+    "tabAnon": false,
+    "tabVerif": false,
+    "jugable": false,
+    "verificado": false,
+    "verificacionTxt": false,
+    "modeTags": 0,
+    "menuBtns": 16,
+    "visibleSelects": 0,
+    "avatars": 22,
+    "avatarGroups": [
+      "Animales",
+      "Personas"
+    ],
+    "menuOpen": true,
+    "chevGap": 18,
+    "menuOpts": 6,
+    "menuPanelRect": {
+      "x": 28,
+      "y": 364,
+      "w": 304,
+      "h": 292
+    },
+    "size": "360x800",
+    "shot": "shots-360/shot-setup-menu.png"
+  },
+  {
+    "screen": "screen-create-wifi",
+    "errors": [],
+    "overflow": false,
+    "scrollW": 360,
+    "vw": 360,
+    "topbarVisible": true,
+    "logo": {
+      "src": "assets/icon-1024.png",
+      "ok": true
+    },
+    "tabAnon": false,
+    "tabVerif": false,
+    "jugable": false,
+    "verificado": false,
+    "verificacionTxt": false,
+    "modeTags": 0,
+    "menuBtns": 16,
+    "visibleSelects": 0,
+    "avatars": 22,
+    "avatarGroups": [
+      "Animales",
+      "Personas"
+    ],
+    "menuOpen": false,
+    "chevGap": 0,
+    "wifiModeLabel": "Normal",
+    "wifiModeOpts": 17,
+    "size": "360x800",
+    "shot": "shots-360/shot-create.png"
+  },
+  {
+    "screen": "screen-join-wifi",
+    "errors": [],
+    "overflow": false,
+    "scrollW": 360,
+    "vw": 360,
+    "topbarVisible": true,
+    "logo": {
+      "src": "assets/icon-1024.png",
+      "ok": true
+    },
+    "tabAnon": false,
+    "tabVerif": false,
+    "jugable": false,
+    "verificado": false,
+    "verificacionTxt": false,
+    "modeTags": 0,
+    "menuBtns": 16,
+    "visibleSelects": 0,
+    "avatars": 22,
+    "avatarGroups": [
+      "Animales",
+      "Personas"
+    ],
+    "menuOpen": false,
+    "chevGap": 0,
+    "joinTopbar": true,
+    "size": "360x800",
+    "shot": "shots-360/shot-join.png"
+  },
+  {
+    "screen": "screen-home",
+    "errors": [],
+    "overflow": false,
+    "scrollW": 320,
+    "vw": 320,
+    "topbarVisible": true,
+    "logo": {
+      "src": "assets/icon-1024.png",
+      "ok": true
+    },
+    "tabAnon": false,
+    "tabVerif": false,
+    "jugable": false,
+    "verificado": false,
+    "verificacionTxt": false,
+    "modeTags": 0,
+    "menuBtns": 16,
+    "visibleSelects": 0,
+    "avatars": 22,
+    "avatarGroups": [
+      "Animales",
+      "Personas"
+    ],
+    "menuOpen": false,
+    "chevGap": 0,
+    "homeAvatars": 22,
+    "profileBoxRadius": "16px",
+    "size": "320x568",
+    "shot": "shots-320/shot-home.png"
+  },
+  {
+    "screen": "screen-setup",
+    "errors": [],
+    "overflow": false,
+    "scrollW": 320,
+    "vw": 320,
+    "topbarVisible": true,
+    "logo": {
+      "src": "assets/icon-1024.png",
+      "ok": true
+    },
+    "tabAnon": false,
+    "tabVerif": false,
+    "jugable": false,
+    "verificado": false,
+    "verificacionTxt": false,
+    "modeTags": 0,
+    "menuBtns": 17,
+    "visibleSelects": 0,
+    "avatars": 22,
+    "avatarGroups": [
+      "Animales",
+      "Personas"
+    ],
+    "menuOpen": false,
+    "chevGap": 18,
+    "numPlayersValue": "5",
+    "numRows": 5,
+    "numLabel": "5 jugadores",
+    "avatarValue": "👩🏼",
+    "size": "320x568",
+    "shot": "shots-320/shot-setup.png"
+  },
+  {
+    "screen": "screen-modes",
+    "errors": [],
+    "overflow": false,
+    "scrollW": 320,
+    "vw": 320,
+    "topbarVisible": true,
+    "logo": {
+      "src": "assets/icon-1024.png",
+      "ok": true
+    },
+    "tabAnon": false,
+    "tabVerif": false,
+    "jugable": false,
+    "verificado": false,
+    "verificacionTxt": false,
+    "modeTags": 0,
+    "menuBtns": 16,
+    "visibleSelects": 0,
+    "avatars": 22,
+    "avatarGroups": [
+      "Animales",
+      "Personas"
+    ],
+    "menuOpen": false,
+    "chevGap": 0,
+    "modesMaxLabel": "8",
+    "modesSlots": 8,
+    "size": "320x568",
+    "shot": "shots-320/shot-modes.png"
+  }
+]

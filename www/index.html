@@ -42,9 +42,9 @@ button{cursor:pointer}
 .on-grad{color:#fff}
 .on-grad .hint{color:#e9ddff}
 
-/* --- cabecera y logo propio (teléfono blanco + lápiz, no el logo oficial) --- */
+/* --- cabecera y logo D5 (la imagen exacta del ícono, no un dibujo) --- */
 .topbar{display:flex;align-items:center;gap:10px;margin-bottom:12px}
-.logo{width:56px;height:56px;flex:0 0 56px}
+.logo{width:56px;height:56px;flex:0 0 56px;border-radius:14px;object-fit:cover;border:2px solid #fff}
 .logo-sub{font-size:.82rem;color:#efe6ff;font-weight:700}
 .app h1.title{color:#fff;font-size:1.7rem;margin:0;text-shadow:0 2px 0 rgba(42,26,94,.45)}
 
@@ -71,6 +71,30 @@ button{cursor:pointer}
 label{font-weight:800;display:block;margin:12px 0 5px;color:var(--ink)}
 input[type=text],input[type=tel],select,textarea{width:100%;padding:12px;border:2px solid #b9a8f5;border-radius:12px;background:#fff;font-size:1rem;color:var(--ink)}
 textarea{resize:vertical;min-height:84px}
+
+/* --- menús propios del juego (sustituyen a los <select> nativos) ---
+   El desplegable de Android (fondo negro) rompía la estética violeta:
+   el menú es un panel blanco/lavanda con texto violeta, como el resto
+   del juego. El <select> original sigue en el DOM, oculto, y guarda el
+   valor: al elegir en el menú se le pone el valor y se dispara su
+   evento change, así toda la lógica existente sigue igual. La flecha
+   es un elemento propio, con respiro: nunca toca el borde (16 px). */
+select.gmenu-hidden{display:none}
+.menu-btn{width:100%;min-height:52px;border:2px solid #b9a8f5;border-radius:12px;background:#fff;color:var(--ink);font-size:1rem;font-weight:800;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;text-align:left;cursor:pointer;font-family:inherit}
+.menu-btn .menu-lab{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.menu-btn .chev{flex:0 0 auto;color:#5b2ee5;display:grid;place-items:center;margin-left:10px}
+.menu-btn.open{border-color:#5b2ee5;box-shadow:0 0 0 2px rgba(91,46,229,.25)}
+.menu-btn.inbar{width:auto;flex:0 0 auto;background:transparent;border:0;color:#fff;min-height:48px;padding:12px 14px}
+.menu-btn.inbar .chev{color:#fff}
+.menu-btn.avatar-btn2{width:64px;flex:0 0 64px;min-height:52px;padding:4px 2px;font-size:24px;justify-content:center;flex-direction:column;gap:0}
+.menu-btn.avatar-btn2 .chev{margin:0}
+.menu-btn.avatar-btn2 .chev svg{width:12px;height:12px}
+.menu-panel{position:fixed;z-index:300;background:#fff;border:2px solid #5b2ee5;border-radius:14px;box-shadow:0 10px 28px rgba(42,26,94,.45);padding:6px;max-height:min(52vh,340px);overflow-y:auto}
+.menu-opt{display:block;width:100%;text-align:left;background:transparent;border:0;border-radius:10px;padding:11px 12px;font-size:1rem;font-weight:700;color:var(--ink);font-family:inherit;cursor:pointer}
+.menu-opt.sel{background:var(--lav2);outline:2px solid var(--green)}
+.menu-opt:active{background:var(--lav)}
+.menu-panel.avatars{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;padding:8px}
+.menu-panel.avatars .menu-opt{font-size:26px;text-align:center;padding:8px 2px}
 .counter{text-align:right;font-size:.85rem;color:var(--muted);font-weight:700}
 .timer-pill{display:inline-block;background:#fff;color:var(--ink);font-weight:800;border-radius:999px;padding:6px 14px;min-width:78px;text-align:center;font-size:1.05rem;border:2px solid var(--ink)}
 .timer-pill.warn{background:var(--yellow);color:#2a2000}
@@ -80,11 +104,13 @@ textarea{resize:vertical;min-height:84px}
 .timebar{height:14px;background:rgba(255,255,255,.3);border-radius:99px;overflow:hidden;margin:8px 0;border:2px solid var(--ink)}
 .timebar i{display:block;height:100%;background:var(--yellow)}
 
-/* --- perfil: pestañas ANÓNIMO / VERIFICADO y mascota pájaro --- */
+/* --- perfil: apodo, avatar y mascota pájaro --- */
 .tabs{display:flex;gap:8px;margin-bottom:0}
 .tab{flex:1;padding:10px 4px;border-radius:12px 12px 0 0;background:rgba(42,26,94,.4);color:#fff;font-weight:800;text-align:center;border:2px solid rgba(255,255,255,.35);border-bottom:0;font-size:.85rem;line-height:1.2;min-height:48px}
 .tab.active{color:var(--green);background:#fff}
-.profile-box{background:rgba(42,26,94,.35);border:2px solid rgba(255,255,255,.4);border-top:0;border-radius:0 0 16px 16px;padding:16px 14px;text-align:center}
+.profile-box{background:rgba(42,26,94,.35);border:2px solid rgba(255,255,255,.4);border-radius:16px;padding:16px 14px;text-align:center}
+.avatar-group-label{color:#fff;text-align:left;font-weight:800;font-size:.92rem;margin:12px 0 2px}
+.avatar-group-label:first-child{margin-top:4px}
 .bird-wrap{width:118px;height:118px;margin:0 auto;border-radius:50%;background:var(--lav2);border:3px solid #fff;display:grid;place-items:center;position:relative;box-shadow:0 4px 0 rgba(42,26,94,.35)}
 .bird{position:relative;width:88px;height:88px}
 .bird .body{position:absolute;left:6px;right:6px;top:8px;bottom:4px;background:#7b3fe0;border-radius:50% 50% 46% 46%;border:3px solid var(--ink)}
@@ -247,7 +273,8 @@ textarea{resize:vertical;min-height:84px}
 .anim-player{text-align:center}
 .anim-player img{width:100%;border:2px solid var(--ink);border-radius:14px;display:block;background:#fff}
 .anim-player .btn-row{margin-top:8px}
-.anim-player .btn-row select{flex:1;min-width:0}
+.anim-player .btn-row .menu-btn{flex:1;min-width:0}
+.anim-player .btn-row .menu-btn .menu-lab{white-space:normal;line-height:1.15}
 .anim-exposure{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:8px}
 .anim-exposure .tool-btn{min-height:40px;font-size:.85rem}
 .corpse-part{border:2px solid var(--ink);border-radius:12px;overflow:hidden;margin-bottom:10px;background:#fff}
@@ -388,7 +415,7 @@ textarea{resize:vertical;min-height:84px}
 </div>
 <div class="app">
   <header class="topbar" id="topbar">
-    <svg class="logo" viewBox="0 0 64 64" aria-hidden="true"><rect x="3" y="3" width="58" height="58" rx="15" fill="#fff" stroke="#2a1a5e" stroke-width="3"/><path d="M15 38 Q15 20 32 20 Q49 20 49 38" stroke="#5b2ee5" stroke-width="6" fill="none" stroke-linecap="round"/><circle cx="15" cy="41" r="7" fill="#5b2ee5"/><circle cx="49" cy="41" r="7" fill="#5b2ee5"/><line x1="20" y1="54" x2="47" y2="27" stroke="#ffc531" stroke-width="6" stroke-linecap="round"/><line x1="43" y1="27" x2="47" y2="27" stroke="#e07b39" stroke-width="6" stroke-linecap="round"/></svg>
+    <img class="logo" src="assets/icon-1024.png" alt="Gartic Móvil">
     <div>
       <h1 class="title">Gartic Móvil</h1>
       <div class="logo-sub">Dibujar · describir · adivinar — sin internet</div>
@@ -397,10 +424,6 @@ textarea{resize:vertical;min-height:84px}
 
   <!-- INICIO -->
   <section class="screen active" id="screen-home">
-    <div class="tabs" role="tablist" aria-label="Tipo de perfil">
-      <button class="tab active" id="tabAnon" type="button">ANÓNIMO</button>
-      <button class="tab" id="tabVerif" type="button">VERIFICADO</button>
-    </div>
     <div class="profile-box">
       <div id="profileSummary" class="hidden" style="align-items:center;gap:10px">
         <span id="profileSummaryAvatar" style="font-size:30px">🦊</span>
@@ -415,7 +438,7 @@ textarea{resize:vertical;min-height:84px}
       <label for="nick" style="color:#fff;text-align:left">Tu apodo</label>
       <input type="text" id="nick" maxlength="20" placeholder="Escribe tu apodo" autocomplete="off">
       <label style="color:#fff;text-align:left">Tu avatar</label>
-      <div class="avatar-grid" id="avatarGrid"></div>
+      <div id="avatarGrid"></div>
       <p class="hint" id="profileSaved" style="color:#e9ddff"></p>
       <button class="btn ghost small" id="btnProfileDone" type="button">✓ Listo</button>
       </div>
@@ -710,27 +733,27 @@ textarea{resize:vertical;min-height:84px}
 "use strict";
 /* Gartic Móvil v2 — Normal (v1) + Adivina el dibujo (nuevo). Sin internet. */
 
-var AVATARS = ["🦊","🐼","🦁","🐸","🦄","🐯","🐰","🐵","🦉","🐶","🐱","🐷"];
+var AVATARS = ["🦊","🐼","🦁","🐸","🦄","🐯","🐰","🐵","🦉","🐶","🐱","🐷","👦🏽","👧🏻","👨🏾","👩🏼","👨‍🦰","👩‍🦱","🧔🏻","👱‍♀️","👴🏿","👵🏻"];
 var COLORS12 = ["#1d1933","#7a7a7a","#228be6","#0aa88a","#e03131","#ff922b","#ffc531","#ffffff","#4dabf7","#69db7c","#ff6b6b","#ffa94d"];
 var TIME_OPTIONS = [{v:15,l:"15 segundos"},{v:30,l:"30 segundos"},{v:45,l:"45 segundos"},{v:60,l:"60 segundos"},{v:90,l:"90 segundos"},{v:0,l:"Sin límite"}];
 var MODES = [
- {n:"Normal",ico:"📝",tag:"Jugable en v1",play:true,mode:"normal",d:"¡La base de todo! Escribe y dibuja alternativamente hasta llegar al último turno. Frase → dibujo → descripción → dibujo… Se ve solo el eslabón anterior. Sin puntos ni ganador."},
- {n:"Adivina el dibujo",ico:"🎨",tag:"Jugable en v2",play:true,mode:"guess",d:"¡Uno dibuja y los demás adivinan en vivo! Palabra secreta, pista con guiones, chat de adivinanzas y puntos por acertar rápido: 10, 8, 6, 4 y 2. El dibujante gana +5 por cada acierto."},
- {n:"Personalizado",ico:"⚙️",tag:"Ajustes propios",play:true,mode:"custom",d:"Normal con tus reglas: elige el tiempo, la secuencia (escribir y dibujar o solo dibujar), cuántas rondas (todas o aleatorias), si se sigue dibujando sobre el anterior, puntuación y secreto. Los ajustes se cambian en la pestaña AJUSTES PERSONALIZADOS."},
- {n:"Imitación",ico:"🖼️",tag:"Jugable en v2.4",play:true,mode:"knockoff",d:"Replicar los dibujos de memoria: miras el dibujo anterior brevemente y, en cuanto empiezas a trazar, desaparece. El tiempo se acorta en cada ronda. Solo se dibuja después de la frase inicial."},
- {n:"Animación",ico:"🎞️",tag:"Jugable en v2.4",play:true,mode:"animation",d:"Crear animaciones de forma colaborativa, sin escritura. Cada jugador dibuja un fotograma calcando tenuemente el anterior, y al final se monta como animación con reproductor."},
- {n:"Rompehielos",ico:"🧊",tag:"Jugable en v2.4",play:true,mode:"icebreaker",d:"Jugar con una sola frase: todos escriben una pregunta y después TODOS dibujan cada pregunta. Al final se muestran juntos todos los dibujos de cada pregunta. Pensado para conocerse."},
- {n:"Cadáver exquisito",ico:"🧟",tag:"Jugable en v2.4",play:true,mode:"corpse",d:"Crear personajes surrealistas en 3 turnos: cabeza, torso y piernas. Cada jugador solo ve la franja inferior del dibujo anterior, así que dibuja su parte a ciegas."},
- {n:"Complementar",ico:"🍎",tag:"Jugable en v2.4",play:true,mode:"complement",d:"Completar el boceto: en el primer turno cada uno dibuja unas líneas con muy poco tiempo, y los demás las completan hasta convertirlas en un dibujo completo. Las líneas iniciales no se pueden borrar."},
- {n:"Obra maestra",ico:"🖼️",tag:"Jugable en v2.4",play:true,mode:"masterpiece",d:"Crear una obra de arte en un solo turno por jugador, sin límite de tiempo y sin escritura. Para dibujar con calma y lucirse."},
- {n:"Historia",ico:"📖",tag:"Jugable en v2.4",play:true,mode:"story",d:"Solo escritura, sin dibujos: cada jugador continúa la historia con la frase siguiente a partir de la frase anterior que recibe. Al final queda una historia colectiva."},
- {n:"Pieza que falta",ico:"🧩",tag:"Jugable en v2.4",play:true,mode:"missing",d:"Empezar con un dibujo incompleto: en cada turno se dibuja encima y se pierde la parte más antigua, porque solo queda la última parte añadida."},
- {n:"Secreto",ico:"🤫",tag:"Jugable en v2.4",play:true,mode:"secret",d:"Igual que Normal, pero no ves lo que haces en tu propio turno: al escribir, tus palabras aparecen censuradas; al dibujar, los trazos se van desvaneciendo. El modo más caótico."},
- {n:"Cooperativo",ico:"🤝",tag:"Jugable en v2.4",play:true,mode:"coop",d:"Crear juntos: 6 turnos (1 de escritura + 5 de dibujo). A partir de una frase, todos van añadiendo trazos al mismo dibujo, por turnos, hasta completar una única ilustración."},
- {n:"Puntuación",ico:"🏆",tag:"Jugable en v2.4",play:true,mode:"score",d:"Igual que Normal, pero se anota 1 punto por cada eslabón que mantiene el significado del anterior. Al final del álbum, el grupo marca los eslabones que lo mantuvieron y se ve el marcador."},
- {n:"Sándwich",ico:"🥪",tag:"Jugable en v2.4",play:true,mode:"sandwich",d:"Empezar escribiendo y seguir dibujando turno tras turno, viendo el dibujo anterior brevemente. Al final, una última fase de escritura describe el último dibujo y cierra la cadena."},
- {n:"Fondo",ico:"🌄",tag:"Jugable en v2.4",play:true,mode:"background",d:"Animaciones con contexto: primero un jugador dibuja un fondo fijo que permanece en todos los fotogramas, y el resto anima personajes y acción sobre ese fondo, calcando el fotograma anterior. El doble de fotogramas que Animación."},
- {n:"Solo",ico:"🧍",tag:"Jugable en v2.4",play:true,mode:"solo",d:"Haz tu propia animación en 5 fotogramas: un solo jugador crea su animación calcando tenuemente su fotograma anterior en cada turno. También se puede jugar con amigos a la vez, cada uno con la suya."}
+ {n:"Normal",ico:"📝",play:true,mode:"normal",d:"¡La base de todo! Escribe y dibuja alternativamente hasta llegar al último turno. Frase → dibujo → descripción → dibujo… Se ve solo el eslabón anterior. Sin puntos ni ganador."},
+ {n:"Adivina el dibujo",ico:"🎨",play:true,mode:"guess",d:"¡Uno dibuja y los demás adivinan en vivo! Palabra secreta, pista con guiones, chat de adivinanzas y puntos por acertar rápido: 10, 8, 6, 4 y 2. El dibujante gana +5 por cada acierto."},
+ {n:"Personalizado",ico:"⚙️",play:true,mode:"custom",d:"Normal con tus reglas: elige el tiempo, la secuencia (escribir y dibujar o solo dibujar), cuántas rondas (todas o aleatorias), si se sigue dibujando sobre el anterior, puntuación y secreto. Los ajustes se cambian en la pestaña AJUSTES PERSONALIZADOS."},
+ {n:"Imitación",ico:"🖼️",play:true,mode:"knockoff",d:"Replicar los dibujos de memoria: miras el dibujo anterior brevemente y, en cuanto empiezas a trazar, desaparece. El tiempo se acorta en cada ronda. Solo se dibuja después de la frase inicial."},
+ {n:"Animación",ico:"🎞️",play:true,mode:"animation",d:"Crear animaciones de forma colaborativa, sin escritura. Cada jugador dibuja un fotograma calcando tenuemente el anterior, y al final se monta como animación con reproductor."},
+ {n:"Rompehielos",ico:"🧊",play:true,mode:"icebreaker",d:"Jugar con una sola frase: todos escriben una pregunta y después TODOS dibujan cada pregunta. Al final se muestran juntos todos los dibujos de cada pregunta. Pensado para conocerse."},
+ {n:"Cadáver exquisito",ico:"🧟",play:true,mode:"corpse",d:"Crear personajes surrealistas en 3 turnos: cabeza, torso y piernas. Cada jugador solo ve la franja inferior del dibujo anterior, así que dibuja su parte a ciegas."},
+ {n:"Complementar",ico:"🍎",play:true,mode:"complement",d:"Completar el boceto: en el primer turno cada uno dibuja unas líneas con muy poco tiempo, y los demás las completan hasta convertirlas en un dibujo completo. Las líneas iniciales no se pueden borrar."},
+ {n:"Obra maestra",ico:"🖼️",play:true,mode:"masterpiece",d:"Crear una obra de arte en un solo turno por jugador, sin límite de tiempo y sin escritura. Para dibujar con calma y lucirse."},
+ {n:"Historia",ico:"📖",play:true,mode:"story",d:"Solo escritura, sin dibujos: cada jugador continúa la historia con la frase siguiente a partir de la frase anterior que recibe. Al final queda una historia colectiva."},
+ {n:"Pieza que falta",ico:"🧩",play:true,mode:"missing",d:"Empezar con un dibujo incompleto: en cada turno se dibuja encima y se pierde la parte más antigua, porque solo queda la última parte añadida."},
+ {n:"Secreto",ico:"🤫",play:true,mode:"secret",d:"Igual que Normal, pero no ves lo que haces en tu propio turno: al escribir, tus palabras aparecen censuradas; al dibujar, los trazos se van desvaneciendo. El modo más caótico."},
+ {n:"Cooperativo",ico:"🤝",play:true,mode:"coop",d:"Crear juntos: 6 turnos (1 de escritura + 5 de dibujo). A partir de una frase, todos van añadiendo trazos al mismo dibujo, por turnos, hasta completar una única ilustración."},
+ {n:"Puntuación",ico:"🏆",play:true,mode:"score",d:"Igual que Normal, pero se anota 1 punto por cada eslabón que mantiene el significado del anterior. Al final del álbum, el grupo marca los eslabones que lo mantuvieron y se ve el marcador."},
+ {n:"Sándwich",ico:"🥪",play:true,mode:"sandwich",d:"Empezar escribiendo y seguir dibujando turno tras turno, viendo el dibujo anterior brevemente. Al final, una última fase de escritura describe el último dibujo y cierra la cadena."},
+ {n:"Fondo",ico:"🌄",play:true,mode:"background",d:"Animaciones con contexto: primero un jugador dibuja un fondo fijo que permanece en todos los fotogramas, y el resto anima personajes y acción sobre ese fondo, calcando el fotograma anterior. El doble de fotogramas que Animación."},
+ {n:"Solo",ico:"🧍",play:true,mode:"solo",d:"Haz tu propia animación en 5 fotogramas: un solo jugador crea su animación calcando tenuemente su fotograma anterior en cada turno. También se puede jugar con amigos a la vez, cada uno con la suya."}
 ];
 
 /* ---------- especificaciones de cada modo (v2.4) ----------
@@ -835,12 +858,13 @@ function normWord(s){ return String(s||"").toLowerCase().normalize("NFD").replac
 function show(id){
   document.querySelectorAll(".screen").forEach(function(s){ s.classList.remove("active"); });
   $(id).classList.add("active"); window.scrollTo(0,0);
-  /* Como en el original, la cabecera con el logo solo se ve en las
-     pantallas de menú (inicio, configurar, ajustes, cómo se juega,
-     salas). En el lobby y en el juego no hay logo: arriba va la
-     pantalla en sí (fila de avatares, barra de turno, álbum…). */
+  /* El logo D5 (la imagen exacta del ícono) se ve en las pantallas de
+     menú: inicio, configurar, modos, cómo se juega, ajustes, salas y
+     crear/unirse por wifi. En el juego no hay logo: en la cuenta atrás,
+     el paso del teléfono, el turno, Adivina, la espera, el álbum y el
+     podio va la pantalla en sí (fila de avatares, barra de turno…). */
   var tb=$("topbar");
-  if(tb) tb.classList.toggle("hidden", ["screen-modes","screen-create-wifi","screen-join-wifi","screen-countdown","screen-pass","screen-play","screen-guess","screen-wait","screen-album","screen-podium"].indexOf(id)>=0);
+  if(tb) tb.classList.toggle("hidden", ["screen-countdown","screen-pass","screen-play","screen-guess","screen-wait","screen-album","screen-podium"].indexOf(id)>=0);
   /* La pila de atrás se alimenta sola: cada pantalla "segura" que se
      muestra entra en la pila (salvo al volver atrás, que no re-empuja). */
   if(!_navNoPush && SAFE_SCREENS.indexOf(id)>=0 && navStack[navStack.length-1]!==id) navStack.push(id);
@@ -1021,13 +1045,24 @@ function buzz(p){ if(!prefs.vibrate) return; try{ if(navigator.vibrate) navigato
 /* ---------- perfil (apodo y avatar guardados en el teléfono) ---------- */
 var profile = { nick:"", avatar:"🦊" };
 try{ var saved = JSON.parse(localStorage.getItem("gartic-movil-perfil")||"null"); if(saved && saved.nick) profile.nick=saved.nick; if(saved && saved.avatar) profile.avatar=saved.avatar; }catch(e){}
+/* Avatares agrupados: los 12 animales de siempre y 10 caras humanas
+   (niño, niña, hombre, mujer, pelirrojo, pelo rizado, con barba, rubia,
+   abuelo y abuela; varios tonos de piel), en la misma estética plana
+   del juego. Los grupos se muestran con su rótulo en la rejilla del
+   perfil; en las filas de jugadores y en la sala se usa la lista
+   completa. */
+var AVATAR_GROUPS=[{t:"Animales",list:AVATARS.slice(0,12)},{t:"Personas",list:AVATARS.slice(12)}];
 function renderAvatarGrid(){
   var g=$("avatarGrid"); g.innerHTML="";
-  AVATARS.forEach(function(a){
-    var b=document.createElement("button"); b.type="button"; b.className="avatar-btn"+(profile.avatar===a?" sel":""); b.textContent=a;
-    b.setAttribute("aria-label","Avatar "+a);
-    b.onclick=function(){ profile.avatar=a; saveProfile(true); renderAvatarGrid(); };
-    g.appendChild(b);
+  AVATAR_GROUPS.forEach(function(gr){
+    var lab=document.createElement("div"); lab.className="avatar-group-label"; lab.textContent=gr.t; g.appendChild(lab);
+    var grid=document.createElement("div"); grid.className="avatar-grid"; g.appendChild(grid);
+    gr.list.forEach(function(a){
+      var b=document.createElement("button"); b.type="button"; b.className="avatar-btn"+(profile.avatar===a?" sel":""); b.textContent=a;
+      b.setAttribute("aria-label","Avatar "+a);
+      b.onclick=function(){ profile.avatar=a; saveProfile(true); renderAvatarGrid(); };
+      grid.appendChild(b);
+    });
   });
   $("nick").value = profile.nick||"";
   renderProfileBox();
@@ -1875,7 +1910,7 @@ function renderModes(){
   MODES.forEach(function(m){
     var b=document.createElement("button"); b.type="button";
     b.className="mode-card"+(m.play && S.selectedMode===m.mode?" sel":"");
-    b.innerHTML='<span class="ico">'+m.ico+'</span><span><h3>'+esc(m.n)+'</h3><span class="tag '+(m.play?"play":"soon")+'">'+esc(m.tag)+'</span><p>'+esc(m.d)+'</p></span>';
+    b.innerHTML='<span class="ico">'+m.ico+'</span><span><h3>'+esc(m.n)+'</h3><p>'+esc(m.d)+'</p></span>';
     if(m.play){ b.onclick=function(){ S.selectedMode=m.mode; S.mode=m.mode; renderModes(); syncSetupMode(); }; }
     box.appendChild(b);
   });
@@ -1939,6 +1974,7 @@ function fillNumPlayers(){
   for(var n=min;n<=max;n++){ var o=document.createElement("option"); o.value=n; o.textContent=n+" jugadores"; sel.appendChild(o); }
   var want=isNaN(cur)?Math.max(4,min):Math.max(min,Math.min(max,cur));
   sel.value=String(want);
+  syncMenu(sel);
 }
 
 /* ---------- configuración un solo teléfono ---------- */
@@ -1957,10 +1993,11 @@ function renderPlayersList(){
     var prev = S.players[i];
     var name = prev ? prev.name : (i===0 && profile.nick ? profile.nick : "Jugador "+(i+1));
     var av = prev ? prev.avatar : defaults[i%defaults.length];
-    row.innerHTML='<select aria-label="Avatar del jugador '+(i+1)+'">'+AVATARS.map(function(a){ return '<option value="'+a+'"'+(a===av?" selected":"")+'>'+a+'</option>'; }).join("")+'</select>'+
+    row.innerHTML='<select data-menu="avatars" aria-label="Avatar del jugador '+(i+1)+'">'+AVATARS.map(function(a){ return '<option value="'+a+'"'+(a===av?" selected":"")+'>'+a+'</option>'; }).join("")+'</select>'+
       '<input type="text" maxlength="20" value="'+esc(name)+'" placeholder="Nombre del jugador '+(i+1)+'" aria-label="Nombre del jugador '+(i+1)+'">';
     box.appendChild(row);
   }
+  box.querySelectorAll("select").forEach(function(s){ enhanceSelect(s); });
 }
 function readPlayersFromSetup(){
   var rows=$("playersList").querySelectorAll(".player-row");
@@ -2346,6 +2383,7 @@ function initCanvas(task, opts){
   });
   $("customColor").addEventListener("input", function(e){ setDrawColor(e.target.value); });
   $("brushSize").addEventListener("change", function(e){ S.draw.size=parseInt(e.target.value,10); syncSizeDots(); });
+  enhanceSelect($("brushSize"));
   $("btnUndo").onclick=doUndo; $("btnRedo").onclick=doRedo;
   $("btnLeaveDraw").onclick=askLeaveGame;
   $("btnClear").onclick=function(){ pushUndo(); ctx.fillStyle="#ffffff"; ctx.fillRect(0,0,cv.width,cv.height); S.draw.strokes=[]; notifyCanvasChange(); };
@@ -2361,7 +2399,7 @@ function initCanvas(task, opts){
     var b=document.createElement("button"); b.type="button"; b.className="size-dot"+(S.draw.size===sz?" on":""); b.setAttribute("aria-label","Grosor "+sz);
     var d=sz*2+2; b.style.width="34px"; b.style.height="34px";
     b.innerHTML='<i style="width:'+Math.min(20,d)+'px;height:'+Math.min(20,d)+'px"></i>';
-    b.onclick=function(){ S.draw.size=sz; $("brushSize").value=String(sz); syncSizeDots(); };
+    b.onclick=function(){ S.draw.size=sz; $("brushSize").value=String(sz); syncMenu($("brushSize")); syncSizeDots(); };
     sp.appendChild(b);
   });
   $("opacityRange").addEventListener("input", function(e){
@@ -2711,6 +2749,7 @@ function renderAlbum(){
           exBox.appendChild(b);
         });
       }
+      enhanceSelect($("animSpeed")); enhanceSelect($("animLoop"));
     }
   }
   if(scoring){
@@ -3268,6 +3307,7 @@ function syncWifiModeButtons(){
       MODES.forEach(function(m){ var o=document.createElement("option"); o.value=m.mode; o.textContent=m.n; sel.appendChild(o); });
     }
     sel.value=S.mode;
+    syncMenu(sel);
   }
   $("wifiSettingsSummary").innerHTML="<b>Ajustes de la sala (solo los cambia el anfitrión):</b><br>"+esc(settingsSummaryText());
 }
@@ -3717,12 +3757,6 @@ function segWire(id, key){
 }
 segWire("customScoreSeg","score");
 segWire("customSecretSeg","secret");
-$("tabAnon").addEventListener("click", function(){ $("tabAnon").classList.add("active"); $("tabVerif").classList.remove("active"); });
-$("tabVerif").addEventListener("click", function(){
-  $("tabVerif").classList.add("active"); $("tabAnon").classList.remove("active");
-  $("profileSaved").textContent="La verificación necesita internet y no está disponible offline: juega como anónimo, tu perfil se guarda igual en este teléfono.";
-  $("tabAnon").classList.add("active"); $("tabVerif").classList.remove("active");
-});
 $("btnBirdRefresh").addEventListener("click", function(){
   var others=AVATARS.filter(function(a){ return a!==profile.avatar; });
   profile.avatar=others[Math.floor(Math.random()*others.length)];
@@ -4136,10 +4170,76 @@ function runNavTest(){
   testReport({test:"nav", log:log.join(" | ")});
 }
 
+/* ---------- menús propios del juego (v2.4.2) ----------
+   Sustituyen a los <select> nativos: el desplegable de Android salía
+   con fondo negro y rompía la estética violeta. Cada menú es un botón
+   con el valor actual y una flecha con respiro (16 px del borde) que
+   abre un panel blanco/lavanda con las opciones. El <select> original
+   se oculta pero sigue guardando el valor: al elegir se le asigna el
+   valor y se dispara su evento change, así ningún handler cambia.
+   El panel es position:fixed y se coloca con getBoundingClientRect,
+   para que no lo recorte ningún contenedor con scroll. */
+var _gmenu=null;
+function _gmenuClose(){ if(!_gmenu) return; _gmenu.btn.classList.remove("open"); _gmenu.panel.remove(); _gmenu=null; }
+function _gmenuLabel(sel){ var o=sel.options[sel.selectedIndex]; return o?o.textContent:""; }
+function syncMenu(sel){ if(!sel||!sel._gmenuBtn) return; var lab=sel._gmenuBtn.querySelector(".menu-lab"); if(lab) lab.textContent=_gmenuLabel(sel); }
+function enhanceSelect(sel){
+  if(!sel||sel._gmenuBtn) return;
+  var kind=sel.getAttribute("data-menu")||"";
+  sel.classList.add("gmenu-hidden");
+  var btn=document.createElement("button");
+  btn.type="button";
+  btn.className="menu-btn"+(sel.closest(".count-bar")?" inbar":"")+((kind==="avatars")?" avatar-btn2":"");
+  btn.setAttribute("aria-haspopup","listbox");
+  var labEl=sel.id?document.querySelector('label[for="'+sel.id+'"]'):null;
+  if(labEl) btn.setAttribute("aria-label", labEl.textContent.trim());
+  else if(sel.getAttribute("aria-label")) btn.setAttribute("aria-label", sel.getAttribute("aria-label"));
+  btn.innerHTML='<span class="menu-lab"></span><span class="chev"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>';
+  sel.parentNode.insertBefore(btn, sel.nextSibling);
+  sel._gmenuBtn=btn;
+  syncMenu(sel);
+  sel.addEventListener("change", function(){ syncMenu(sel); });
+  btn.addEventListener("click", function(e){ e.stopPropagation(); _gmenuToggle(sel, btn, kind); });
+}
+function _gmenuToggle(sel, btn, kind){
+  if(_gmenu && _gmenu.sel===sel){ _gmenuClose(); return; }
+  _gmenuClose();
+  syncMenu(sel);
+  var panel=document.createElement("div");
+  panel.className="menu-panel"+(kind==="avatars"?" avatars":"");
+  panel.setAttribute("role","listbox");
+  Array.prototype.forEach.call(sel.options, function(o){
+    var b=document.createElement("button");
+    b.type="button"; b.className="menu-opt"+(o.selected?" sel":"");
+    b.setAttribute("role","option");
+    b.textContent=o.textContent;
+    b.onclick=function(){ sel.value=o.value; sel.dispatchEvent(new Event("change",{bubbles:true})); _gmenuClose(); };
+    panel.appendChild(b);
+  });
+  panel.style.visibility="hidden";
+  document.body.appendChild(panel);
+  var r=btn.getBoundingClientRect(), vw=window.innerWidth, vh=window.innerHeight;
+  var w = kind==="avatars" ? Math.min(320, vw-16) : Math.min(Math.max(r.width, 200), vw-16);
+  panel.style.width=w+"px";
+  var left = kind==="avatars" ? Math.max(8, Math.min(r.left + r.width/2 - w/2, vw-w-8)) : Math.max(8, Math.min(r.left, vw-w-8));
+  panel.style.left=left+"px";
+  var ph=panel.offsetHeight, below=vh-r.bottom-8, above=r.top-8;
+  panel.style.top = (ph<=below || below>=above) ? (r.bottom+4)+"px" : Math.max(8, r.top-ph-4)+"px";
+  panel.style.visibility="visible";
+  btn.classList.add("open");
+  _gmenu={sel:sel, btn:btn, panel:panel};
+}
+document.addEventListener("click", function(e){ if(_gmenu && !_gmenu.panel.contains(e.target)) _gmenuClose(); });
+document.addEventListener("keydown", function(e){ if(e.key==="Escape") _gmenuClose(); });
+document.addEventListener("scroll", function(e){ if(_gmenu && _gmenu.panel.contains(e.target)) return; _gmenuClose(); }, true);
+window.addEventListener("resize", _gmenuClose);
+
 /* ---------- inicio ---------- */
 fillTimeSelect($("timeWrite"), 45);
 fillTimeSelect($("timeDraw"), 60);
 fillTimeSelect($("timeDescribe"), 45);
+/* Los desplegables nativos se sustituyen por menús propios del juego. */
+["numPlayers","timeWrite","timeDraw","timeDescribe","guessRoundTime","modesMaxPlayers","customTime","customSequence","customTurns","customKeep","wifiMaxPlayers","wifiModeSelect"].forEach(function(id){ enhanceSelect($(id)); });
 renderAvatarGrid();
 renderProfileBox();
 renderPlayersList();

@@ -12,7 +12,21 @@ puerto 7777) + modo de un solo teléfono.
 
 - **appId:** `cu.roi.garticmovil`
 - **Nombre:** Gartic Móvil
-- **Versión:** 1.4.0 (versionCode 6, versionName 1.4.0)
+- **Versión:** 1.4.2 (versionCode 8, versionName 1.4.2)
+
+## Novedades de la v2.4.2 (1.4.2) — correcciones de Roi con capturas de su teléfono
+
+- **Ícono del launcher: la D5 exacta.** Roi: «quiero esta misma imagen de icono, no un invento tuyo». La v2.4.1 llevaba la D5 recortada (teléfono al 88 %); se revirtió: el launcher vuelve a llevar la D5 tal cual (`assets/icon-1024.png`, md5 b0d502d5…), 20/20 mipmaps idénticos a la D5 sin recorte.
+- **Sin VERIFICADO.** Quitada la pestaña VERIFICADO del perfil y el texto de verificación: solo apodo y avatar.
+- **Avatares humanos.** AVATARS pasa de 12 a 22: los 12 animales + 10 caras humanas (variedad de edad, tono de piel y pelo), en la misma estética emoji, agrupados «Animales» / «Personas».
+- **Sin «Jugable en vX».** Quitadas todas las etiquetas de versión de las tarjetas de modo.
+- **Logo D5 en las cabeceras.** El SVG dibujado a mano (auricular + lápiz) se sustituyó por la imagen D5 exacta (`www/assets/icon-1024.png`, md5 b0d502d5…, sin redibujar ni recortar), en inicio, modos, crear sala wifi y unirse, además de inicio y configurar.
+- **Menús propios.** Los 16 `<select>` nativos (fondo negro de Android) se sustituyeron por menús del juego (panel blanco/lavanda, texto violeta, Baloo 2); el select original sigue oculto guardando el valor y se dispara su `change`, así ningún handler cambió. La flecha del menú queda a 18 px del borde (mínimo pedido: 12 px).
+- Verificación: Chromium headless 360x800 y 320x568, 11 escenarios, 0 errores de consola, 0 desbordamientos. Nota y capturas en `VERIFICACION/v2.4.2/`.
+
+## Novedades de la v2.4.1 (1.4.1) — solo el ícono
+
+Roi instaló la v2.4 y vio el ícono diminuto en el launcher: la D5 ocupaba solo el 59 % del lienzo (pegatina x208–817, y330–702 en 1024) y, con la máscara adaptativa de MIUI, el teléfono quedaba a ~40 % del ícono, ilegible. Recorte cuadrado centrado en la pegatina (x168–856, y172–860) reescalado a 1024 (`icono-D5-grande.png`, script `scripts/install-icon-D5-grande.py`): el teléfono ocupa ~88 % del marco, legible a 96 px, también en ícono redondo y en la simulación MIUI (squircle sobre fondo #5b2ee5). Todo lo demás es idéntico a la 1.4.0. APK `APK-v2.4.1/Gartic-Movil-1.4.1.apk`, 4.447.511 bytes, md5 b13c02c016e341fec1b8e70b482f8867, run 45197500915 en éxito, firma fija verificada, ícono xhdpi dentro de la APK idéntico píxel a píxel a la D5 grande.
 
 ## Novedades de la v2.4 (1.4.0)
 
