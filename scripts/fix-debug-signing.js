@@ -67,10 +67,10 @@ if (!/buildTypes\s*\{[^}]*\bdebug\s*\{/.test(gradle)) {
 
 // La versión también la fija este script: cap sync reescribe build.gradle
 // y con él versionCode/versionName, así que se reponen aquí en cada build.
-// v2.2 = barra compacta, sonidos, vibración y splash SanBer (versionCode 4, versionName 1.2.0).
+// v2.3 = atrás, botones, fluidez, álbum aleatorio, ícono nuevo (versionCode 5, versionName 1.3.0).
 // Subir ambos números en cada entrega.
-gradle = gradle.replace(/versionCode \d+/, "versionCode 4");
-gradle = gradle.replace(/versionName "[^"]*"/, 'versionName "1.2.0"');
+gradle = gradle.replace(/versionCode \d+/, "versionCode 5");
+gradle = gradle.replace(/versionName "[^"]*"/, 'versionName "1.3.0"');
 
 fs.writeFileSync(gradlePath, gradle);
 console.log("build.gradle: firma debug fijada a keystore/gartic-movil-debug.keystore");

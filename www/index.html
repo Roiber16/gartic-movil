@@ -10,11 +10,17 @@
    magenta/rosa, tarjetas lavanda, botones blancos redondeados con borde
    violeta, play verde. Nada de azul de io: el modo Adivina toma de io solo
    la mecánica y la disposición (jugadores a un lado, chat al otro). */
+/* Baloo 2 (OFL, empaquetada en www/fonts/baloo2-latin.woff2, 33 KB):
+   la fuente redondeada y gruesa del original. Sin ella la app caería a
+   Roboto (system-ui) en Android y perdería el aspecto. Funciona sin
+   internet porque el woff2 va dentro de la APK. */
+@font-face{font-family:"Baloo 2";font-style:normal;font-weight:700;font-display:swap;src:url("fonts/baloo2-latin.woff2") format("woff2")}
+@font-face{font-family:"Baloo 2";font-style:normal;font-weight:800;font-display:swap;src:url("fonts/baloo2-latin.woff2") format("woff2")}
 :root{
   --violet:#5b1fa6; --violet2:#6a1fb5; --magenta:#d63384; --pink:#e84393;
   --lav:#e6dcff; --lav2:#f2ecff; --lavline:#b9a8f5;
   --ink:#2a1a5e; --violettxt:#6a4fd0; --muted:#5b4a9e;
-  --green:#2ee6a8; --yellow:#ffc531; --teal:#0aa88a; --red:#e03131; --coral:#e94f5a;
+  --green:#22c55e; --yellow:#ffc531; --teal:#0aa88a; --red:#e03131; --coral:#e94f5a;
   --radius:18px;
 }
 *{box-sizing:border-box}
@@ -28,7 +34,8 @@ button{cursor:pointer}
 @media(min-width:520px){.app{max-width:520px}}
 @media(max-width:400px){.app{padding:10px 10px 32px}}
 .screen{display:none}
-.screen.active{display:block}
+.screen.active{display:block;animation:fadeIn .18s ease-out}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
 .hidden{display:none!important}
 .center{text-align:center}
 .hint{font-size:.88rem;color:var(--muted)}
@@ -57,7 +64,7 @@ button{cursor:pointer}
 .btn .play{color:var(--green);font-size:1.2em}
 .btn.ghost{background:rgba(255,255,255,.22);color:#fff;border-color:rgba(255,255,255,.75);box-shadow:0 3px 0 rgba(42,26,94,.3)}
 .btn.danger{background:#fff;color:#b3122e;border-color:#b3122e}
-.btn.small{width:auto;display:inline-block;min-height:44px;padding:9px 16px;font-size:.95rem;margin:4px 4px 4px 0}
+.btn.small{width:auto;display:inline-block;min-height:48px;padding:9px 16px;font-size:.95rem;margin:4px 4px 4px 0}
 .btn:disabled{opacity:.45;cursor:not-allowed}
 .btn-row{display:flex;gap:8px;flex-wrap:wrap}
 .btn-row .btn{flex:1;min-width:140px}
@@ -75,7 +82,7 @@ textarea{resize:vertical;min-height:84px}
 
 /* --- perfil: pestañas ANÓNIMO / VERIFICADO y mascota pájaro --- */
 .tabs{display:flex;gap:8px;margin-bottom:0}
-.tab{flex:1;padding:10px 6px;border-radius:12px 12px 0 0;background:rgba(42,26,94,.4);color:#cfc3f5;font-weight:800;text-align:center;border:2px solid rgba(255,255,255,.35);border-bottom:0;font-size:.95rem}
+.tab{flex:1;padding:10px 6px;border-radius:12px 12px 0 0;background:rgba(42,26,94,.4);color:#cfc3f5;font-weight:800;text-align:center;border:2px solid rgba(255,255,255,.35);border-bottom:0;font-size:.95rem;min-height:48px}
 .tab.active{color:var(--green);background:rgba(255,255,255,.14)}
 .profile-box{background:rgba(42,26,94,.35);border:2px solid rgba(255,255,255,.4);border-top:0;border-radius:0 0 16px 16px;padding:16px 14px;text-align:center}
 .bird-wrap{width:118px;height:118px;margin:0 auto;border-radius:50%;background:var(--lav2);border:3px solid #fff;display:grid;place-items:center;position:relative;box-shadow:0 4px 0 rgba(42,26,94,.35)}
@@ -90,7 +97,7 @@ textarea{resize:vertical;min-height:84px}
 .bird .eye::after{content:"";position:absolute;left:7px;top:9px;width:9px;height:11px;background:var(--ink);border-radius:50%}
 .bird .beak{position:absolute;top:46%;left:50%;transform:translateX(-50%);width:0;height:0;border-left:15px solid transparent;border-right:15px solid transparent;border-top:20px solid var(--yellow)}
 .bird .beak::after{content:"";position:absolute;left:-15px;top:-22px;width:30px;height:3px;background:var(--ink);border-radius:3px}
-.bird-refresh{position:absolute;right:-6px;bottom:-2px;width:38px;height:38px;border-radius:50%;background:#fff;border:2px solid var(--ink);font-size:20px;font-weight:800;color:var(--teal);display:grid;place-items:center;padding:0}
+.bird-refresh{position:absolute;right:-6px;bottom:-2px;width:44px;height:44px;border-radius:50%;background:#fff;border:2px solid var(--ink);font-size:20px;font-weight:800;color:var(--teal);display:grid;place-items:center;padding:0}
 .avatar-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin:8px 0}
 .avatar-btn{aspect-ratio:1;border-radius:14px;border:2px solid var(--lavline);background:#fff;font-size:26px;display:grid;place-items:center;padding:0;min-height:48px}
 .avatar-btn.sel{border-color:var(--ink);background:#fff;outline:3px solid var(--green)}
@@ -122,7 +129,7 @@ textarea{resize:vertical;min-height:84px}
 .set-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:12px 0 4px}
 .set-row .set-name{font-weight:800;color:#fff;display:flex;gap:8px;align-items:center}
 .seg{display:flex;border:2px solid #fff;border-radius:12px;overflow:hidden}
-.seg button{flex:1;border:0;background:transparent;color:#fff;font-weight:800;padding:10px 8px}
+.seg button{flex:1;border:0;background:transparent;color:#fff;font-weight:800;padding:10px 8px;min-height:48px}
 .seg button.on{background:#fff;color:var(--ink)}
 
 /* --- sala wifi --- */
@@ -130,8 +137,9 @@ textarea{resize:vertical;min-height:84px}
 .lobby-player{display:flex;align-items:center;gap:10px;background:#fff;border:2px solid var(--lavline);border-radius:12px;padding:10px;margin-bottom:8px;color:var(--ink)}
 .lobby-player .name{flex:1;font-weight:800;overflow-wrap:anywhere}
 .lobby-player .pts{font-weight:800;color:var(--violettxt)}
-.kick{border:2px solid var(--red);color:var(--red);background:#fff;border-radius:10px;width:40px;height:40px;font-weight:800;font-size:1.1rem}
+.kick{border:2px solid var(--red);color:var(--red);background:#fff;border-radius:10px;width:44px;height:44px;font-weight:800;font-size:1.1rem}
 .notice{background:#fff3bf;border:2px solid #e8c547;color:#3d3200;border-radius:12px;padding:12px;margin:10px 0;font-size:.93rem}
+.notice:empty{display:none} /* sin contenido no se ve el cuadro amarillo vacío (sala wifi antes de generarse) */
 .notice.err{background:#ffe1e1;border-color:#ffb3b3;color:#6b1111}
 .notice.ok{background:#d3f8ec;border-color:#7adfc2;color:#063}
 .steps{counter-reset:s}
@@ -145,14 +153,14 @@ textarea{resize:vertical;min-height:84px}
 .prompt-box small{font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
 .prompt-box .phrase{font-size:1.3rem;font-weight:800;line-height:1.25}
 .toolbar{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
-.tool-btn{border:2px solid var(--lavline);background:#fff;border-radius:10px;padding:8px 10px;font-weight:700;min-height:42px;font-size:.92rem;color:var(--ink)}
+.tool-btn{border:2px solid var(--lavline);background:#fff;border-radius:10px;padding:8px 10px;font-weight:700;min-height:44px;font-size:.92rem;color:var(--ink)}
 .tool-btn.active{background:var(--ink);color:#fff;border-color:var(--ink)}
 .swatches{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;align-items:center}
 .swatch{width:34px;height:34px;border-radius:10px;border:2px solid var(--lavline);padding:0;cursor:pointer}
 .swatch.active{border-color:var(--ink);outline:2px solid var(--green)}
 .canvas-wrap{overflow:auto;border:2px solid var(--ink);border-radius:14px;background:#fff;max-height:420px;position:relative}
-.canvas-wrap canvas{display:block;touch-action:none;background:#fff;width:100%;height:auto}
-.watermark{position:absolute;inset:0;display:grid;place-items:center;color:rgba(42,26,94,.09);font-size:1.9rem;font-weight:800;pointer-events:none;overflow:hidden}
+.canvas-wrap canvas{display:block;touch-action:none;background:#fff;width:100%;height:auto;position:relative;z-index:1}
+.watermark{position:absolute;inset:0;display:grid;place-items:center;color:rgba(42,26,94,.09);font-size:1.9rem;font-weight:800;pointer-events:none;overflow:hidden;z-index:2}
 .watermark span{display:block;transform:rotate(-16deg);white-space:nowrap}
 .draw-img{width:100%;border:2px solid var(--ink);border-radius:14px;display:block;background:#fff}
 .side-tools{position:absolute;left:8px;bottom:8px;display:none;gap:6px;z-index:3}
@@ -167,7 +175,7 @@ textarea{resize:vertical;min-height:84px}
 .draw-bar{background:var(--coral);border:2px solid var(--ink);border-radius:14px;padding:8px;display:flex;gap:8px;align-items:center;margin-top:8px}
 .draw-bar .bar-btn{flex:0 0 52px;height:52px;border-radius:12px;background:#fff;border:2px solid var(--ink);font-size:26px;display:grid;place-items:center;padding:0}
 .draw-bar .palette{flex:1;display:flex;flex-wrap:wrap;gap:5px;align-content:center}
-.draw-bar .palette .swatch{width:28px;height:28px;border-radius:7px;border-width:2px}
+.draw-bar .palette .swatch{width:32px;height:32px;border-radius:7px;border-width:2px}
 .draw-bar .check{flex:0 0 auto;min-height:52px;border-radius:12px;background:var(--violet);color:#fff;border:2px solid var(--ink);font-weight:800;padding:10px 14px;font-size:1rem}
 .draw-bar .check .tick{color:var(--green)}
 /* --- barra inferior compacta (foto oficial): lápiz, grosor/opacidad, color actual, paleta, check --- */
@@ -229,10 +237,21 @@ textarea{resize:vertical;min-height:84px}
 .modal-circle{width:110px;height:110px;margin:0 auto 10px;border-radius:50%;background:var(--yellow);border:3px solid var(--ink);display:grid;place-items:center;font-size:52px}
 .modal-title{color:var(--yellow);font-size:1.7rem;font-weight:800;text-shadow:0 2px 0 var(--ink);letter-spacing:.04em}
 
-/* --- pantalla de dibujar compacta a 360x800: frase + herramientas + lienzo + ¡Listo! sin desplazar ---
-   En pantallas pequeñas se esconde la fila de controles (grosor, color
+/* --- tira de jugadores del álbum (como en el original: el dueño del álbum resaltado en verde) --- */
+.album-players{display:flex;gap:6px;overflow-x:auto;padding:2px 2px 10px;scrollbar-width:thin}
+.album-player{flex:0 0 auto;display:flex;align-items:center;gap:5px;background:#fff;border:2px solid var(--lavline);border-radius:999px;padding:3px 10px 3px 3px;font-weight:800;font-size:.85rem;color:var(--ink);white-space:nowrap}
+.album-player .ap{width:26px;height:26px;border-radius:50%;background:var(--lav2);display:grid;place-items:center;font-size:15px}
+.album-player.owner{border-color:var(--ink);outline:3px solid var(--green);background:#d3f8ec}
+/* --- botón atrás (flecha de trazo SVG, nunca el glifo ← de texto) --- */
+.back-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.back-btn svg{flex:0 0 auto}
+/* --- aviso "Pulsa de nuevo para salir" --- */
+.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);z-index:120;background:#2a1a5e;color:#fff;border:2px solid #fff;border-radius:999px;padding:12px 20px;font-weight:800;font-size:.95rem;box-shadow:0 6px 18px rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;white-space:nowrap;max-width:92vw;overflow:hidden;text-overflow:ellipsis}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* En pantallas pequeñas se esconde la fila de controles (grosor, color
    personalizado y zoom): el grosor queda en los círculos laterales y el
-   color en las paletas. --- */
+   color en las paletas. */
 @media(max-width:400px){
   #screen-play .card,#screen-guess .card{padding:8px 10px 12px}
   #screen-play .progress,#screen-guess .progress{margin:6px 0}
@@ -241,11 +260,11 @@ textarea{resize:vertical;min-height:84px}
   #screen-play .prompt-box{padding:6px 10px;margin:6px 0}
   #screen-play .prompt-box .phrase{font-size:1.1rem}
   #screen-play .toolbar,#screen-guess .toolbar{flex-wrap:nowrap;overflow-x:auto;margin:6px 0;scrollbar-width:thin}
-  #screen-play .toolbar .tool-btn,#screen-guess .toolbar .tool-btn{flex:0 0 auto;min-height:32px;padding:5px 8px;font-size:.85rem}
+  #screen-play .toolbar .tool-btn,#screen-guess .toolbar .tool-btn{flex:0 0 auto;min-height:40px;padding:5px 8px;font-size:.85rem}
   #screen-play .swatches,#screen-guess .swatches{display:none}
   #screen-play .draw-controls,#screen-guess .draw-controls{display:none}
   #screen-play .canvas-wrap,#screen-guess .canvas-wrap{margin:0 -10px;max-height:none;border-radius:12px}
-  #screen-play .btn-row .btn,#screen-guess .btn-row .btn{min-width:0;min-height:36px;padding:7px 6px;font-size:.9rem}
+  #screen-play .btn-row .btn,#screen-guess .btn-row .btn{min-width:0;min-height:44px;padding:7px 6px;font-size:.9rem}
   #screen-play .draw-bar,#screen-guess .draw-bar{padding:6px;flex-wrap:wrap}
   #screen-play .draw-bar .palette,#screen-guess .draw-bar .palette{flex:1 1 100%;order:9}
   #screen-play .draw-bar .bar-btn,#screen-guess .draw-bar .bar-btn{flex-basis:48px;height:48px}
@@ -263,7 +282,7 @@ textarea{resize:vertical;min-height:84px}
   <div class="splash-hint">Toca para continuar</div>
 </div>
 <div class="app">
-  <header class="topbar">
+  <header class="topbar" id="topbar">
     <svg class="logo" viewBox="0 0 64 64" aria-hidden="true"><rect x="3" y="3" width="58" height="58" rx="15" fill="#fff" stroke="#2a1a5e" stroke-width="3"/><path d="M15 38 Q15 20 32 20 Q49 20 49 38" stroke="#5b2ee5" stroke-width="6" fill="none" stroke-linecap="round"/><circle cx="15" cy="41" r="7" fill="#5b2ee5"/><circle cx="49" cy="41" r="7" fill="#5b2ee5"/><line x1="20" y1="54" x2="47" y2="27" stroke="#ffc531" stroke-width="6" stroke-linecap="round"/><line x1="43" y1="27" x2="47" y2="27" stroke="#e07b39" stroke-width="6" stroke-linecap="round"/></svg>
     <div>
       <h1 class="title">Gartic Móvil</h1>
@@ -350,6 +369,7 @@ textarea{resize:vertical;min-height:84px}
       <h2 id="cdTitle">Prepárense…</h2>
       <div class="countdown" id="cdNumber">3</div>
       <p class="hint" id="cdSub">La partida empieza en unos segundos.</p>
+      <button class="btn ghost small" id="btnCancelCountdown" type="button">Cancelar partida</button>
     </div>
   </section>
 
@@ -360,6 +380,7 @@ textarea{resize:vertical;min-height:84px}
       <div class="big" id="passText">Pásale el teléfono a Ana — no mires</div>
       <p>Si acabas de terminar tu turno, tapa la pantalla y pasa el teléfono. La siguiente persona no debe ver lo que hiciste.</p>
       <button class="btn" id="btnGotIt" type="button">Ya lo tengo, no miro</button>
+      <button class="btn ghost small" id="btnLeavePass" type="button">Salir de la partida</button>
     </div>
   </section>
 
@@ -401,13 +422,14 @@ textarea{resize:vertical;min-height:84px}
   <!-- ÁLBUM NORMAL -->
   <section class="screen" id="screen-album">
     <div class="card">
-      <h2>El álbum</h2>
+      <h2 id="albumTitle" style="color:var(--green)">ÁLBUM DE ANA</h2>
       <p class="hint"><b>En el modo Normal no hay ganador</b>, la gracia es ver cómo se deformó la frase.</p>
-      <p><strong id="albumTitle" style="color:var(--ink)">Álbum 1 de 4</strong></p>
+      <p><span class="hint" id="albumSub">Álbum 1 de 4</span></p>
+      <div class="album-players" id="albumPlayers"></div>
       <div id="albumBody"></div>
       <div class="btn-row">
-        <button class="btn ghost" id="btnPrevAlbum" type="button">← Álbum anterior</button>
-        <button class="btn ghost" id="btnNextAlbum" type="button">Álbum siguiente →</button>
+        <button class="btn ghost back-btn" id="btnPrevAlbum" type="button"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5 L8 12 L15 19"/></svg>Álbum anterior</button>
+        <button class="btn ghost back-btn" id="btnNextAlbum" type="button">Álbum siguiente<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5 L16 12 L9 19"/></svg></button>
       </div>
       <button class="btn" id="btnReplay" type="button">Volver a jugar (mismos jugadores)</button>
       <button class="btn" id="btnNewGame" type="button">Nueva partida</button>
@@ -466,11 +488,11 @@ textarea{resize:vertical;min-height:84px}
   <section class="screen" id="screen-how">
     <div class="card">
       <h2>Cómo se juega</h2>
-      <p><b>Normal — el teléfono roto.</b> Cada frase inicial genera una cadena que pasa por todas las manos, y al final se ve cómo se deformó.</p>
+      <p><b>Normal — el teléfono roto.</b> Cada frase inicial genera una cadena que pasa por todas las manos en orden aleatorio, y al final se ve cómo se deformó.</p>
       <div class="step"><b>1</b><div><strong>Escribir.</strong> Cada jugador escribe en secreto una frase concreta y dibujable, por ejemplo: «un perro tocando la guitarra en la playa».</div></div>
       <div class="step"><b>2</b><div><strong>Dibujar.</strong> Recibes la frase de otra persona — nunca la tuya — y la dibujas antes de que se acabe el tiempo.</div></div>
       <div class="step"><b>3</b><div><strong>Describir.</strong> Recibes un dibujo de otra persona, sin ver la frase original, y escribes lo que ves: «un perro cantando en la playa».</div></div>
-      <div class="step"><b>4</b><div><strong>Repetir y reírse.</strong> Esa descripción se dibuja, ese dibujo se describe… hasta que la cadena pasa por todas las manos. Al final se exhiben todos los álbumes, eslabón a eslabón.</div></div>
+      <div class="step"><b>4</b><div><strong>Repetir y reírse.</strong> Esa descripción se dibuja, ese dibujo se describe… hasta que la cadena pasa por todas las manos. El orden es aleatorio: nunca sabes quién dibuja o describe tu frase. Al final se exhiben todos los álbumes, eslabón a eslabón.</div></div>
       <div class="card tint">
         <h3>Ejemplo de cadena (4 jugadores)</h3>
         <p>1. Frase: «un perro tocando la guitarra en la playa»<br>
@@ -479,7 +501,7 @@ textarea{resize:vertical;min-height:84px}
         4. Dibujo: un perro con micrófono en la arena</p>
       </div>
       <p><b>Adivina el dibujo.</b> Por turnos, un jugador dibuja una palabra secreta y los demás la adivinan en el chat mientras se va dibujando. Arriba se ven guiones con la longitud de la palabra y se revela una letra a los 20 s y otra a los 40 s (en rondas de 60 s). El primero en acertar gana 10 puntos, luego 8, 6, 4 y 2; el dibujante gana +5 por cada jugador que acierta. Al final, podio con los 3 primeros.</p>
-      <p><b>Para jugar por wifi:</b> el anfitrión crea la sala (CREAR SALA) y los demás se unen con su IP y el código de 4 letras (UNIRSE), todos en la misma wifi o en el punto de acceso del anfitrión. Solo el anfitrión cambia los ajustes y pulsa EMPEZAR. No hace falta internet, solo la red local. No hay salas públicas.</p>
+      <p><b>Para jugar por wifi:</b> el anfitrión crea la sala (CREAR SALA) y los demás se unen con su IP y el código de 4 letras (UNIRSE), todos en la misma wifi o en el punto de acceso del anfitrión. Solo el anfitrión cambia los ajustes y pulsa EMPEZAR. No hace falta internet, solo la red local. No hay salas públicas. Consejo del original: si no están en la misma habitación, jueguen en llamada de voz (Discord, Zoom) para reírse juntos.</p>
       <p><b>En un solo teléfono:</b> juegan por turnos y entre uno y otro aparece la pantalla «Pásale el teléfono a…» para que nadie vea lo anterior.</p>
       <button class="btn" id="btnHowPlay" type="button">Jugar en un solo teléfono</button>
       <button class="btn ghost" id="btnHowBack" type="button">Volver al inicio</button>
@@ -515,7 +537,10 @@ textarea{resize:vertical;min-height:84px}
       </div>
       <div id="wifiSettingsSummary" class="notice"></div>
       <div id="wifiLobby"></div>
-      <button class="btn" id="btnStartWifi" type="button" disabled><span class="play">▶</span> EMPEZAR (mínimo 3 jugadores)</button>
+      <div class="btn-row">
+        <button class="btn" id="btnWifiInvite" type="button">🔗 INVITAR</button>
+        <button class="btn" id="btnStartWifi" type="button" disabled><span class="play">▶</span> EMPEZAR (mín. 3)</button>
+      </div>
       <button class="btn ghost" id="btnCreateWifiBack" type="button">Volver al inicio</button>
     </div>
   </section>
@@ -551,12 +576,12 @@ textarea{resize:vertical;min-height:84px}
   </section>
 </div>
 
-<!-- DIÁLOGO SALIR DE LA SALA -->
-<div class="modal-back hidden" id="leaveModal" role="dialog" aria-label="Salir de la sala">
+<!-- DIÁLOGO SALIR (sala o partida: el título y el texto se ponen al abrirlo) -->
+<div class="modal-back hidden" id="leaveModal" role="dialog" aria-label="Salir">
   <div class="modal-card">
-    <div class="modal-title">SALIR</div>
+    <div class="modal-title" id="leaveTitle">SALIR</div>
     <div class="modal-circle">🚪</div>
-    <p style="font-size:1.15rem;font-weight:700">¿De verdad quieres salir de la sala?</p>
+    <p style="font-size:1.15rem;font-weight:700" id="leaveText">¿De verdad quieres salir de la sala?</p>
     <div class="btn-row">
       <button class="btn" id="btnLeaveNo" type="button">✖ &nbsp;NO</button>
       <button class="btn" id="btnLeaveYes" type="button"><span style="color:var(--teal)">✔</span> &nbsp;SÍ, SALIR</button>
@@ -564,6 +589,7 @@ textarea{resize:vertical;min-height:84px}
   </div>
 </div>
 <div id="testResult" class="hidden" aria-hidden="true"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script>
 "use strict";
 /* Gartic Móvil v2 — Normal (v1) + Adivina el dibujo (nuevo). Sin internet. */
@@ -619,7 +645,99 @@ function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,
 function fmtTime(sec){ if(!sec && sec!==0) return "—"; sec=Math.max(0,Math.ceil(sec)); return Math.floor(sec/60)+":"+("0"+(sec%60)).slice(-2); }
 function shuffle(arr){ var a=arr.slice(); for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
 function normWord(s){ return String(s||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]/g,"").trim(); }
-function show(id){ document.querySelectorAll(".screen").forEach(function(s){ s.classList.remove("active"); }); $(id).classList.add("active"); window.scrollTo(0,0); }
+function show(id){
+  document.querySelectorAll(".screen").forEach(function(s){ s.classList.remove("active"); });
+  $(id).classList.add("active"); window.scrollTo(0,0);
+  /* Como en el original, la cabecera con el logo solo se ve en las
+     pantallas de menú (inicio, configurar, ajustes, cómo se juega,
+     salas). En el lobby y en el juego no hay logo: arriba va la
+     pantalla en sí (fila de avatares, barra de turno, álbum…). */
+  var tb=$("topbar");
+  if(tb) tb.classList.toggle("hidden", ["screen-modes","screen-create-wifi","screen-join-wifi","screen-countdown","screen-pass","screen-play","screen-guess","screen-wait","screen-album","screen-podium"].indexOf(id)>=0);
+  /* La pila de atrás se alimenta sola: cada pantalla "segura" que se
+     muestra entra en la pila (salvo al volver atrás, que no re-empuja). */
+  if(!_navNoPush && SAFE_SCREENS.indexOf(id)>=0 && navStack[navStack.length-1]!==id) navStack.push(id);
+}
+
+/* ---------- navegación atrás (v2.3) ----------
+   Antes no había forma de ir atrás: el botón de Android salía de la app
+   sin avisar y en mitad de la partida no se podía salir. Ahora:
+   - Cada pantalla "segura" (inicio, configurar, modos, cómo se juega,
+     ajustes, salas) entra en una pila; atrás vuelve a la anterior.
+   - En mitad de la partida (cuenta atrás, pasar el teléfono, turno,
+     Adivina) atrás NO salta pantallas: pregunta si se sale de la partida.
+   - En el inicio, la 1.ª pulsación avisa "Pulsa de nuevo para salir" y
+     la 2.ª sale de la app (con el plugin App de Capacitor; en el
+     navegador solo se muestra el aviso).
+   - El botón atrás de Android llega por el plugin App (backButton); en
+     el navegador llega por history/popstate con un estado guardián. */
+var SAFE_SCREENS = ["screen-home","screen-setup","screen-modes","screen-how","screen-settings","screen-create-wifi","screen-join-wifi","screen-rooms","screen-wait","screen-album","screen-podium"];
+var IN_GAME_SCREENS = ["screen-countdown","screen-pass","screen-play","screen-guess"];
+var navStack = ["screen-home"];
+var _navNoPush = false;
+var exitArmedAt = 0, exitToastTimer = null, exitingApp = false;
+var AppPlugin = (window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.App) || null;
+function currentScreen(){ var a=document.querySelector(".screen.active"); return a ? a.id : "screen-home"; }
+function toast(msg){
+  var t=$("toast"); if(!t) return;
+  t.textContent=msg; t.classList.add("show");
+  if(exitToastTimer) clearTimeout(exitToastTimer);
+  exitToastTimer=setTimeout(function(){ t.classList.remove("show"); }, 2200);
+}
+function navReset(){ navStack=["screen-home"]; }
+function stopCountdown(){ if(S.cdTimer){ clearInterval(S.cdTimer); S.cdTimer=null; } }
+function stopAll(){
+  stopTimer(); guessStopTimers(); stopNetPoll(); stopJoinPoll(); stopCountdown();
+}
+function leaveGame(){
+  /* Salir de una partida en curso: se pierde lo jugado. Si eres el
+     anfitrión wifi, la sala se cierra para los demás. */
+  stopAll();
+  if(S.wifi.host){ HOST.active=false; HOST.started=false; HOST.engine=null; HOST.guess=null; }
+  S.engine=null; S.guess.engine=null;
+  S.wifi.host=false; S.wifi.players=[];
+  navReset(); show("screen-home");
+}
+function askLeaveGame(){
+  openLeaveModal("SALIR DE LA PARTIDA", "¿Salir de la partida? Se pierde la partida en curso.", leaveGame);
+}
+function goBack(){
+  var modal=$("leaveModal");
+  if(modal && !modal.classList.contains("hidden")){ closeLeaveModal(); return; }
+  var st=document.querySelector(".side-tools");
+  if(st && st.classList.contains("open")){ st.classList.remove("open"); return; }
+  var cur=currentScreen();
+  if(IN_GAME_SCREENS.indexOf(cur)>=0){ askLeaveGame(); return; }
+  if(cur==="screen-create-wifi" && S.wifi.host){ HOST.active=false; S.wifi.host=false; }
+  if(cur==="screen-join-wifi"){ stopJoinPoll(); }
+  if(navStack.length>1){
+    navStack.pop();
+    var prev=navStack[navStack.length-1];
+    _navNoPush=true; show(prev); _navNoPush=false;
+    return;
+  }
+  /* En el inicio: 1.ª vez avisa, 2.ª vez sale. */
+  var now=Date.now();
+  if(now-exitArmedAt<2500){
+    exitArmedAt=0; exitingApp=true;
+    if(AppPlugin && AppPlugin.exitApp){ AppPlugin.exitApp(); return; }
+    toast("Pulsa de nuevo para salir");
+    return;
+  }
+  exitArmedAt=now;
+  toast("Pulsa de nuevo para salir");
+}
+if(AppPlugin && AppPlugin.addListener){
+  AppPlugin.addListener("backButton", function(){ goBack(); });
+} else {
+  /* Navegador (y pruebas): un estado guardián para que el botón atrás
+     del navegador dispare popstate en vez de salir de la página. */
+  try{ history.pushState({g:"gartic"}, ""); }catch(e){}
+  window.addEventListener("popstate", function(){
+    goBack();
+    if(!exitingApp){ try{ history.pushState({g:"gartic"}, ""); }catch(e){} }
+  });
+}
 
 /* ---------- ajustes: sonido y vibración (guardados en el teléfono) ---------- */
 var prefs={sound:true, vibrate:true};
@@ -651,11 +769,18 @@ var AudioFX=(function(){
   }
   return {
     unlock:function(){ ac(); },
-    /* cuenta atrás 3-2-1: pop suave que baja; al llegar a 0, nota brillante de "¡ya!" */
-    count:function(fin){ if(fin){ tone(880,0.16,{vol:0.28}); setTimeout(function(){ tone(1318,0.4,{vol:0.28}); },90); } else tone(660,0.12,{vol:0.22,slide:480}); },
+    /* Sonidos medidos del original (vídeos de Vegetta777, ver LEEME):
+       al empezar cada turno suena un arpegio ascendente Sol5 (784 Hz)
+       → La5 (880 Hz) → Re6 (1174 Hz), notas separadas ~90 ms y cada una
+       ~0,2 s con caída rápida (vídeo 2 h JzQOa0IW6IQ, 797,1-797,4 s y
+       en cada cambio de turno; vídeo 16 min avQw9MnhpIo, 80,9-81,0 s).
+       La cuenta atrás usa esas mismas notas (3→784, 2→880, 1→1174) y
+       el "¡ya!" es el repique de dos tonos 1314 + 1550 Hz medido justo
+       antes del arpegio en los cambios de turno (795,58 s y 947,3 s). */
+    count:function(n){ if(n===true){ tone(1314,0.4,{vol:0.26}); tone(1550,0.4,{vol:0.2}); return; } var f={3:784,2:880,1:1174}[n]||784; tone(f,0.2,{vol:0.24}); },
     tick:function(){ tone(1250,0.045,{vol:0.1}); },
-    turn:function(){ tone(740,0.14,{vol:0.22,slide:560}); },
-    chime:function(){ tone(523,0.5,{vol:0.22}); setTimeout(function(){ tone(659,0.5,{vol:0.22}); },120); setTimeout(function(){ tone(784,0.7,{vol:0.25}); },240); },
+    turn:function(){ tone(784,0.2,{vol:0.24}); setTimeout(function(){ tone(880,0.2,{vol:0.24}); },90); setTimeout(function(){ tone(1174,0.25,{vol:0.24}); },180); },
+    chime:function(){ tone(1314,0.5,{vol:0.24}); tone(1550,0.5,{vol:0.18}); },
     hit:function(){ tone(659,0.22,{vol:0.26}); setTimeout(function(){ tone(880,0.4,{vol:0.28}); },100); setTimeout(function(){ tone(1318,0.3,{vol:0.18}); },200); }
   };
 })();
@@ -680,7 +805,54 @@ function saveProfile(silent){
   if(!silent) $("profileSaved").textContent = profile.nick ? "Perfil guardado en este teléfono: "+profile.nick+" "+profile.avatar : "Perfil guardado en este teléfono.";
 }
 
-/* ---------- GameEngine (modo Normal, igual que v1) ---------- */
+/* ---------- GameEngine (modo Normal, igual que v1) ----------
+   Álbum ALEATORIO (v2.3): cada frase pasa por todas las manos en un orden
+   distinto. El autor escribe su frase primero y los demás la dibujan o
+   describen en orden aleatorio: Roi pone la palabra, Alejo la dibuja,
+   Robeidy intenta adivinarla y Evelyn la dibuja de nuevo. Cada jugador
+   participa exactamente una vez por álbum y nadie recibe su propia frase
+   para dibujarla en el primer paso. */
+/* ---------- órdenes aleatorias del álbum (cuadrado latino) ----------
+   Cada fila (cadena) es una permutación de los jugadores que empieza por
+   su autor, y cada columna (paso) es TAMBIÉN una permutación: en cada paso
+   cada jugador hace exactamente una tarea y cada cadena recibe exactamente
+   un eslabón. Si se barajara cada cadena por separado, dos cadenas podían
+   pedir al mismo jugador en el mismo paso y otro se quedaba sin tarea
+   (entonces el motor no terminaba y el álbum quedaba incompleto). Por eso
+   se construye fila a fila eligiendo al azar entre los jugadores válidos;
+   si se atasca, se reintenta. Como último recurso, el orden cíclico con
+   los jugadores re-etiquetados al azar, que también es aleatorio y válido
+   (y nadie dibuja su propia frase). */
+function buildOrders(n){
+  for(var attempt=0; attempt<100; attempt++){
+    var orders=[];
+    var ok=true;
+    for(var c=0;c<n;c++){
+      var row=[c];
+      for(var s=1;s<n;s++){
+        var usedCol=[];
+        for(var r=0;r<c;r++) usedCol.push(orders[r][s]);
+        var cand=[];
+        for(var p=0;p<n;p++){
+          if(row.indexOf(p)>=0) continue;
+          if(usedCol.indexOf(p)>=0) continue;
+          if(s===1 && p===c) continue; /* nadie dibuja su propia frase */
+          cand.push(p);
+        }
+        if(!cand.length){ ok=false; break; }
+        row.push(cand[Math.floor(Math.random()*cand.length)]);
+      }
+      if(!ok) break;
+      orders.push(row);
+    }
+    if(ok && orders.length===n) return orders;
+  }
+  var sigma=shuffle([0,1,2,3,4,5,6,7].slice(0,n));
+  var inv=[]; for(var i=0;i<n;i++) inv[sigma[i]]=i;
+  var out=[];
+  for(var c2=0;c2<n;c2++){ var r2=[]; for(var s2=0;s2<n;s2++) r2.push(sigma[(inv[c2]+s2)%n]); out.push(r2); }
+  return out;
+}
 function GameEngine(players, settings){
   this.players = players.slice();
   this.settings = settings || {write:45, draw:60, describe:45};
@@ -689,13 +861,21 @@ function GameEngine(players, settings){
   this.step = 0;
   this.finished = false;
   this.started = false;
+  this.orders = [];   /* orders[c][step] = jugador que hace el eslabón step de la cadena c */
+  this.stepMap = [];  /* stepMap[step][jugador] = cadena que le toca en ese paso */
 }
 GameEngine.prototype.start = function(){
   this.chains = [];
   for(var i=0;i<this.n;i++) this.chains.push({origin:i, links:[]});
+  this.orders = buildOrders(this.n);
+  for(var s=0;s<this.n;s++){
+    this.stepMap.push([]);
+    for(var c=0;c<this.n;c++) this.stepMap[s][this.orders[c][s]] = c;
+  }
   this.step = 0; this.finished = false; this.started = true;
 };
 GameEngine.prototype.chainFor = function(playerIdx, step){
+  if(this.stepMap && this.stepMap[step] && this.stepMap[step][playerIdx]!=null) return this.stepMap[step][playerIdx];
   return (playerIdx - step + this.n*2) % this.n;
 };
 GameEngine.prototype.taskType = function(step){ return step===0 ? "write" : (step%2===1 ? "draw" : "describe"); };
@@ -1033,7 +1213,7 @@ var S = {
   stepDone:{},
   albumIdx:0, timer:null, timeLeft:0, timerActive:false,
   wifi:{ code:"", ip:"", host:false, players:[], kicked:[], transport:null, poll:null, disconnectedSince:null, myId:"me" },
-  draw:{ tool:"brush", color:"#1d1933", size:3, opacity:1, zoom:1, undo:[], redo:[], drawing:false, startPt:null, snapshot:null, canvas:null, ctx:null, strokes:[], curStroke:null, onStrokeBatch:null, readOnly:false },
+  draw:{ tool:"brush", color:"#1d1933", size:3, opacity:1, zoom:1, undo:[], redo:[], drawing:false, startPt:null, canvas:null, ctx:null, strokes:[], curStroke:null, onStrokeBatch:null, readOnly:false },
   guess:{ engine:null, drawerIdx:0, guesserOrder:[], guesserPos:0, phase:"idle", localImage:"", localStrokes:[], timer:null, timeLeft:0, resultTimer:null },
   net:{ kind:"local", poll:null, lastStrokeCount:0, lastChatLen:0, lastPhase:"", submittedStep:-1 },
   custom:{ time:"normal", sequence:"write-draw", turns:"all", keep:"off", score:"off", secret:"off" },
@@ -1181,11 +1361,12 @@ function startSingleGame(){
   $("cdTitle").textContent="Prepárense…";
   $("cdSub").textContent=S.players.length+" jugadores · "+S.players.length+" rondas · modo Normal";
   show("screen-countdown");
-  var n=3; $("cdNumber").textContent=n; AudioFX.count(false); buzz([25]);
-  var iv=setInterval(function(){
+  var n=3; $("cdNumber").textContent=n; AudioFX.count(n); buzz([25]);
+  stopCountdown();
+  S.cdTimer=setInterval(function(){
     n--;
-    if(n<=0){ clearInterval(iv); AudioFX.count(true); buzz([70]); showPassFor(S.turnIdx, true); }
-    else { $("cdNumber").textContent=n; AudioFX.count(false); buzz([25]); }
+    if(n<=0){ stopCountdown(); AudioFX.count(true); buzz([70]); showPassFor(S.turnIdx, true); }
+    else { $("cdNumber").textContent=n; AudioFX.count(n); buzz([25]); }
   },700);
 }
 
@@ -1201,6 +1382,8 @@ $("btnGotIt").addEventListener("click", function(){
   if(S.mode==="guess") showGuessTurn();
   else showTurn();
 });
+$("btnCancelCountdown").addEventListener("click", askLeaveGame);
+$("btnLeavePass").addEventListener("click", askLeaveGame);
 
 /* ---------- turnos Normal ---------- */
 function showTurn(){
@@ -1249,13 +1432,17 @@ function submitCurrent(link){
 function renderWrite(area, task){
   var isFirst = S.step===0;
   var tsec=(task&&task.time!=null)?task.time:S.engine.timeFor("write");
-  area.innerHTML='<div class="draw-top">TURNO '+(S.turnIdx+1)+'/'+S.engine.n+' · '+(isFirst?"ESCRIBE LA PRIMERA FRASE":"ESCRIBE")+'</div>'+
+  /* Como en el original (ref-03): teléfono azul con «?» y el título
+     «EMPIECE A ESCRIBIR UNA HISTORIA». El turno sigue en la barra de
+     progreso de arriba. */
+  area.innerHTML='<div class="draw-top">EMPIECE A ESCRIBIR UNA HISTORIA</div>'+
+    '<div style="text-align:center;margin:10px 0 0"><svg width="100" height="78" viewBox="0 0 100 78" aria-hidden="true"><path d="M18 40 Q18 16 50 16 Q82 16 82 40" fill="none" stroke="#228be6" stroke-width="8" stroke-linecap="round"/><circle cx="18" cy="43" r="9" fill="#228be6" stroke="#2a1a5e" stroke-width="3"/><circle cx="82" cy="43" r="9" fill="#228be6" stroke="#2a1a5e" stroke-width="3"/><rect x="32" y="52" width="36" height="16" rx="6" fill="#228be6" stroke="#2a1a5e" stroke-width="3"/><circle cx="88" cy="14" r="11" fill="#ffc531" stroke="#2a1a5e" stroke-width="3"/><text x="88" y="19" font-size="14" font-weight="800" fill="#2a1a5e" text-anchor="middle">?</text></svg></div>'+
     '<div class="prompt-box"><small>'+(isFirst?"Frase inicial · secreta":"")+'</small>'+
     '<div class="phrase">'+(isFirst?"Escribe una frase concreta y dibujable. Nadie más la verá hasta el álbum.":"")+'</div></div>'+
     '<label for="writeInput">Tu frase (máx. 120 caracteres)</label>'+
     '<textarea id="writeInput" maxlength="120" rows="3" placeholder="Ej.: un perro tocando la guitarra en la playa"></textarea>'+
     '<div class="counter"><span id="charCount">0</span>/120</div>'+
-    '<button class="btn" id="btnSendWrite" type="button">¡Listo!</button>';
+    '<button class="btn" id="btnSendWrite" type="button">¡HECHO!</button>';
   var inp=$("writeInput"), cnt=$("charCount");
   inp.addEventListener("input", function(){ cnt.textContent=inp.value.length; });
   inp.focus();
@@ -1265,13 +1452,13 @@ function renderWrite(area, task){
 
 /* --- describir --- */
 function renderDescribe(area, task){
-  area.innerHTML='<div class="draw-top">TURNO '+(S.turnIdx+1)+'/'+S.engine.n+' · DESCRIBE EL DIBUJO</div>'+
+  area.innerHTML='<div class="draw-top">¿Y AHORA? DESCRIBE ESTA ESCENA</div>'+
     '<p><b>Describe lo que ves en el dibujo.</b> No inventes la frase original: escribe literalmente lo que se ve.</p>'+
-    '<img class="draw-img" id="descImg" alt="Dibujo a describir" src="'+esc(task.promptImage||"")+'">'+
+    (task.promptImage ? '<img class="draw-img" id="descImg" alt="Dibujo a describir" src="'+esc(task.promptImage)+'">' : '<div class="prompt-box"><small>Dibujo a describir</small><div class="phrase">… (dibujo en blanco)</div></div>')+
     '<label for="descInput">Tu descripción (máx. 120 caracteres)</label>'+
     '<textarea id="descInput" maxlength="120" rows="3" placeholder="Ej.: un perro cantando en la playa"></textarea>'+
     '<div class="counter"><span id="charCount2">0</span>/120</div>'+
-    '<button class="btn" id="btnSendDesc" type="button">¡Listo!</button>';
+    '<button class="btn" id="btnSendDesc" type="button">¡HECHO!</button>';
   var inp=$("descInput");
   inp.addEventListener("input", function(){ $("charCount2").textContent=inp.value.length; });
   inp.focus();
@@ -1288,7 +1475,7 @@ function renderDraw(area, task, opts){
   if(opts.timeSec===undefined) opts.timeSec=(S.engine&&S.engine.timeFor)?S.engine.timeFor("draw"):60;
   if(!opts.onSubmit) opts.onSubmit=function(img){ submitCurrent({type:"draw", image:img}); };
   if(!opts.onExpire) opts.onExpire=function(img){ submitCurrent({type:"draw", image:img}); };
-  var topBar = opts.topBar || ("TURNO "+(S.turnIdx+1)+"/"+S.engine.n+" · DIBUJA ESTA FRASE");
+  var topBar = opts.topBar || "HEY, ¡ES HORA DE DIBUJAR!";
   area.innerHTML='<div class="draw-top">'+esc(topBar)+'</div>'+
   (opts.promptText?'<div class="prompt-box"><small>Dibuja esta frase</small><div class="phrase">'+esc(opts.promptText)+'</div></div>':'')+
   '<div class="toolbar" id="toolBar" role="toolbar" aria-label="Herramientas de dibujo"></div>'+
@@ -1305,12 +1492,13 @@ function renderDraw(area, task, opts){
   '<div class="side-panel"><span class="opacity-lab">OPACIDAD</span><div class="opacity-wrap"><input type="range" id="opacityRange" min="10" max="100" value="100" aria-label="Opacidad del trazo"></div><span class="opacity-lab" id="opacityVal">100%</span></div></div></div>'+
   '<div class="btn-row"><button class="btn ghost small" id="btnUndo" type="button">Deshacer</button>'+
   '<button class="btn ghost small" id="btnRedo" type="button">Rehacer</button>'+
-  '<button class="btn ghost small" id="btnClear" type="button">Limpiar</button></div>'+
+  '<button class="btn ghost small" id="btnClear" type="button">Limpiar</button>'+
+  '<button class="btn ghost small" id="btnLeaveDraw" type="button">✕ Salir</button></div>'+
   '<div class="draw-bar"><button class="bar-btn" id="barPencil" type="button" aria-label="Lápiz">✏️</button>'+
   '<button class="bar-btn bar-size" id="barSize" type="button" aria-label="Grosor y opacidad">↕</button>'+
   '<span class="bar-cur" id="barCurColor" title="Color actual"></span>'+
   '<div class="palette" id="barPalette"></div>'+
-  '<button class="check" id="btnSendDraw" type="button"><span class="tick">✔</span> '+(opts.submitLabel||"¡Listo!")+'</button></div>';
+  '<button class="check" id="btnSendDraw" type="button"><span class="tick">✔</span> '+(opts.submitLabel||"¡HECHO!")+'</button></div>';
   initCanvas(task, opts);
   if(opts.timeSec!=null){
     setTimer(opts.timeSec, function(){ if(opts.onExpire) opts.onExpire(canvasData()); else if(opts.onSubmit) opts.onSubmit(canvasData()); });
@@ -1327,6 +1515,11 @@ function initCanvas(task, opts){
   opts=opts||{};
   var cv=$("drawCanvas"), ctx=cv.getContext("2d");
   S.draw.canvas=cv; S.draw.ctx=ctx; S.draw.undo=[]; S.draw.redo=[]; S.draw.zoom=1;
+  /* Copia del lienzo para la vista previa de las formas (línea, círculo...):
+     antes se guardaba como imagen (toDataURL) y se decodificaba en CADA
+     movimiento del dedo, y el trazo iba a tirones. Ahora es un lienzo
+     oculto: copiar y restaurar es instantáneo. */
+  if(!S.draw.snap){ S.draw.snap=document.createElement("canvas"); S.draw.snap.width=640; S.draw.snap.height=440; }
   S.draw.strokes=[]; S.draw.curStroke=null; S.draw.onStrokeBatch=opts.onStrokeBatch||null;
   S.draw.readOnly=!!opts.readOnly; S.draw.opacity=1;
   ctx.fillStyle="#ffffff"; ctx.fillRect(0,0,cv.width,cv.height);
@@ -1352,6 +1545,7 @@ function initCanvas(task, opts){
   $("customColor").addEventListener("input", function(e){ setDrawColor(e.target.value); });
   $("brushSize").addEventListener("change", function(e){ S.draw.size=parseInt(e.target.value,10); syncSizeDots(); });
   $("btnUndo").onclick=doUndo; $("btnRedo").onclick=doRedo;
+  $("btnLeaveDraw").onclick=askLeaveGame;
   $("btnClear").onclick=function(){ pushUndo(); ctx.fillStyle="#ffffff"; ctx.fillRect(0,0,cv.width,cv.height); S.draw.strokes=[]; };
   $("btnZoomIn").onclick=function(){ setZoom(S.draw.zoom+0.25); };
   $("btnZoomOut").onclick=function(){ setZoom(S.draw.zoom-0.25); };
@@ -1362,7 +1556,7 @@ function initCanvas(task, opts){
   var sp=$("sizePanel");
   SIZES.forEach(function(sz){
     var b=document.createElement("button"); b.type="button"; b.className="size-dot"+(S.draw.size===sz?" on":""); b.setAttribute("aria-label","Grosor "+sz);
-    var d=sz*2+2; b.style.width="30px"; b.style.height="30px";
+    var d=sz*2+2; b.style.width="34px"; b.style.height="34px";
     b.innerHTML='<i style="width:'+Math.min(20,d)+'px;height:'+Math.min(20,d)+'px"></i>';
     b.onclick=function(){ S.draw.size=sz; $("brushSize").value=String(sz); syncSizeDots(); };
     sp.appendChild(b);
@@ -1450,7 +1644,7 @@ function onPointerDown(e){
   }
   if(S.draw.tool==="fill"){ pushUndo(); floodFill(Math.round(p.x), Math.round(p.y), S.draw.color); return; }
   S.draw.drawing=true; S.draw.startPt=p;
-  S.draw.snapshot=cv.toDataURL("image/png");
+  S.draw.snap.getContext("2d").drawImage(cv,0,0);
   if(S.draw.tool==="brush" || S.draw.tool==="eraser"){
     pushUndo(); S.draw.redo=[];
     S.draw.curStroke={c:S.draw.tool==="eraser"?"#ffffff":S.draw.color, s:S.draw.size, o:S.draw.opacity, p:[[Math.round(p.x),Math.round(p.y)]]};
@@ -1458,6 +1652,10 @@ function onPointerDown(e){
     ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(p.x+0.1,p.y+0.1); ctx.stroke(); ctx.restore();
     S.draw.lastPt=p;
   }
+}
+function restoreSnap(){
+  var ctx=S.draw.ctx;
+  ctx.fillStyle="#ffffff"; ctx.fillRect(0,0,640,440); ctx.drawImage(S.draw.snap,0,0);
 }
 function onPointerMove(e){
   if(!S.draw.drawing) return;
@@ -1472,12 +1670,8 @@ function onPointerMove(e){
     ctx.beginPath(); ctx.moveTo(S.draw.lastPt.x,S.draw.lastPt.y); ctx.lineTo(p.x,p.y); ctx.stroke(); ctx.restore();
     S.draw.lastPt=p; return;
   }
-  var img=new Image();
-  img.onload=function(){
-    ctx.fillStyle="#ffffff"; ctx.fillRect(0,0,640,440); ctx.drawImage(img,0,0);
-    drawShape(ctx, S.draw.tool, S.draw.startPt, p, S.draw.color, S.draw.size);
-  };
-  img.src=S.draw.snapshot;
+  restoreSnap();
+  drawShape(ctx, S.draw.tool, S.draw.startPt, p, S.draw.color, S.draw.size);
 }
 function onPointerUp(e){
   if(!S.draw.drawing) return;
@@ -1491,13 +1685,9 @@ function onPointerUp(e){
     }
     return;
   }
-  var img=new Image();
-  img.onload=function(){
-    ctx.fillStyle="#ffffff"; ctx.fillRect(0,0,640,440); ctx.drawImage(img,0,0);
-    pushUndo();
-    drawShape(ctx, S.draw.tool, S.draw.startPt, p, S.draw.color, S.draw.size);
-  };
-  img.src=S.draw.snapshot;
+  restoreSnap();
+  pushUndo();
+  drawShape(ctx, S.draw.tool, S.draw.startPt, p, S.draw.color, S.draw.size);
 }
 function drawShape(ctx, tool, a, b, color, size){
   var w=size*2+2;
@@ -1546,7 +1736,15 @@ function renderAlbum(){
   if(!albums.length){ $("albumBody").innerHTML="<p>No hay álbumes todavía.</p>"; return; }
   S.albumIdx=Math.max(0, Math.min(S.albumIdx, albums.length-1));
   var al=albums[S.albumIdx];
-  $("albumTitle").textContent="Álbum "+(S.albumIdx+1)+" de "+albums.length+" · frase de "+S.players[al.origin].name;
+  $("albumTitle").textContent="ÁLBUM DE "+S.players[al.origin].name.toUpperCase();
+  $("albumSub").textContent="Álbum "+(S.albumIdx+1)+" de "+albums.length;
+  /* Tira de jugadores (como en el original: la lista de la izquierda con
+     el dueño del álbum resaltado); en el móvil va encima del álbum. */
+  var strip="";
+  S.players.forEach(function(p,i){
+    strip+='<span class="album-player'+(i===al.origin?" owner":"")+'"><span class="ap">'+esc(p.avatar)+'</span>'+esc(p.name)+'</span>';
+  });
+  $("albumPlayers").innerHTML=strip;
   $("btnPrevAlbum").disabled = S.albumIdx===0;
   $("btnNextAlbum").disabled = S.albumIdx===albums.length-1;
   var html="";
@@ -1567,8 +1765,9 @@ $("btnReplay").addEventListener("click", function(){
   S.engine.start(); S.step=0; S.turnIdx=0; S.stepDone={}; S.albumIdx=0;
   $("cdTitle").textContent="Otra ronda…";
   show("screen-countdown");
-  var n=3; $("cdNumber").textContent=n; AudioFX.count(false); buzz([25]);
-  var iv=setInterval(function(){ n--; if(n<=0){ clearInterval(iv); AudioFX.count(true); buzz([70]); showPassFor(0); } else { $("cdNumber").textContent=n; AudioFX.count(false); buzz([25]); } },700);
+  var n=3; $("cdNumber").textContent=n; AudioFX.count(n); buzz([25]);
+  stopCountdown();
+  S.cdTimer=setInterval(function(){ n--; if(n<=0){ stopCountdown(); AudioFX.count(true); buzz([70]); showPassFor(0); } else { $("cdNumber").textContent=n; AudioFX.count(n); buzz([25]); } },700);
 });
 $("btnNewGame").addEventListener("click", function(){ stopTimer(); renderPlayersList(); show("screen-setup"); });
 $("btnAlbumHome").addEventListener("click", function(){ stopTimer(); show("screen-home"); });
@@ -1581,11 +1780,12 @@ function startGuessLocal(){
   $("cdTitle").textContent="Prepárense…";
   $("cdSub").textContent=S.players.length+" jugadores · "+S.players.length+" rondas · Adivina el dibujo";
   show("screen-countdown");
-  var n=3; $("cdNumber").textContent=n; AudioFX.count(false); buzz([25]);
-  var iv=setInterval(function(){
+  var n=3; $("cdNumber").textContent=n; AudioFX.count(n); buzz([25]);
+  stopCountdown();
+  S.cdTimer=setInterval(function(){
     n--;
-    if(n<=0){ clearInterval(iv); AudioFX.count(true); buzz([70]); showPassFor(S.guess.engine.drawer); }
-    else { $("cdNumber").textContent=n; AudioFX.count(false); buzz([25]); }
+    if(n<=0){ stopCountdown(); AudioFX.count(true); buzz([70]); showPassFor(S.guess.engine.drawer); }
+    else { $("cdNumber").textContent=n; AudioFX.count(n); buzz([25]); }
   },700);
 }
 function guessStopTimers(){
@@ -1612,7 +1812,9 @@ function renderGuessChoice(){
     html+='<button class="btn" type="button" data-word="'+esc(w)+'">'+esc(w.charAt(0).toUpperCase()+w.slice(1))+'</button>';
   });
   html+='</div><p class="hint">Después dibuja la palabra: los demás la adivinan en vivo mientras dibujas.</p>';
+  html+='<button class="btn ghost small" id="btnLeaveChoice" type="button">Salir de la partida</button>';
   area.innerHTML=html;
+  $("btnLeaveChoice").onclick=askLeaveGame;
   area.querySelectorAll("[data-word]").forEach(function(b){
     b.onclick=function(){ g.chooseWord(g.drawer, b.getAttribute("data-word")); showGuessTurn(); };
   });
@@ -1630,11 +1832,11 @@ function guessTickLocal(){
 function renderGuessDrawLocal(){
   var g=S.guess.engine, area=$("guessArea");
   area.innerHTML='<div class="hint-bar" id="guessHintBar"><small>TU PALABRA SECRETA · SOLO LA VES TÚ</small>'+esc(g.word.toUpperCase())+'</div><div id="guessDrawHost"></div>'+
-    '<p class="hint">Dibuja: los demás adivinarán en el siguiente paso. Cuando termines, pulsa ✔ ¡Listo!</p>';
+    '<p class="hint">Dibuja: los demás adivinarán en el siguiente paso. Cuando termines, pulsa ✔ ¡HECHO!</p>';
   $("guessTimerPill").textContent=fmtTime(g.timeLeft);
   renderDraw($("guessDrawHost"), null, {
     topBar:"RONDA "+(g.round+1)+"/"+g.n+" · DIBUJA: "+g.word.toUpperCase(),
-    timeSec:null, submitLabel:"¡Listo!",
+    timeSec:null, submitLabel:"¡HECHO!",
     onStrokeBatch:function(batch){ g.addStrokes(g.drawer, batch); },
     onSubmit:function(){ finishDrawLocal(); }
   });
@@ -1734,7 +1936,9 @@ function renderGuessResult(){
   });
   var last=g.round>=g.n-1;
   html+='<button class="btn" id="btnNextRound" type="button">'+(last?"Ver el podio 🏆":"Siguiente ronda")+'</button>';
+  html+='<button class="btn ghost small" id="btnLeaveResult" type="button">Salir de la partida</button>';
   area.innerHTML=html;
+  $("btnLeaveResult").onclick=askLeaveGame;
   $("btnNextRound").onclick=function(){
     if(!g.nextRound()){ showPodium(); return; }
     AudioFX.chime(); buzz([80,60,140]);
@@ -1839,7 +2043,7 @@ function renderGuessFromState(st){
         area.innerHTML='<div class="hint-bar"><small>TU PALABRA SECRETA · SOLO LA VES TÚ</small>'+esc((st.word||"").toUpperCase())+'</div><div id="guessDrawHost"></div>';
         renderDraw($("guessDrawHost"), null, {
           topBar:"RONDA "+(st.round+1)+" · DIBUJA: "+(st.word||"").toUpperCase(),
-          timeSec:null, submitLabel:"¡Listo!",
+          timeSec:null, submitLabel:"¡HECHO!",
           onStrokeBatch:function(batch){ S.guess.io.postStroke(batch); },
           onSubmit:function(){ S.guess.io.endDraw(); }
         });
@@ -1935,6 +2139,11 @@ function renderWifiLobby(){
     if(S.wifi.host && !p.host) html+='<button class="kick" type="button" data-kick="'+p.id+'" aria-label="Expulsar a '+esc(p.name)+'">×</button>';
     html+="</div>";
   });
+  /* Huecos VACÍO hasta el máximo, como en la sala original (ref-02). */
+  var maxShow=Math.max(5, Math.min(S.maxPlayers||8, 8));
+  for(var i=S.wifi.players.length;i<maxShow;i++){
+    html+='<div class="lobby-player" style="opacity:.65"><span style="font-size:24px">☺</span><span class="name" style="color:var(--muted)">VACÍO</span></div>';
+  }
   box.innerHTML=html;
   box.querySelectorAll("[data-kick]").forEach(function(b){
     b.onclick=function(){
@@ -1950,7 +2159,7 @@ function updateWifiStart(){
   var btn=$("btnStartWifi");
   var min=S.mode==="guess"?2:3;
   btn.disabled = !(S.wifi.host && S.wifi.players.length>=min);
-  btn.textContent = S.wifi.players.length>=min ? "EMPEZAR" : "EMPEZAR (mínimo "+min+" jugadores)";
+  btn.textContent = S.wifi.players.length>=min ? "EMPEZAR" : "EMPEZAR (mín. "+min+")";
   btn.innerHTML='<span class="play">▶</span> '+btn.textContent;
 }
 function syncWifiModeButtons(){
@@ -1997,6 +2206,15 @@ function createWifiRoom(){
     $("hostAddr").textContent="Puerto 7777 (en la APK)";
   }
 }
+/* INVITAR (como en el lobby original): copia la IP y el código de la
+   sala para pegarlos en WhatsApp/Telegram; si el portapapeles no deja,
+   avisa y se copian a mano de arriba. */
+$("btnWifiInvite").addEventListener("click", function(){
+  var txt="Gartic Móvil · sala "+(S.wifi.code||"")+" · IP "+($("hostAddr").textContent||"")+" · puerto 7777";
+  function done(ok){ toast(ok?"Copiado: IP y código de la sala":"Copia la IP y el código de arriba"); }
+  if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(function(){ done(true); }, function(){ done(false); }); }
+  else { try{ var ta=document.createElement("textarea"); ta.value=txt; document.body.appendChild(ta); ta.select(); document.execCommand("copy"); document.body.removeChild(ta); done(true); }catch(e){ done(false); } }
+});
 $("btnStartWifi").addEventListener("click", function(){
   if(!S.wifi.host) return;
   var min=S.mode==="guess"?2:3;
@@ -2013,8 +2231,9 @@ $("btnStartWifi").addEventListener("click", function(){
     $("cdTitle").textContent="Prepárense…";
     $("cdSub").textContent=S.players.length+" jugadores · modo Normal por wifi";
     show("screen-countdown");
-    var n=3; $("cdNumber").textContent=n; AudioFX.count(false); buzz([25]);
-    var iv=setInterval(function(){ n--; if(n<=0){ clearInterval(iv); AudioFX.count(true); buzz([70]); showPassFor(0); } else { $("cdNumber").textContent=n; AudioFX.count(false); buzz([25]); } },700);
+    var n=3; $("cdNumber").textContent=n; AudioFX.count(n); buzz([25]);
+    stopCountdown();
+    S.cdTimer=setInterval(function(){ n--; if(n<=0){ stopCountdown(); AudioFX.count(true); buzz([70]); showPassFor(0); } else { $("cdNumber").textContent=n; AudioFX.count(n); buzz([25]); } },700);
   }
 });
 
@@ -2056,7 +2275,7 @@ $("btnDoJoin").addEventListener("click", function(){
         msg.innerHTML='<div class="notice err">Esa sala existe, pero el código no coincide. Revisa las 4 letras.</div>'; return;
       }
       msg.innerHTML='<div class="notice ok">Conectado con el anfitrión. Entrando a la sala…</div>';
-      $("joinStatus").textContent="En la sala "+code+". Esperando a que el anfitrión empiece.";
+      $("joinStatus").textContent="En la sala "+code+". Esperando a que el anfitrión configure y comience el juego.";
       transport.join({name:profile.nick||"Jugador", avatar:profile.avatar, code:code}).then(function(j){
         if(j && j.playerId) S.wifi.myId=j.playerId;
         if(j && j.mode){ S.mode=j.mode; }
@@ -2151,18 +2370,25 @@ function renderLocalRooms(){
   box.innerHTML=html;
 }
 
-/* ---------- diálogo salir de la sala ---------- */
-function openLeaveModal(){ $("leaveModal").classList.remove("hidden"); }
+/* ---------- diálogo salir (sala o partida) ---------- */
+var leaveAction = null; /* qué hacer al pulsar SÍ (si es null, ir al inicio) */
+function openLeaveModal(title, text, action){
+  if(title) $("leaveTitle").textContent=title;
+  if(text) $("leaveText").textContent=text;
+  leaveAction = action || null;
+  $("leaveModal").classList.remove("hidden");
+}
 function closeLeaveModal(){ $("leaveModal").classList.add("hidden"); }
 $("btnLeaveNo").addEventListener("click", closeLeaveModal);
 $("btnLeaveYes").addEventListener("click", function(){
   closeLeaveModal();
-  stopTimer(); guessStopTimers(); stopNetPoll(); stopJoinPoll();
-  goHome();
+  stopAll();
+  var a=leaveAction; leaveAction=null;
+  if(a) a(); else goHome();
 });
 
 /* ---------- navegación ---------- */
-function goHome(){ stopTimer(); guessStopTimers(); stopNetPoll(); stopJoinPoll(); show("screen-home"); }
+function goHome(){ stopAll(); navReset(); show("screen-home"); }
 $("btnSingle").addEventListener("click", function(){ saveProfile(true); S.mode="normal"; S.selectedMode="normal"; syncSetupMode(); show("screen-setup"); });
 $("btnGuessSingle").addEventListener("click", function(){ saveProfile(true); S.mode="guess"; S.selectedMode="guess"; syncSetupMode(); show("screen-setup"); });
 $("btnCreateWifi").addEventListener("click", createWifiRoom);
@@ -2266,6 +2492,32 @@ function runShot(name){
   }
   else if(name==="modes"){ renderModes(); show("screen-modes"); }
   else if(name==="setup"){ S.mode="normal"; syncSetupMode(); show("screen-setup"); }
+  else if(name==="settings"){ show("screen-settings"); }
+  else if(name==="how"){ show("screen-how"); }
+  else if(name==="join"){ show("screen-join-wifi"); }
+  else if(name==="create"){ S.wifi.host=true; S.wifi.players=[{id:"me", name:"Ana", avatar:"🦊", host:true}]; renderWifiLobby(); updateWifiStart(); show("screen-create-wifi"); }
+  else if(name==="countdown"){ show("screen-countdown"); }
+  else if(name==="pass"){
+    S.engine=new GameEngine(players, S.settings); S.engine.start();
+    S.step=0; S.turnIdx=0; showPassFor(1);
+  }
+  else if(name==="write"){
+    S.engine=new GameEngine(players, S.settings); S.engine.start();
+    S.step=0; S.engine.step=0; S.turnIdx=0; showTurn();
+  }
+  else if(name==="describe"){
+    S.engine=new GameEngine(players, S.settings); S.engine.start();
+    S.engine.submit(0,0,{type:"text",text:"un perro tocando la guitarra en la playa"});
+    S.engine.submit(1,0,{type:"text",text:"un gato con sombrero en la luna"});
+    S.engine.submit(2,0,{type:"text",text:"un pez volando sobre la ciudad"});
+    S.engine.submit(3,0,{type:"text",text:"un perro tocando la guitarra en la playa"});
+    S.engine.submit(0,1,{type:"draw",image:""});
+    S.engine.submit(1,1,{type:"draw",image:""});
+    S.engine.submit(2,1,{type:"draw",image:""});
+    S.engine.submit(3,1,{type:"draw",image:""});
+    S.step=2; S.engine.step=2; S.turnIdx=0;
+    showTurn();
+  }
   else if(name==="rooms"){ renderLocalRooms(); show("screen-rooms"); }
   else if(name==="album"){
     S.engine=new GameEngine(players, S.settings); S.engine.start();
@@ -2329,7 +2581,7 @@ function runShot(name){
     $("guessRoundLabel").textContent="Ronda 1 de 4 · dibuja Ana";
     var area2=$("guessArea");
     area2.innerHTML='<div class="hint-bar"><small>TU PALABRA SECRETA · SOLO LA VES TÚ</small>GATO</div><div id="guessDrawHost"></div>';
-    renderDraw($("guessDrawHost"), null, {topBar:"RONDA 1/4 · DIBUJA: GATO", timeSec:null, submitLabel:"¡Listo!", onSubmit:function(){}});
+    renderDraw($("guessDrawHost"), null, {topBar:"RONDA 1/4 · DIBUJA: GATO", timeSec:null, submitLabel:"¡HECHO!", onSubmit:function(){}});
     sampleStrokeOnCanvas();
     setTimeout(function(){
       var b=$("btnSendDraw"); var r=b?b.getBoundingClientRect():null;
@@ -2365,7 +2617,23 @@ function runAuto(kind){
       }
       if(!S.engine.finished) throw new Error("el motor Normal no terminó");
       showAlbum();
-      testReport({auto:"normal", albums:S.engine.albums().length, linksPerAlbum:S.engine.albums()[0].links.length, fxOk:fxOk});
+      /* Orden aleatorio (v2.3): cada álbum debe tener los N jugadores
+         exactamente una vez (permutación válida) y al menos un álbum con
+         un orden distinto al secuencial (si todos fueran secuenciales,
+         el azar no estaría actuando: P < 0,1%). */
+      var alb=S.engine.albums();
+      var seqOk=true, anyRandom=false;
+      alb.forEach(function(a){
+        var authors=a.links.map(function(l){ return l.author; });
+        var sorted=authors.slice().sort(function(x,y){ return x-y; });
+        var isPerm = sorted.length===4 && sorted.every(function(v,i){ return v===i; });
+        if(!isPerm) seqOk=false;
+        var seq=[a.origin,(a.origin+1)%4,(a.origin+2)%4,(a.origin+3)%4];
+        if(authors.join(",")!==seq.join(",")) anyRandom=true;
+      });
+      testReport({auto:"normal", albums:alb.length, linksPerAlbum:alb[0].links.length, fxOk:fxOk,
+        validPermutation:seqOk, randomOrder:anyRandom,
+        orders:alb.map(function(a){ return a.links.map(function(l){ return S.players[l.author].name; }).join(">"); }).join(" | ")});
     } else {
       var g=new GuessEngine(players, {roundTime:60, themes:GUESS_CATEGORIES.slice()});
       S.guess.engine=g; g.start();
@@ -2390,6 +2658,34 @@ function runAuto(kind){
   }catch(err){
     testReport({auto:kind, fatal:String(err&&err.message||err)});
   }
+}
+
+/* ---------- prueba de navegación atrás (solo para #test=nav) ---------- */
+function runNavTest(){
+  var log=[];
+  function cur(){ return currentScreen(); }
+  log.push("inicio:"+cur()+" pila:["+navStack.join(",")+"]");
+  show("screen-setup"); log.push("setup:"+cur()+" pila:["+navStack.join(",")+"]");
+  show("screen-modes"); log.push("modes:"+cur()+" pila:["+navStack.join(",")+"]");
+  goBack(); log.push("atras1:"+cur()+" pila:["+navStack.join(",")+"]");
+  goBack(); log.push("atras2:"+cur()+" pila:["+navStack.join(",")+"]");
+  /* En mitad de la partida, atrás debe preguntar, no saltar de pantalla. */
+  S.players=[{id:0,name:"Ana",avatar:"🦊"},{id:1,name:"Beto",avatar:"🐼"},{id:2,name:"Carla",avatar:"🦁"},{id:3,name:"Dan",avatar:"🐸"}];
+  S.engine=new GameEngine(S.players, S.settings); S.engine.start();
+  S.step=0; S.turnIdx=0; showTurn();
+  log.push("turno:"+cur());
+  goBack();
+  var modalOpen=!$("leaveModal").classList.contains("hidden");
+  log.push("atras-en-partida:"+cur()+" modal:"+(modalOpen?"abierto":"cerrado"));
+  closeLeaveModal();
+  askLeaveGame();
+  $("btnLeaveYes").click();
+  log.push("tras-salir:"+cur()+" pila:["+navStack.join(",")+"]");
+  /* En el inicio, la 1.ª vez avisa y la 2.ª marca salida. */
+  goBack();
+  var toastShown=$("toast").classList.contains("show");
+  log.push("atras-en-inicio:"+cur()+" aviso:"+(toastShown?"si":"no"));
+  testReport({test:"nav", log:log.join(" | ")});
 }
 
 /* ---------- inicio ---------- */
@@ -2422,6 +2718,7 @@ document.addEventListener("pointerdown", function(){ AudioFX.unlock(); });
   var h=location.hash||"";
   if(h.indexOf("#shot=")===0){ if(h.slice(6)!=="splash"){ splashDone=true; var sp=$("splash"); if(sp) sp.style.display="none"; } setTimeout(function(){ runShot(h.slice(6)); }, 300); }
   else if(h.indexOf("#auto=")===0){ splashDone=true; var sp2=$("splash"); if(sp2) sp2.style.display="none"; setTimeout(function(){ runAuto(h.slice(6)); }, 300); }
+  else if(h.indexOf("#test=nav")===0){ splashDone=true; var sp3=$("splash"); if(sp3) sp3.style.display="none"; setTimeout(runNavTest, 300); }
 })();
 </script>
 </body>

@@ -26,3 +26,13 @@ keystore/
 Thumbs.db
 .idea/
 *.log
+
+# Audios de referencia de la v2.3 (medición de sonidos de Vegetta777):
+# muy pesados (audio-2h.m4a 113 MB supera el límite de 100 MB por
+# archivo de GitHub; los WAV suman ~350 MB). Se quedan solo en local.
+# Las medidas están documentadas en LEEME_APK.md y los scripts, CSV,
+# espectrogramas y segmentos de audio sí se suben; el audio completo
+# se puede volver a descargar de YouTube con yt-dlp (IDs en el LEEME).
+VERIFICACION/v2.3-referencias/*.m4a
+VERIFICACION/v2.3-referencias/sonidos/*.m4a
+VERIFICACION/v2.3-referencias/sonidos/audio-*.wav
